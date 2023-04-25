@@ -3,18 +3,18 @@ package recipes
 import (
 	"fmt"
 
-	"github.com/snowpal/pitch-building-blocks-sdk/lib"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/blocks/blocks.1"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/collaboration/collaboration.1.blocks"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/keys/keys.1"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/notifications"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/helpers/recipes"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/common"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/request"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/response"
+	"github.com/snowpal/pitch-classroom-sdk/lib"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/blocks/blocks.1"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/collaboration/collaboration.1.blocks"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/keys/keys.1"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/notifications"
+	"github.com/snowpal/pitch-classroom-sdk/lib/helpers/recipes"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 
 	log "github.com/sirupsen/logrus"
-	user2 "github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/user"
+	user2 "github.com/snowpal/pitch-classroom-sdk/lib/endpoints/user"
 )
 
 const (

@@ -1,13 +1,13 @@
 package recipes
 
 import (
-	"github.com/snowpal/pitch-building-blocks-sdk/lib"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/favorites"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/common"
+	"github.com/snowpal/pitch-classroom-sdk/lib"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/favorites"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 
 	log "github.com/sirupsen/logrus"
-	recipes "github.com/snowpal/pitch-building-blocks-sdk/lib/helpers/recipes"
-	response "github.com/snowpal/pitch-building-blocks-sdk/lib/structs/response"
+	recipes "github.com/snowpal/pitch-classroom-sdk/lib/helpers/recipes"
+	response "github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
 const (

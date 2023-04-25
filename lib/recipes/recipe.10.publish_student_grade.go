@@ -1,15 +1,15 @@
 package recipes
 
 import (
-	"github.com/snowpal/pitch-building-blocks-sdk/lib"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/scales"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/helpers/recipes"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/common"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/request"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/response"
+	"github.com/snowpal/pitch-classroom-sdk/lib"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/scales"
+	"github.com/snowpal/pitch-classroom-sdk/lib/helpers/recipes"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 
-	blockPods "github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/block_pods/block_pods.1"
-	teacherKeys "github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/teacher_keys/teacher_keys.2.teachers"
+	blockPods "github.com/snowpal/pitch-classroom-sdk/lib/endpoints/block_pods/block_pods.1"
+	teacherKeys "github.com/snowpal/pitch-classroom-sdk/lib/endpoints/teacher_keys/teacher_keys.2.teachers"
 
 	log "github.com/sirupsen/logrus"
 )

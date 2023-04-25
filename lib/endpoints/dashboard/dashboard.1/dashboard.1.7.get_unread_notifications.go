@@ -6,9 +6,9 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/snowpal/pitch-building-blocks-sdk/lib"
-	helpers2 "github.com/snowpal/pitch-building-blocks-sdk/lib/helpers"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/common"
+	"github.com/snowpal/pitch-classroom-sdk/lib"
+	helpers2 "github.com/snowpal/pitch-classroom-sdk/lib/helpers"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 )
 
 func GetUnreadNotifications(jwtToken string) (int, error) {

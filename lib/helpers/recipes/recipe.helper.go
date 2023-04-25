@@ -4,16 +4,16 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/snowpal/pitch-building-blocks-sdk/lib"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/blocks/blocks.1"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/collaboration/collaboration.1.blocks"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/keys/keys.1"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/common"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/request"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/response"
+	"github.com/snowpal/pitch-classroom-sdk/lib"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/blocks/blocks.1"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/collaboration/collaboration.1.blocks"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/keys/keys.1"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 
-	blockPods "github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/block_pods/block_pods.1"
-	keyPods "github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/key_pods/key_pods.1"
+	blockPods "github.com/snowpal/pitch-classroom-sdk/lib/endpoints/block_pods/block_pods.1"
+	keyPods "github.com/snowpal/pitch-classroom-sdk/lib/endpoints/key_pods/key_pods.1"
 )
 
 func sleepWindow(sleepTime time.Duration) {
@@ -64,14 +64,6 @@ func AddCustomKey(user response.User, keyName string) (response.Key, error) {
 
 func AddTeacherKey(user response.User, keyName string) (response.Key, error) {
 	newKey, err := addKey(user, keyName, lib.TeacherKeyType)
-	if err != nil {
-		return newKey, err
-	}
-	return newKey, nil
-}
-
-func AddProjectKey(user response.User, keyName string) (response.Key, error) {
-	newKey, err := addKey(user, keyName, lib.ProjectKeyType)
 	if err != nil {
 		return newKey, err
 	}
