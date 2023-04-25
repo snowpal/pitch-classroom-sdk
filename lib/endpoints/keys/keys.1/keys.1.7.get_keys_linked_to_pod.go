@@ -14,7 +14,7 @@ import (
 
 func GetKeysLinkedToPod(jwtToken string, keyParam common.ResourceIdParam) ([]response.Key, error) {
 	resKeys := response.Keys{}
-	route, err := helpers2.GetRoute(lib.RouteKeysGetKeysLinkedToPod, keyParam.PodId, keyParam.KeyId)
+	route, err := helpers2.GetRoute(lib.RouteKeysGetKeysLinkedToAssessment, keyParam.PodId, keyParam.KeyId)
 	if err != nil {
 		fmt.Println(err)
 		return resKeys.Keys, err

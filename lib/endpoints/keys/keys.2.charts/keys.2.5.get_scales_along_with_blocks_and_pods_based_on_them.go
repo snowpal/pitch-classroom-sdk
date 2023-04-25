@@ -13,7 +13,7 @@ import (
 
 func GetScalesAlongWithBlocksAndPodsBasedOnThem(jwtToken string, keyId string) (response.ScalesKey, error) {
 	resScalesKey := response.ScalesKey{}
-	route, err := helpers2.GetRoute(lib.RouteKeysGetScalesAlongWithBlocksAndPodsBasedOnThem, keyId)
+	route, err := helpers2.GetRoute(lib.RouteKeysGetScalesAlongWithCoursesAndAssessmentsBasedOnThem, keyId)
 	if err != nil {
 		fmt.Println(err)
 		return resScalesKey, err

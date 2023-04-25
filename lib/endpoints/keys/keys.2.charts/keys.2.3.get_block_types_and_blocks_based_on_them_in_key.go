@@ -13,7 +13,7 @@ import (
 
 func GetBlockTypesAndBlocksBasedOnThemInKey(jwtToken string, keyId string) (response.BlockTypesKey, error) {
 	resBlockTypesKey := response.BlockTypesKey{}
-	route, err := helpers2.GetRoute(lib.RouteKeysGetBlockTypesAndBlocksBasedOnThemInKey, keyId)
+	route, err := helpers2.GetRoute(lib.RouteKeysGetCourseTypesAndCoursesBasedOnThemInKey, keyId)
 	if err != nil {
 		fmt.Println(err)
 		return resBlockTypesKey, err

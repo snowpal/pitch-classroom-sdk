@@ -13,7 +13,7 @@ import (
 
 func GetPodsBasedOnPodTypes(jwtToken string) ([]response.PodTypesKey, error) {
 	resPodTypesKeys := response.PodTypesKeys{}
-	route, err := helpers2.GetRoute(lib.RouteDashboardGetPodsBasedOnPodTypes)
+	route, err := helpers2.GetRoute(lib.RouteDashboardGetAssessmentsBasedOnAssessmentTypes)
 	if err != nil {
 		fmt.Println(err)
 		return *resPodTypesKeys.Keys, err

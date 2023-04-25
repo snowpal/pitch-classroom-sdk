@@ -13,7 +13,7 @@ import (
 
 func GetRecentlyModifiedBlocksAndPods(jwtToken string) (response.Dashboard, error) {
 	resDashboard := response.Dashboard{}
-	route, err := helpers2.GetRoute(lib.RouteDashboardGetRecentlyModifiedBlocksAndPods)
+	route, err := helpers2.GetRoute(lib.RouteDashboardGetRecentlyModifiedCoursesAndAssessments)
 	if err != nil {
 		fmt.Println(err)
 		return resDashboard, err

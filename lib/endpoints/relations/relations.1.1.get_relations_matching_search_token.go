@@ -114,29 +114,6 @@ func SearchRelationsForBlockMatchingSearchToken(
 	return searchResults, nil
 }
 
-func SearchRelationsForPodMatchingSearchToken(
-	jwtToken string,
-	relationParam SearchPodRelationParam,
-) ([]response.SearchResource, error) {
-	var searchResults []response.SearchResource
-	route, err := helpers2.GetRoute(
-		lib.RouteRelationsGetRelationsForPodMatchingSearchToken,
-		relationParam.Token,
-		relationParam.CurrentPodId,
-		relationParam.KeyId,
-	)
-	if err != nil {
-		fmt.Println(err)
-		return searchResults, err
-	}
-	searchResults, err = searchRelationsMatchingSearchToken(jwtToken, route)
-	if err != nil {
-		fmt.Println(err)
-		return searchResults, err
-	}
-	return searchResults, nil
-}
-
 func SearchRelationsForBlockPodMatchingSearchToken(
 	jwtToken string,
 	relationParam SearchBlockPodRelationParam,

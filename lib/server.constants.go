@@ -186,26 +186,24 @@ const (
 )
 
 const (
-const (
-	RouteDashboardGetDashboardDetails              = "dashboard/combined-responses"
-	RouteDashboardGetRecentlyModifiedBlocksAndPods = "dashboard/recently-modified"
-	RouteDashboardGetUnreadCount                   = "dashboard/unread-count"
-	RouteDashboardGetRecentlyModifiedKeys          = "dashboard/recently-modified/keys"
-	RouteDashboardGetPodsAndTasksDueShortly        = "dashboard/due-shortly/pods-and-tasks"
-	RouteDashboardGetBlocksDueShortly              = "dashboard/due-shortly/blocks"
-	RouteDashboardGetUnreadNotifications           = "dashboard/notifications/unread-status"
-	RouteDashboardGetUnreadConversations           = "dashboard/conversations/unread-status"
+	RouteDashboardGetDashboardDetails                      = "dashboard/combined-responses"
+	RouteDashboardGetRecentlyModifiedCoursesAndAssessments = "dashboard/recently-modified"
+	RouteDashboardGetUnreadCount                           = "dashboard/unread-count"
+	RouteDashboardGetRecentlyModifiedKeys                  = "dashboard/recently-modified/keys"
+	RouteDashboardGetAssessmentsAndTasksDueShortly         = "dashboard/due-shortly/assessments-and-tasks"
+	RouteDashboardGetCoursesDueShortly                     = "dashboard/due-shortly/courses"
+	RouteDashboardGetUnreadNotifications                   = "dashboard/notifications/unread-status"
 )
 
 const (
-	RouteDashboardGetUserKeysBlocksAndPods           = "charts/dashboard/keys-blocks-pods"
-	RouteDashboardGetSystemKeysBlocksAndPods         = "charts/dashboard/system-keys"
-	RouteDashboardGetFilteredUserKeysBlocksAndPods   = "charts/dashboard/keys/filters"
-	RouteDashboardGetFilteredSystemKeysBlocksAndPods = "charts/dashboard/system-keys/filters"
-	RouteDashboardGetBlocksBasedOnBlockTypes         = "charts/dashboard/block-types"
-	RouteDashboardGetPodsBasedOnPodTypes             = "charts/dashboard/pod-types"
-	RouteDashboardGetBlocksAndPodsBasedOnScales      = "charts/dashboard/scales"
-	RouteDashboardGetTasksByStatus                   = "charts/dashboard/task-status"
+	RouteDashboardGetUserKeysCoursesAndAssessments           = "charts/dashboard/keys-courses-assessments"
+	RouteDashboardGetSystemKeysCoursesAndAssessments         = "charts/dashboard/system-keys"
+	RouteDashboardGetFilteredUserKeysCoursesAndAssessments   = "charts/dashboard/keys/filters"
+	RouteDashboardGetFilteredSystemKeysCoursesAndAssessments = "charts/dashboard/system-keys/filters"
+	RouteDashboardGetCoursesBasedOnCourseTypes               = "charts/dashboard/course-types"
+	RouteDashboardGetAssessmentsBasedOnAssessmentTypes       = "charts/dashboard/assessment-types"
+	RouteDashboardGetCoursesAndAssessmentsBasedOnScales      = "charts/dashboard/scales"
+	RouteDashboardGetTasksByStatus                           = "charts/dashboard/task-status"
 )
 
 const (
@@ -222,30 +220,30 @@ const (
 )
 
 const (
-	RouteKeysGetKeys               = "keys?batchIndex=%s"
-	RouteKeysAddKey                = "keys"
-	RouteKeysAddKeyBasedOnTemplate = "keys/by-template?templateId=%s&excludeBlocks=%s&excludePods=%s&excludeTasks=%s"
-	RouteKeysGetKey                = "keys/%s"
-	RouteKeysUpdateKey             = "keys/%s"
-	RouteKeysGetArchivedKeys       = "keys/archived"
-	RouteKeysGetKeysLinkedToPod    = "pods/%s/linked-to/keys?keyId=%s"
-	RouteKeysGetKeysLinkedToBlock  = "blocks/%s/linked-to/keys?keyId=%s"
-	RouteKeysGetKeysFilteredByType = "keys/filtered/by-type?keyType=%s"
-	RouteKeysBulkArchiveKeys       = "keys/archive?keyIds=%s"
-	RouteKeysArchiveKey            = "keys/%s/archive"
-	RouteKeysUnarchiveKey          = "keys/%s/unarchive"
-	RouteKeysUpdateKeyDescription  = "keys/%s/description"
+	RouteKeysGetKeys                   = "keys?batchIndex=%s"
+	RouteKeysAddKey                    = "keys"
+	RouteKeysAddKeyBasedOnTemplate     = "keys/by-template?templateId=%s&excludeBlocks=%s&excludePods=%s&excludeTasks=%s"
+	RouteKeysGetKey                    = "keys/%s"
+	RouteKeysUpdateKey                 = "keys/%s"
+	RouteKeysGetArchivedKeys           = "keys/archived"
+	RouteKeysGetKeysLinkedToAssessment = "assessments/%s/linked-to/keys?keyId=%s"
+	RouteKeysGetKeysLinkedToCourse     = "courses/%s/linked-to/keys?keyId=%s"
+	RouteKeysGetKeysFilteredByType     = "keys/filtered/by-type?keyType=%s"
+	RouteKeysBulkArchiveKeys           = "keys/archive?keyIds=%s"
+	RouteKeysArchiveKey                = "keys/%s/archive"
+	RouteKeysUnarchiveKey              = "keys/%s/unarchive"
+	RouteKeysUpdateKeyDescription      = "keys/%s/description"
 )
 
 const (
-	RouteKeysGetBlocksAndPodsAssociatedWithKey           = "charts/keys/%s/blocks-pods"
-	RouteKeysGetFilteredUserKeysBlocksAndPodsForGivenKey = "charts/keys/%s/filters"
-	RouteKeysGetBlockTypesAndBlocksBasedOnThemInKey      = "charts/keys/%s/block-types"
-	RouteKeysGetPodsBasedOnPodTypesInKey                 = "charts/keys/%s/pod-types"
-	RouteKeysGetScalesAlongWithBlocksAndPodsBasedOnThem  = "charts/keys/%s/scales"
-	RouteKeysGetLinkedResources                          = "charts/keys/%s/linked-resources"
-	RouteKeysGetKeyPodAndBlockScaleValues                = "charts/keys/%s/scales/%s/scale-values"
-	RouteKeysGetTaskStatus                               = "charts/keys/%s/task-status"
+	RouteKeysGetCoursesAndAssessmentsAssociatedWithKey           = "charts/keys/%s/courses-assessments"
+	RouteKeysGetFilteredUserKeysCoursesAndAssessmentsForGivenKey = "charts/keys/%s/filters"
+	RouteKeysGetCourseTypesAndCoursesBasedOnThemInKey            = "charts/keys/%s/course-types"
+	RouteKeysGetAssessmentsBasedOnAssessmentTypesInKey           = "charts/keys/%s/assessment-types"
+	RouteKeysGetScalesAlongWithCoursesAndAssessmentsBasedOnThem  = "charts/keys/%s/scales"
+	RouteKeysGetLinkedResources                                  = "charts/keys/%s/linked-resources"
+	RouteKeysGetCourseScaleValues                                = "charts/keys/%s/scales/%s/scale-values"
+	RouteKeysGetTaskStatus                                       = "charts/keys/%s/task-status"
 )
 
 const (

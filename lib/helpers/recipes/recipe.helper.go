@@ -13,7 +13,6 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 
 	blockPods "github.com/snowpal/pitch-classroom-sdk/lib/endpoints/block_pods/block_pods.1"
-	keyPods "github.com/snowpal/pitch-classroom-sdk/lib/endpoints/key_pods/key_pods.1"
 )
 
 func sleepWindow(sleepTime time.Duration) {
@@ -79,17 +78,6 @@ func AddBlock(user response.User, blockName string, key response.Key) (response.
 		return newBlock, err
 	}
 	return newBlock, nil
-}
-
-func AddPod(user response.User, podName string, key response.Key) (response.Pod, error) {
-	newPod, err := keyPods.AddKeyPod(
-		user.JwtToken,
-		request.AddPodReqBody{Name: podName},
-		key.ID)
-	if err != nil {
-		return newPod, err
-	}
-	return newPod, nil
 }
 
 func AddPodToBlock(user response.User, podName string, block response.Block) (response.Pod, error) {

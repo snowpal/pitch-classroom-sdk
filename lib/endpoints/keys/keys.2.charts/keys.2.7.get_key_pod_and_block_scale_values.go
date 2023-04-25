@@ -15,7 +15,7 @@ import (
 func GetKeyPodAndBlockScaleValues(jwtToken string, scaleParam request.ScaleIdParam) (response.ScaleValues, error) {
 	resScaleValues := response.ScaleValues{}
 	route, err := helpers2.GetRoute(
-		lib.RouteKeysGetKeyPodAndBlockScaleValues,
+		lib.RouteKeysGetCourseScaleValues,
 		scaleParam.KeyId,
 		scaleParam.ScaleId,
 	)

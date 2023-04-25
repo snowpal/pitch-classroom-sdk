@@ -30,27 +30,26 @@ func AddRelation() {
 	}
 
 	log.Info("Relate the block with key pod")
-	block, pod, err := addRelation(user)
+	key, block, err := addRelation(user)
 	if err != nil {
 		return
 	}
-	log.Printf(".Block %s is related with pod %s successfully", block.Name, pod.Name)
+	log.Printf(".Block %s is related with pod %s successfully", block.Name, key.Name)
 
 	log.Info("Unrelate the block from key pod")
-	err = removeRelation(user, block, pod)
+	err = removeRelation(user, key, block)
 	if err != nil {
 		return
 	}
-	log.Printf(".Block %s is unrelated from pod %s successfully", block.Name, pod.Name)
+	log.Printf(".Block %s is unrelated from pod %s successfully", block.Name, key.Name)
 }
 
-func removeRelation(user response.User, block response.Block, pod response.Pod) error {
-	err := relations.UnrelateBlockFromKeyPod(
+func removeRelation(user response.User, key response.Key, block response.Block) error {
+	err := relations.UnrelateKeyFromBlock(
 		user.JwtToken,
-		request.BlockToPodRelationParam{
-			BlockId:     block.ID,
-			TargetPodId: pod.ID,
-			TargetKeyId: pod.Key.ID,
+		request.KeyToBlockRelationParam{
+			KeyId:         key.ID,
+			TargetBlockId: block.ID,
 		},
 	)
 	if err != nil {
@@ -59,34 +58,29 @@ func removeRelation(user response.User, block response.Block, pod response.Pod) 
 	return nil
 }
 
-func addRelation(user response.User) (response.Block, response.Pod, error) {
+func addRelation(user response.User) (response.Key, response.Block, error) {
 	var (
+		key   response.Key
 		block response.Block
-		pod   response.Pod
 	)
 	key, err := recipes.AddCustomKey(user, RelationKeyName)
 	if err != nil {
-		return block, pod, err
+		return key, block, err
 	}
 	block, err = recipes.AddBlock(user, RelationBlockName, key)
 	if err != nil {
-		return block, pod, err
+		return key, block, err
 	}
-	pod, err = recipes.AddPod(user, RelationPodName, key)
-	if err != nil {
-		return block, pod, err
-	}
-	err = relations.RelateBlockToKeyPod(
+	err = relations.RelateKeyToBlock(
 		user.JwtToken,
-		request.BlockToPodRelationParam{
-			BlockId:     block.ID,
-			TargetPodId: pod.ID,
-			TargetKeyId: pod.Key.ID,
+		request.KeyToBlockRelationParam{
+			KeyId:         key.ID,
+			TargetBlockId: block.ID,
 		},
 	)
 	if err != nil {
-		return block, pod, err
+		return key, block, err
 	}
-	return block, pod, nil
+	return key, block, nil
 
 }

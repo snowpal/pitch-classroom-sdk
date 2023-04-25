@@ -13,7 +13,7 @@ import (
 
 func GetPodsAndTasksDueShortly(jwtToken string) (response.Dashboard, error) {
 	resDashboard := response.Dashboard{}
-	route, err := helpers2.GetRoute(lib.RouteDashboardGetPodsAndTasksDueShortly)
+	route, err := helpers2.GetRoute(lib.RouteDashboardGetAssessmentsAndTasksDueShortly)
 	if err != nil {
 		fmt.Println(err)
 		return resDashboard, err

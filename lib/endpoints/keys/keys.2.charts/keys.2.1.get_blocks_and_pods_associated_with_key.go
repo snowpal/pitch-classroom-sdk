@@ -13,7 +13,7 @@ import (
 
 func GetBlocksAndPodsAssociatedWithKey(jwtToken string, keyId string) (response.UserKey, error) {
 	resUserKey := response.UserKey{}
-	route, err := helpers2.GetRoute(lib.RouteKeysGetBlocksAndPodsAssociatedWithKey, keyId)
+	route, err := helpers2.GetRoute(lib.RouteKeysGetCoursesAndAssessmentsAssociatedWithKey, keyId)
 	if err != nil {
 		fmt.Println(err)
 		return resUserKey, err

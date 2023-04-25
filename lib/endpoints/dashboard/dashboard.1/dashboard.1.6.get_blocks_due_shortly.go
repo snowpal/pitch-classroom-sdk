@@ -13,7 +13,7 @@ import (
 
 func GetBlocksDueShortly(jwtToken string) (response.Dashboard, error) {
 	resDashboard := response.Dashboard{}
-	route, err := helpers2.GetRoute(lib.RouteDashboardGetBlocksDueShortly)
+	route, err := helpers2.GetRoute(lib.RouteDashboardGetCoursesDueShortly)
 	if err != nil {
 		fmt.Println(err)
 		return resDashboard, err

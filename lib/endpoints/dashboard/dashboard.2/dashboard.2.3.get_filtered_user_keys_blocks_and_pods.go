@@ -13,7 +13,7 @@ import (
 
 func GetFilteredUserKeysBlocksAndPods(jwtToken string) ([]response.FilteredKey, error) {
 	resFilteredUserKeys := response.FilteredKeys{}
-	route, err := helpers2.GetRoute(lib.RouteDashboardGetFilteredUserKeysBlocksAndPods)
+	route, err := helpers2.GetRoute(lib.RouteDashboardGetFilteredUserKeysCoursesAndAssessments)
 	if err != nil {
 		fmt.Println(err)
 		return resFilteredUserKeys.Keys, err
