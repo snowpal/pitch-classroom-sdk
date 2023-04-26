@@ -2,6 +2,7 @@ package recipes
 
 import (
 	"github.com/snowpal/pitch-classroom-sdk/lib"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/courses/courses.1"
 	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/scheduler"
 	"github.com/snowpal/pitch-classroom-sdk/lib/helpers/recipes"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
@@ -9,7 +10,6 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 
 	blockPods "github.com/snowpal/pitch-classroom-sdk/lib/endpoints/block_pods/block_pods.1"
-	blocks "github.com/snowpal/pitch-classroom-sdk/lib/endpoints/blocks/blocks.1"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -63,9 +63,9 @@ func setBlockDueDate(user response.User, key response.Key) (response.Block, erro
 		return block, err
 	}
 	dueDate := DueDate
-	block, err = blocks.UpdateBlock(
+	block, err = courses.UpdateCourse(
 		user.JwtToken,
-		blocks.UpdateBlockReqBody{DueDate: &dueDate},
+		courses.UpdateBlockReqBody{DueDate: &dueDate},
 		common.ResourceIdParam{BlockId: block.ID, KeyId: block.Key.ID})
 	if err != nil {
 		return block, err

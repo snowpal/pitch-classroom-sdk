@@ -2,11 +2,11 @@ package recipes
 
 import (
 	"github.com/snowpal/pitch-classroom-sdk/lib"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/courses/courses.1"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 
 	blockPods "github.com/snowpal/pitch-classroom-sdk/lib/endpoints/block_pods/block_pods.1"
-	blocks "github.com/snowpal/pitch-classroom-sdk/lib/endpoints/blocks/blocks.1"
 	recipes "github.com/snowpal/pitch-classroom-sdk/lib/helpers/recipes"
 	response "github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 
@@ -87,7 +87,7 @@ func linkResources(
 ) error {
 	log.Info("Link block into the other key")
 	recipes.SleepBefore()
-	err := blocks.LinkBlockToKey(user.JwtToken,
+	err := courses.LinkCourseToKey(user.JwtToken,
 		common.ResourceIdParam{
 			BlockId: newBlock.ID,
 			KeyId:   anotherKey.ID,

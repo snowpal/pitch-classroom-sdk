@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/snowpal/pitch-classroom-sdk/lib"
-	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/blocks/blocks.1"
 	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/collaboration/collaboration.1.courses"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/courses/courses.1"
 	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/keys/keys.1"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
@@ -70,7 +70,7 @@ func AddTeacherKey(user response.User, keyName string) (response.Key, error) {
 }
 
 func AddBlock(user response.User, blockName string, key response.Key) (response.Block, error) {
-	newBlock, err := blocks.AddBlock(
+	newBlock, err := courses.AddCourse(
 		user.JwtToken,
 		request.AddBlockReqBody{Name: blockName},
 		key.ID)
