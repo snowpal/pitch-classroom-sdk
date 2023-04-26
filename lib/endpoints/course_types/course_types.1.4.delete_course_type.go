@@ -8,8 +8,8 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/helpers"
 )
 
-func DeleteBlockType(jwtToken string, blockTypeId string) error {
-	route, err := helpers.GetRoute(lib.RouteBlockTypesDeleteBlockType, blockTypeId)
+func DeleteCourseType(jwtToken string, blockTypeId string) error {
+	route, err := helpers.GetRoute(lib.RouteCourseTypesDeleteCourseType, blockTypeId)
 	if err != nil {
 		fmt.Println(err)
 		return err

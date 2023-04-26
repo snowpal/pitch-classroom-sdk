@@ -12,9 +12,9 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetBlockTypes(jwtToken string, includeCounts bool) ([]response.BlockType, error) {
+func GetCourseTypes(jwtToken string, includeCounts bool) ([]response.BlockType, error) {
 	resBlockTypes := response.BlockTypes{}
-	route, err := helpers2.GetRoute(lib.RouteBlockTypesGetBlockTypes, strconv.FormatBool(includeCounts))
+	route, err := helpers2.GetRoute(lib.RouteCourseTypesGetCourseTypes, strconv.FormatBool(includeCounts))
 	if err != nil {
 		fmt.Println(err)
 		return resBlockTypes.BlockTypes, err

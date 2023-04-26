@@ -1,4 +1,4 @@
-package block_types
+package podTypes
 
 import (
 	"encoding/json"
@@ -13,24 +13,24 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func UpdateBlockType(jwtToken string, reqBody request.BlockTypeReqBody, blockTypeId string) (response.BlockType, error) {
-	resBlockType := response.BlockType{}
+func AddAssessmentType(jwtToken string, reqBody request.PodTypeReqBody) (response.PodType, error) {
+	resPodType := response.PodType{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockType, err
+		return resPodType, err
 	}
 	payload := strings.NewReader(requestBody)
-	route, err := helpers2.GetRoute(lib.RouteBlockTypesUpdateBlockType, blockTypeId)
+	route, err := helpers2.GetRoute(lib.RouteAssessmentTypesAddAssessmentType)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockType, err
+		return resPodType, err
 	}
 
-	req, err := http.NewRequest(http.MethodPatch, route, payload)
+	req, err := http.NewRequest(http.MethodPost, route, payload)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockType, err
+		return resPodType, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -38,7 +38,7 @@ func UpdateBlockType(jwtToken string, reqBody request.BlockTypeReqBody, blockTyp
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockType, err
+		return resPodType, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -46,13 +46,13 @@ func UpdateBlockType(jwtToken string, reqBody request.BlockTypeReqBody, blockTyp
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockType, err
+		return resPodType, err
 	}
 
-	err = json.Unmarshal(body, &resBlockType)
+	err = json.Unmarshal(body, &resPodType)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockType, err
+		return resPodType, err
 	}
-	return resBlockType, nil
+	return resPodType, nil
 }

@@ -13,7 +13,7 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func AddBlockType(jwtToken string, reqBody request.BlockTypeReqBody) (response.BlockType, error) {
+func AddCourseType(jwtToken string, reqBody request.BlockTypeReqBody) (response.BlockType, error) {
 	resBlockType := response.BlockType{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
@@ -21,7 +21,7 @@ func AddBlockType(jwtToken string, reqBody request.BlockTypeReqBody) (response.B
 		return resBlockType, err
 	}
 	payload := strings.NewReader(requestBody)
-	route, err := helpers2.GetRoute(lib.RouteBlockTypesAddBlockType)
+	route, err := helpers2.GetRoute(lib.RouteCourseTypesAddCourseType)
 	if err != nil {
 		fmt.Println(err)
 		return resBlockType, err

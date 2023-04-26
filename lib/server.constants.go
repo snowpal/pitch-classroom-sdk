@@ -8,10 +8,10 @@ const (
 const GatewayHost = "https://gateway.snowpal.com/"
 
 const (
-	RouteAttributesGetDisplayableAttributes        = "app/resource/attributes"
-	RouteAttributesUpdateKeyDisplayAttributes      = "keys/%s/attributes"
-	RouteAttributesUpdateBlockDisplayAttributes    = "blocks/%s/attributes?keyId=%s"
-	RouteAttributesUpdateBlockPodDisplayAttributes = "block-pods/%s/attributes?keyId=%s&blockId=%s"
+	RouteAttributesGetDisplayableAttributes          = "app/resource/attributes"
+	RouteAttributesUpdateKeyDisplayAttributes        = "keys/%s/attributes"
+	RouteAttributesUpdateCourseDisplayAttributes     = "courses/%s/attributes?keyId=%s"
+	RouteAttributesUpdateAssessmentDisplayAttributes = "assessments/%s/attributes?keyId=%s&courseId=%s"
 )
 
 const (
@@ -163,11 +163,11 @@ const (
 )
 
 const (
-	RouteBlockTypesGetBlockTypes           = "block-types?includeCounts=%s"
-	RouteBlockTypesAddBlockType            = "block-types"
-	RouteBlockTypesUpdateBlockType         = "block-types/%s"
-	RouteBlockTypesDeleteBlockType         = "block-types/%s"
-	RouteBlockTypesGetBlocksUsingBlockType = "block-types/%s/blocks"
+	RouteCourseTypesGetCourseTypes            = "course-types?includeCounts=%s"
+	RouteCourseTypesAddCourseType             = "course-types"
+	RouteCourseTypesUpdateCourseType          = "course-types/%s"
+	RouteCourseTypesDeleteCourseType          = "course-types/%s"
+	RouteCourseTypesGetCoursesUsingCourseType = "course-types/%s/courses"
 )
 
 const (
@@ -281,11 +281,11 @@ const (
 )
 
 const (
-	RoutePodTypesGetPodTypes         = "pod-types?includeCounts=%s"
-	RoutePodTypesAddPodType          = "pod-types"
-	RoutePodTypesUpdatePodType       = "pod-types/%s"
-	RoutePodTypesDeletePodType       = "pod-types/%s"
-	RoutePodTypesGetPodsUsingPodType = "pod-types/%s/pods"
+	RouteAssessmentTypesGetAssessmentTypes                = "assessment-types?includeCounts=%s"
+	RouteAssessmentTypesAddAssessmentType                 = "assessment-types"
+	RouteAssessmentTypesUpdateAssessmentType              = "assessment-types/%s"
+	RouteAssessmentTypesDeleteAssessmentType              = "assessment-types/%s"
+	RouteAssessmentTypesGetAssessmentsUsingAssessmentType = "assessment-types/%s/assessments"
 )
 
 const (

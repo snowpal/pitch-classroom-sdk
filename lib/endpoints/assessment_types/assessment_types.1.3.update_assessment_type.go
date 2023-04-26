@@ -13,7 +13,7 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func UpdatePodType(jwtToken string, reqBody request.PodTypeReqBody, podTypeId string) (response.PodType, error) {
+func UpdateAssessmentType(jwtToken string, reqBody request.PodTypeReqBody, podTypeId string) (response.PodType, error) {
 	resPodType := response.PodType{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
@@ -21,7 +21,7 @@ func UpdatePodType(jwtToken string, reqBody request.PodTypeReqBody, podTypeId st
 		return resPodType, err
 	}
 	payload := strings.NewReader(requestBody)
-	route, err := helpers2.GetRoute(lib.RoutePodTypesUpdatePodType, podTypeId)
+	route, err := helpers2.GetRoute(lib.RouteAssessmentTypesUpdateAssessmentType, podTypeId)
 	if err != nil {
 		fmt.Println(err)
 		return resPodType, err

@@ -11,7 +11,7 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 )
 
-func UpdateBlockAttrs(jwtToken string, blockParam common.ResourceIdParam, attribute request.ResourceAttributeReqBody) error {
+func UpdateAssessmentDisplayAttributes(jwtToken string, podParam common.ResourceIdParam, attribute request.ResourceAttributeReqBody) error {
 	requestBody, err := helpers.GetRequestBody(attribute)
 	if err != nil {
 		fmt.Println(err)
@@ -21,9 +21,10 @@ func UpdateBlockAttrs(jwtToken string, blockParam common.ResourceIdParam, attrib
 
 	var route string
 	route, err = helpers.GetRoute(
-		lib.RouteAttributesUpdateBlockDisplayAttributes,
-		blockParam.BlockId,
-		blockParam.KeyId,
+		lib.RouteAttributesUpdateAssessmentDisplayAttributes,
+		podParam.PodId,
+		podParam.KeyId,
+		podParam.BlockId,
 	)
 	if err != nil {
 		fmt.Println(err)

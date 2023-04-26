@@ -12,9 +12,9 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetPodTypes(jwtToken string, includeCounts bool) ([]response.PodType, error) {
+func GetAssessmentTypes(jwtToken string, includeCounts bool) ([]response.PodType, error) {
 	resPodTypes := response.PodTypes{}
-	route, err := helpers2.GetRoute(lib.RoutePodTypesGetPodTypes, strconv.FormatBool(includeCounts))
+	route, err := helpers2.GetRoute(lib.RouteAssessmentTypesGetAssessmentTypes, strconv.FormatBool(includeCounts))
 	if err != nil {
 		fmt.Println(err)
 		return resPodTypes.PodTypes, err
