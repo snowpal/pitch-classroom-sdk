@@ -90,76 +90,76 @@ const (
 )
 
 const (
-	RouteBlockPodsGetBlockPods                          = "blocks/%s/pods?batchIndex=%s&keyId=%s"
-	RouteBlockPodsAddBlockPod                           = "blocks/%s/pods?keyId=%s"
-	RouteBlockPodsAddBlockPodBasedOnTemplate            = "blocks/%s/pods/by-template?keyId=%s&templateId=%s&excludeTasks=%s"
-	RouteBlockPodsLinkPodToBlock                        = "blocks/%s/pods/%s/link?keyId=%s"
-	RouteBlockPodsUnlinkPodFromBlock                    = "blocks/%s/pods/%s/unlink?keyId=%s"
-	RouteBlockPodsGetBlockPod                           = "block-pods/%s?keyId=%s&blockId=%s"
-	RouteBlockPodsUpdateBlockPod                        = "block-pods/%s?keyId=%s&blockId=%s"
-	RouteBlockPodsUpdateBlockPodCompletionStatus        = "block-pods/%s/by-completion-status?keyId=%s&blockId=%s"
-	RouteBlockPodsAddPodTypeToBlockPod                  = "block-pods/%s/pod-types/%s?keyId=%s&blockId=%s"
-	RouteBlockPodsDeletePodTypeFromBlockPod             = "block-pods/%s/pod-types?keyId=%s&blockId=%s"
-	RouteBlockPodsAddScaleToBlockPod                    = "block-pods/%s/scales/%s?keyId=%s&blockId=%s"
-	RouteBlockPodsDeleteScaleFromBlockPod               = "block-pods/%s/scales?keyId=%s&blockId=%s"
-	RouteBlockPodsUpdateBlockPodScaleValue              = "block-pods/%s/scale-value?keyId=%s&blockId=%s"
-	RouteBlockPodsArchiveBlockPod                       = "block-pods/%s/archive?keyId=%s&block=%s"
-	RouteBlockPodsGetArchivedBlockPods                  = "block-pods/archived?batchIndex=%s&keyId=%s&blockId=%s"
-	RouteBlockPodsGetPodsAvailableToBeLinkedToThisBlock = "blocks/%s/pods/available-to-link?keyId=%s"
-	RouteBlockPodsUnarchiveBlockPod                     = "block-pods/%s/unarchive?keyId=%s&blockId=%s"
-	RouteBlockPodsBulkArchiveBlockPods                  = "block-pods/archive?keyId=%s&blockId=%s"
-	RouteBlockPodsUpdateBlockPodDescription             = "block-pods/%s/description?keyId=%s&blockId=%s"
-	RouteBlockPodsAllowArchivalOfBlockPod               = "block-pods/%s/allow-archival?keyId=%s&blockId=%s"
-	RouteBlockPodsCopyBlockPod                          = "block-pods/%s/copy?keyId=%s&blockId=%s&allTasks=%s&allChecklists=%s&targetKeyId=%s&targetBlockId=%s"
-	RouteBlockPodsMoveBlockPod                          = "block-pods/%s/move?keyId=%s&blockId=%s&targetKeyId=%s&targetBlockId=%s"
+	RouteAssessmentsGetAssessments                                = "courses/%s/assessments?batchIndex=%s&keyId=%s"
+	RouteAssessmentsAddAssessment                                 = "courses/%s/assessments?keyId=%s"
+	RouteAssessmentsAddAssessmentBasedOnTemplate                  = "courses/%s/assessments/by-template?keyId=%s&templateId=%s&excludeTasks=%s"
+	RouteAssessmentsLinkAssessmentToCourse                        = "courses/%s/assessments/%s/link?keyId=%s"
+	RouteAssessmentsUnlinkAssessmentFromCourse                    = "courses/%s/assessments/%s/unlink?keyId=%s"
+	RouteAssessmentsGetAssessment                                 = "assessments/%s?keyId=%s&courseId=%s"
+	RouteAssessmentsUpdateAssessment                              = "assessments/%s?keyId=%s&courseId=%s"
+	RouteAssessmentsUpdateAssessmentCompletionStatus              = "assessments/%s/by-completion-status?keyId=%s&courseId=%s"
+	RouteAssessmentsAddAssessmentTypeToAssessment                 = "assessments/%s/pod-types/%s?keyId=%s&courseId=%s"
+	RouteAssessmentsDeleteAssessmentTypeFromAssessment            = "assessments/%s/pod-types?keyId=%s&courseId=%s"
+	RouteAssessmentsAddScaleToAssessment                          = "assessments/%s/scales/%s?keyId=%s&courseId=%s"
+	RouteAssessmentsDeleteScaleFromAssessment                     = "assessments/%s/scales?keyId=%s&courseId=%s"
+	RouteAssessmentsUpdateAssessmentScaleValue                    = "assessments/%s/scale-value?keyId=%s&courseId=%s"
+	RouteAssessmentsArchiveAssessment                             = "assessments/%s/archive?keyId=%s&block=%s"
+	RouteAssessmentsGetArchivedAssessments                        = "assessments/archived?batchIndex=%s&keyId=%s&courseId=%s"
+	RouteAssessmentsGetAssessmentsAvailableToBeLinkedToThisCourse = "courses/%s/assessments/available-to-link?keyId=%s"
+	RouteAssessmentsUnarchiveAssessment                           = "assessments/%s/unarchive?keyId=%s&courseId=%s"
+	RouteAssessmentsBulkArchiveAssessments                        = "assessments/archive?keyId=%s&courseId=%s"
+	RouteAssessmentsUpdateAssessmentDescription                   = "assessments/%s/description?keyId=%s&courseId=%s"
+	RouteAssessmentsAllowArchivalOfAssessment                     = "assessments/%s/allow-archival?keyId=%s&courseId=%s"
+	RouteAssessmentsCopyAssessment                                = "assessments/%s/copy?keyId=%s&courseId=%s&allTasks=%s&allChecklists=%s&targetKeyId=%s&targetCourseId=%s"
+	RouteAssessmentsMoveAssessment                                = "assessments/%s/move?keyId=%s&courseId=%s&targetKeyId=%s&targetCourseId=%s"
 )
 
 const (
-	RouteBlockPodsGetBlockPodAttachments   = "block-pods/%s/attachments?keyId=%s&blockId=%s"
-	RouteBlockPodsAddBlockPodAttachment    = "block-pods/%s/attachments?keyId=%s&blockId=%s"
-	RouteBlockPodsRenameBlockPodAttachment = "block-pod-attachments/%s/rename?keyId=%s&blockId=%s&podId=%s"
-	RouteBlockPodsDeleteBlockPodAttachment = "block-pod-attachments/%s?keyId=%s&blockId=%s&podId=%s"
+	RouteAssessmentsGetAssessmentAttachments   = "assessments/%s/attachments?keyId=%s&courseId=%s"
+	RouteAssessmentsAddAssessmentAttachment    = "assessments/%s/attachments?keyId=%s&courseId=%s"
+	RouteAssessmentsRenameAssessmentAttachment = "assessment-attachments/%s/rename?keyId=%s&courseId=%s&assessmentId=%s"
+	RouteAssessmentsDeleteAssessmentAttachment = "assessment-attachments/%s?keyId=%s&courseId=%s&assessmentId=%s"
 )
 
 const (
-	RouteBlockPodsGetBlockPodTasksForCharts    = "charts/block-pods/%s/tasks?keyId=%s&blockId=%s"
-	RouteBlockPodsGetBlockPodGradesForStudents = "charts/classroom-pods/%s/students/grades?keyId=%s&blockId=%s"
+	RouteAssessmentsGetAssessmentTasksForCharts    = "charts/assessments/%s/tasks?keyId=%s&courseId=%s"
+	RouteAssessmentsGetAssessmentGradesForStudents = "charts/assessments/%s/students/grades?keyId=%s&courseId=%s"
 )
 
 const (
-	RouteBlockPodsGetBlockPodChecklists         = "block-pods/%s/checklists?keyId=%s&blockId=%s"
-	RouteBlockPodsAddBlockPodChecklist          = "block-pods/%s/checklists?keyId=%s&blockId=%s"
-	RouteBlockPodsReorderBlockPodChecklists     = "block-pods/%s/checklists/reorder?keyId=%s&blockId=%s"
-	RouteBlockPodsDeleteBlockPodChecklist       = "block-pods/%s/checklists/%s?keyId=%s&blockId=%s"
-	RouteBlockPodsRenameBlockPodChecklist       = "block-pods/%s/checklists/%s?keyId=%s&blockId=%s"
-	RouteBlockPodsAddBlockPodChecklistItem      = "block-pods/%s/checklists/%s/checklist-items?keyId=%s&blockId=%s"
-	RouteBlockPodsUpdateBlockPodChecklistItem   = "block-pods/%s/checklists/%s/checklist-items/%s?keyId=%s&blockId=%s"
-	RouteBlockPodsDeleteBlockPodChecklistItem   = "block-pods/%s/checklists/%s/checklist-items/%s?keyId=%s&blockId=%s"
-	RouteBlockPodsReorderBlockPodChecklistItems = "block-pods/%s/checklists/%s/checklist-items/reorder?keyId=%s&blockId=%s"
+	RouteAssessmentsGetAssessmentChecklists         = "assessments/%s/checklists?keyId=%s&courseId=%s"
+	RouteAssessmentsAddAssessmentChecklist          = "assessments/%s/checklists?keyId=%s&courseId=%s"
+	RouteAssessmentsReorderAssessmentChecklists     = "assessments/%s/checklists/reorder?keyId=%s&courseId=%s"
+	RouteAssessmentsDeleteAssessmentChecklist       = "assessments/%s/checklists/%s?keyId=%s&courseId=%s"
+	RouteAssessmentsRenameAssessmentChecklist       = "assessments/%s/checklists/%s?keyId=%s&courseId=%s"
+	RouteAssessmentsAddAssessmentChecklistItem      = "assessments/%s/checklists/%s/checklist-items?keyId=%s&courseId=%s"
+	RouteAssessmentsUpdateAssessmentChecklistItem   = "assessments/%s/checklists/%s/checklist-items/%s?keyId=%s&courseId=%s"
+	RouteAssessmentsDeleteAssessmentChecklistItem   = "assessments/%s/checklists/%s/checklist-items/%s?keyId=%s&courseId=%s"
+	RouteAssessmentsReorderAssessmentChecklistItems = "assessments/%s/checklists/%s/checklist-items/reorder?keyId=%s&courseId=%s"
 )
 
 const (
-	RouteBlockPodsGetBlockPodComments   = "block-pods/%s/comments?keyId=%s&blockId=%s"
-	RouteBlockPodsAddBlockPodComment    = "block-pods/%s/comments?keyId=%s&blockId=%s"
-	RouteBlockPodsUpdateBlockPodComment = "block-pod-comments/%s?keyId=%s&blockId=%s&podId=%s"
-	RouteBlockPodsDeleteBlockPodComment = "block-pod-comments/%s?keyId=%s&blockId=%s&podId=%s"
+	RouteAssessmentsGetAssessmentComments   = "assessments/%s/comments?keyId=%s&courseId=%s"
+	RouteAssessmentsAddAssessmentComment    = "assessments/%s/comments?keyId=%s&courseId=%s"
+	RouteAssessmentsUpdateAssessmentComment = "assessment-comments/%s?keyId=%s&courseId=%s&assessmentId=%s"
+	RouteAssessmentsDeleteAssessmentComment = "assessment-comments/%s?keyId=%s&courseId=%s&assessmentId=%s"
 )
 
 const (
-	RouteBlockPodsGetBlockPodNotes   = "block-pods/%s/notes?keyId=%s&blockId=%s"
-	RouteBlockPodsAddBlockPodNote    = "block-pods/%s/notes?keyId=%s&blockId=%s"
-	RouteBlockPodsUpdateBlockPodNote = "block-pod-notes/%s?keyId=%s&blockId=%s&podId=%s"
-	RouteBlockPodsDeleteBlockPodNote = "block-pod-notes/%s?keyId=%s&blockId=%s&podId=%s"
+	RouteAssessmentsGetAssessmentNotes   = "assessments/%s/notes?keyId=%s&courseId=%s"
+	RouteAssessmentsAddAssessmentNote    = "assessments/%s/notes?keyId=%s&courseId=%s"
+	RouteAssessmentsUpdateAssessmentNote = "assessment-notes/%s?keyId=%s&courseId=%s&assessmentId=%s"
+	RouteAssessmentsDeleteAssessmentNote = "assessment-notes/%s?keyId=%s&courseId=%s&assessmentId=%s"
 )
 
 const (
-	RouteBlockPodsGetBlockPodTasks     = "block-pods/%s/tasks?keyId=%s&blockId=%s"
-	RouteBlockPodsAddBlockPodTask      = "block-pods/%s/tasks?keyId=%s&blockId=%s"
-	RouteBlockPodsUpdateBlockPodTask   = "block-pod-tasks/%s?keyId=%s&blockId=%s&podId=%s"
-	RouteBlockPodsDeleteBlockPodTask   = "block-pod-tasks/%s?keyId=%s&blockId=%s&podId=%s"
-	RouteBlockPodsAssignBlockPodTask   = "block-pod-tasks/%s/assign?keyId=%s&blockId=%s&podId=%s"
-	RouteBlockPodsUnassignBlockPodTask = "block-pod-tasks/%s/unassign?keyId=%s&blockId=%s&podId=%s"
-	RouteBlockPodsReorderBlockPodTasks = "block-pods/%s/tasks/reorder?keyId=%s&blockId=%s"
+	RouteAssessmentsGetAssessmentTasks     = "assessments/%s/tasks?keyId=%s&courseId=%s"
+	RouteAssessmentsAddAssessmentTask      = "assessments/%s/tasks?keyId=%s&courseId=%s"
+	RouteAssessmentsUpdateAssessmentTask   = "assessment-tasks/%s?keyId=%s&courseId=%s&assessmentId=%s"
+	RouteAssessmentsDeleteAssessmentTask   = "assessment-tasks/%s?keyId=%s&courseId=%s&assessmentId=%s"
+	RouteAssessmentsAssignAssessmentTask   = "assessment-tasks/%s/assign?keyId=%s&courseId=%s&assessmentId=%s"
+	RouteAssessmentsUnassignAssessmentTask = "assessment-tasks/%s/unassign?keyId=%s&courseId=%s&assessmentId=%s"
+	RouteAssessmentsReorderAssessmentTasks = "assessments/%s/tasks/reorder?keyId=%s&courseId=%s"
 )
 
 const (
