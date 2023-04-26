@@ -12,12 +12,13 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func AddBlockAsFavorite(jwtToken string, favoriteParam common.ResourceIdParam) (response.AddFavorite, error) {
+func AddAssessmentAsFavorite(jwtToken string, favoriteParam common.ResourceIdParam) (response.AddFavorite, error) {
 	resFavorite := response.AddFavorite{}
 	route, err := helpers2.GetRoute(
-		lib.RouteFavoritesAddBlockAsFavorite,
-		favoriteParam.BlockId,
+		lib.RouteFavoritesAddAssessmentAsFavorite,
+		favoriteParam.PodId,
 		favoriteParam.KeyId,
+		favoriteParam.BlockId,
 	)
 	if err != nil {
 		fmt.Println(err)

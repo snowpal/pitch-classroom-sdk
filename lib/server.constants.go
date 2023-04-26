@@ -206,11 +206,11 @@ const (
 )
 
 const (
-	RouteFavoritesGetFavorites          = "favorites"
-	RouteFavoritesAddKeyAsFavorite      = "favorites/keys/%s"
-	RouteFavoritesAddBlockAsFavorite    = "favorites/blocks/%s?keyId=%s"
-	RouteFavoritesAddBlockPodAsFavorite = "favorites/block-pods/%s?keyId=%s&blockId=%s"
-	RouteFavoritesDeleteFavorite        = "favorites/%s"
+	RouteFavoritesGetFavorites            = "favorites"
+	RouteFavoritesAddKeyAsFavorite        = "favorites/keys/%s"
+	RouteFavoritesAddCourseAsFavorite     = "favorites/courses/%s?keyId=%s"
+	RouteFavoritesAddAssessmentAsFavorite = "favorites/assessments/%s?keyId=%s&courseId=%s"
+	RouteFavoritesDeleteFavorite          = "favorites/%s"
 )
 
 const (
