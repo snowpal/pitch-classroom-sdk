@@ -6,9 +6,9 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/snowpal/pitch-building-blocks-sdk/lib"
-	helpers2 "github.com/snowpal/pitch-building-blocks-sdk/lib/helpers"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/response"
+	"github.com/snowpal/pitch-classroom-sdk/lib"
+	helpers2 "github.com/snowpal/pitch-classroom-sdk/lib/helpers"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
 type SearchKeyRelationParam struct {
@@ -100,29 +100,6 @@ func SearchRelationsForBlockMatchingSearchToken(
 		lib.RouteRelationsGetRelationsForBlockMatchingSearchToken,
 		relationParam.Token,
 		relationParam.CurrentBlockId,
-		relationParam.KeyId,
-	)
-	if err != nil {
-		fmt.Println(err)
-		return searchResults, err
-	}
-	searchResults, err = searchRelationsMatchingSearchToken(jwtToken, route)
-	if err != nil {
-		fmt.Println(err)
-		return searchResults, err
-	}
-	return searchResults, nil
-}
-
-func SearchRelationsForPodMatchingSearchToken(
-	jwtToken string,
-	relationParam SearchPodRelationParam,
-) ([]response.SearchResource, error) {
-	var searchResults []response.SearchResource
-	route, err := helpers2.GetRoute(
-		lib.RouteRelationsGetRelationsForPodMatchingSearchToken,
-		relationParam.Token,
-		relationParam.CurrentPodId,
 		relationParam.KeyId,
 	)
 	if err != nil {

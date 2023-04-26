@@ -3,18 +3,18 @@ package recipes
 import (
 	"fmt"
 
-	"github.com/snowpal/pitch-building-blocks-sdk/lib"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/blocks/blocks.1"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/collaboration/collaboration.1.blocks"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/keys/keys.1"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/notifications"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/helpers/recipes"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/common"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/request"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/response"
+	"github.com/snowpal/pitch-classroom-sdk/lib"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/blocks/blocks.1"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/collaboration/collaboration.1.courses"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/keys/keys.1"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/notifications"
+	"github.com/snowpal/pitch-classroom-sdk/lib/helpers/recipes"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 
 	log "github.com/sirupsen/logrus"
-	user2 "github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/user"
+	user2 "github.com/snowpal/pitch-classroom-sdk/lib/endpoints/user"
 )
 
 const (
@@ -78,7 +78,7 @@ func ShareBlock() {
 
 func getWriteUser(user response.User, block response.Block) (response.User, error) {
 	var writeUser response.User
-	resBlock, err := collaboration.GetBlockCollaborators(
+	resBlock, err := collaboration.GetCourseCollaborators(
 		user.JwtToken,
 		common.ResourceIdParam{
 			BlockId: block.ID,
@@ -170,7 +170,7 @@ func updateBlockAsWriteUser(writeUser response.User, block response.Block) (resp
 }
 
 func makeReadUserAsAdmin(user response.User, block response.Block) error {
-	resBlock, err := collaboration.GetBlockCollaborators(
+	resBlock, err := collaboration.GetCourseCollaborators(
 		user.JwtToken,
 		common.ResourceIdParam{
 			BlockId: block.ID,
@@ -188,7 +188,7 @@ func makeReadUserAsAdmin(user response.User, block response.Block) error {
 		}
 	}
 
-	_, err = collaboration.UpdateBlockAcl(
+	_, err = collaboration.UpdateCourseAcl(
 		user.JwtToken,
 		request.BlockAclReqBody{Acl: lib.AdminAcl},
 		common.AclParam{

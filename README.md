@@ -1,4 +1,4 @@
-# pitch-building-blocks-sdk
+# pitch-classroom-sdk
 
 > SDK for a few Snowpal APIs.
 

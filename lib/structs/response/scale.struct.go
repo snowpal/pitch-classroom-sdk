@@ -1,7 +1,7 @@
 package response
 
 import (
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/common"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 )
 
 type Scales struct {
