@@ -5,7 +5,7 @@ import (
 
 	"github.com/snowpal/pitch-classroom-sdk/lib"
 	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/blocks/blocks.1"
-	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/collaboration/collaboration.1.blocks"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/collaboration/collaboration.1.courses"
 	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/keys/keys.1"
 	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/notifications"
 	"github.com/snowpal/pitch-classroom-sdk/lib/helpers/recipes"
@@ -78,7 +78,7 @@ func ShareBlock() {
 
 func getWriteUser(user response.User, block response.Block) (response.User, error) {
 	var writeUser response.User
-	resBlock, err := collaboration.GetBlockCollaborators(
+	resBlock, err := collaboration.GetCourseCollaborators(
 		user.JwtToken,
 		common.ResourceIdParam{
 			BlockId: block.ID,
@@ -170,7 +170,7 @@ func updateBlockAsWriteUser(writeUser response.User, block response.Block) (resp
 }
 
 func makeReadUserAsAdmin(user response.User, block response.Block) error {
-	resBlock, err := collaboration.GetBlockCollaborators(
+	resBlock, err := collaboration.GetCourseCollaborators(
 		user.JwtToken,
 		common.ResourceIdParam{
 			BlockId: block.ID,
@@ -188,7 +188,7 @@ func makeReadUserAsAdmin(user response.User, block response.Block) error {
 		}
 	}
 
-	_, err = collaboration.UpdateBlockAcl(
+	_, err = collaboration.UpdateCourseAcl(
 		user.JwtToken,
 		request.BlockAclReqBody{Acl: lib.AdminAcl},
 		common.AclParam{

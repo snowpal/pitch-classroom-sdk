@@ -6,7 +6,7 @@ import (
 
 	"github.com/snowpal/pitch-classroom-sdk/lib"
 	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/blocks/blocks.1"
-	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/collaboration/collaboration.1.blocks"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/collaboration/collaboration.1.courses"
 	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/keys/keys.1"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
@@ -97,7 +97,7 @@ func SearchUserAndShareBlock(user response.User, block response.Block, searchTok
 		KeyId:   block.Key.ID,
 	}
 
-	searchedUsers, err := collaboration.GetUsersThisBlockCanBeSharedWith(
+	searchedUsers, err := collaboration.GetUsersThisCourseCanBeSharedWith(
 		user.JwtToken,
 		common.SearchUsersParam{
 			SearchToken: searchToken,
@@ -109,7 +109,7 @@ func SearchUserAndShareBlock(user response.User, block response.Block, searchTok
 
 	// For the purpose of this recipe, it does not matter which user from the list we end up picking, hence we go with
 	// the first one.
-	_, err = collaboration.ShareBlockWithCollaborator(
+	_, err = collaboration.ShareCourseWithCollaborator(
 		user.JwtToken,
 		request.BlockAclReqBody{Acl: acl},
 		common.AclParam{
