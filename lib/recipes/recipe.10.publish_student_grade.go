@@ -2,13 +2,13 @@ package recipes
 
 import (
 	"github.com/snowpal/pitch-classroom-sdk/lib"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/assessments/assessments.1"
 	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/scales"
 	"github.com/snowpal/pitch-classroom-sdk/lib/helpers/recipes"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 
-	blockPods "github.com/snowpal/pitch-classroom-sdk/lib/endpoints/block_pods/block_pods.1"
 	teacherKeys "github.com/snowpal/pitch-classroom-sdk/lib/endpoints/teacher_keys/teacher_keys.2.teachers"
 
 	log "github.com/sirupsen/logrus"
@@ -87,7 +87,7 @@ func PublishStudentGrade() {
 }
 
 func publishPod(user response.User, pod response.Pod) error {
-	_, err := blockPods.UpdateBlockPodCompletionStatus(
+	_, err := assessments.UpdateAssessmentCompletionStatus(
 		user.JwtToken,
 		request.UpdatePodStatusReqBody{Completed: true},
 		common.ResourceIdParam{
@@ -116,7 +116,7 @@ func assignPodGrade(user response.User, pod response.Pod, student response.User)
 	}
 	podId := pod.ID
 	blockId := pod.Block.ID
-	err := blockPods.AddScaleToBlockPod(user.JwtToken, request.ScaleIdParam{
+	err := assessments.AddScaleToAssessment(user.JwtToken, request.ScaleIdParam{
 		ScaleId: alphabeticScale.ID,
 		PodId:   &podId,
 		BlockId: &blockId,

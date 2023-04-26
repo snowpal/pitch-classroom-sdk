@@ -2,11 +2,11 @@ package recipes
 
 import (
 	"github.com/snowpal/pitch-classroom-sdk/lib"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/assessments/assessments.1"
 	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/courses/courses.1"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 
-	blockPods "github.com/snowpal/pitch-classroom-sdk/lib/endpoints/block_pods/block_pods.1"
 	recipes "github.com/snowpal/pitch-classroom-sdk/lib/helpers/recipes"
 	response "github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 
@@ -117,7 +117,7 @@ func addBlocksAndPods(user response.User, newKey response.Key) (response.Block, 
 	log.Info("Add a new block pod in this block")
 	recipes.SleepBefore()
 	var newBlockPod response.Pod
-	newBlockPod, err = blockPods.AddBlockPod(user.JwtToken,
+	newBlockPod, err = assessments.AddAssessment(user.JwtToken,
 		request.AddPodReqBody{
 			Name: BlockPod1Name,
 		},

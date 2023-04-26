@@ -47,7 +47,7 @@ const (
 )
 
 const (
-	RouteCoursesGetLinkedCourseAssessments = "charts/keys/%s/courses/%s/linked-resources"
+	RouteCoursesGetLinkedAssessments       = "charts/keys/%s/courses/%s/linked-resources"
 	RouteCoursesGetScaleValuesForScale     = "charts/keys/%s/courses/%s/scales/%s/grades"
 	RouteCoursesGetTaskStatusForCourse     = "charts/keys/%s/courses/%s/task-status"
 	RouteCoursesGetCourseGradesForStudents = "courses/%s/students/all/grades?keyId=%s"
