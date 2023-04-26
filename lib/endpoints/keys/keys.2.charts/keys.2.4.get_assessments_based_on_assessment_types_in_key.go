@@ -1,4 +1,4 @@
-package dashboard
+package keys
 
 import (
 	"encoding/json"
@@ -11,19 +11,19 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetBlocksDueShortly(jwtToken string) (response.Dashboard, error) {
-	resDashboard := response.Dashboard{}
-	route, err := helpers2.GetRoute(lib.RouteDashboardGetCoursesDueShortly)
+func GetAssessmentsBasedOnAssessmentTypesInKey(jwtToken string, keyId string) (response.PodTypesKey, error) {
+	resPodTypesKey := response.PodTypesKey{}
+	route, err := helpers2.GetRoute(lib.RouteKeysGetAssessmentsBasedOnAssessmentTypesInKey, keyId)
 	if err != nil {
 		fmt.Println(err)
-		return resDashboard, err
+		return resPodTypesKey, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resDashboard, err
+		return resPodTypesKey, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -32,7 +32,7 @@ func GetBlocksDueShortly(jwtToken string) (response.Dashboard, error) {
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resDashboard, err
+		return resPodTypesKey, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -41,13 +41,13 @@ func GetBlocksDueShortly(jwtToken string) (response.Dashboard, error) {
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resDashboard, err
+		return resPodTypesKey, err
 	}
 
-	err = json.Unmarshal(body, &resDashboard)
+	err = json.Unmarshal(body, &resPodTypesKey)
 	if err != nil {
 		fmt.Println(err)
-		return resDashboard, err
+		return resPodTypesKey, err
 	}
-	return resDashboard, nil
+	return resPodTypesKey, nil
 }

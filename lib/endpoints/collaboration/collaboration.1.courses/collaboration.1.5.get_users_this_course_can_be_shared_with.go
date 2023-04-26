@@ -12,18 +12,26 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func UnshareBlockWithCollaborator(jwtToken string, blockAclParam common.AclParam) (response.Block, error) {
-	resBlock := response.Block{}
+func GetUsersThisCourseCanBeSharedWith(
+	jwtToken string,
+	blockAclParam common.SearchUsersParam,
+) ([]response.SearchUser, error) {
+	resUsers := response.SearchUsers{}
 	route, err := helpers2.GetRoute(
-		lib.RouteCollaborationUnshareBlockFromCollaborator,
+		lib.RouteCollaborationGetUsersThisCourseCanBeSharedWith,
 		blockAclParam.ResourceIds.BlockId,
-		blockAclParam.UserId,
 		blockAclParam.ResourceIds.KeyId,
+		blockAclParam.SearchToken,
 	)
-	req, err := http.NewRequest(http.MethodPatch, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resUsers.SearchUsers, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, route, nil)
+	if err != nil {
+		fmt.Println(err)
+		return resUsers.SearchUsers, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -31,7 +39,7 @@ func UnshareBlockWithCollaborator(jwtToken string, blockAclParam common.AclParam
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resUsers.SearchUsers, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -39,13 +47,13 @@ func UnshareBlockWithCollaborator(jwtToken string, blockAclParam common.AclParam
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resUsers.SearchUsers, err
 	}
 
-	err = json.Unmarshal(body, &resBlock)
+	err = json.Unmarshal(body, &resUsers)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resUsers.SearchUsers, err
 	}
-	return resBlock, nil
+	return resUsers.SearchUsers, nil
 }

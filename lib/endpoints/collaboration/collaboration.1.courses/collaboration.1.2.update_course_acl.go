@@ -14,7 +14,7 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func ShareBlockWithCollaborator(
+func UpdateCourseAcl(
 	jwtToken string,
 	reqBody request.BlockAclReqBody,
 	blockAclParam common.AclParam,
@@ -27,7 +27,7 @@ func ShareBlockWithCollaborator(
 	}
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(
-		lib.RouteCollaborationShareBlockWithCollaborator,
+		lib.RouteCollaborationUpdateCourseAcl,
 		blockAclParam.ResourceIds.BlockId,
 		blockAclParam.UserId,
 		blockAclParam.ResourceIds.KeyId,

@@ -1,4 +1,4 @@
-package keys
+package dashboard
 
 import (
 	"encoding/json"
@@ -11,19 +11,19 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetBlockTypesAndBlocksBasedOnThemInKey(jwtToken string, keyId string) (response.BlockTypesKey, error) {
-	resBlockTypesKey := response.BlockTypesKey{}
-	route, err := helpers2.GetRoute(lib.RouteKeysGetCourseTypesAndCoursesBasedOnThemInKey, keyId)
+func GetFilteredUserKeysCoursesAndAssessments(jwtToken string) ([]response.FilteredKey, error) {
+	resFilteredUserKeys := response.FilteredKeys{}
+	route, err := helpers2.GetRoute(lib.RouteDashboardGetFilteredUserKeysCoursesAndAssessments)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTypesKey, err
+		return resFilteredUserKeys.Keys, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTypesKey, err
+		return resFilteredUserKeys.Keys, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -32,7 +32,7 @@ func GetBlockTypesAndBlocksBasedOnThemInKey(jwtToken string, keyId string) (resp
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTypesKey, err
+		return resFilteredUserKeys.Keys, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -41,13 +41,13 @@ func GetBlockTypesAndBlocksBasedOnThemInKey(jwtToken string, keyId string) (resp
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTypesKey, err
+		return resFilteredUserKeys.Keys, err
 	}
 
-	err = json.Unmarshal(body, &resBlockTypesKey)
+	err = json.Unmarshal(body, &resFilteredUserKeys)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTypesKey, err
+		return resFilteredUserKeys.Keys, err
 	}
-	return resBlockTypesKey, nil
+	return resFilteredUserKeys.Keys, nil
 }

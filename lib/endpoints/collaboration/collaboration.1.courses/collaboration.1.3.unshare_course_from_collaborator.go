@@ -12,20 +12,15 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetBlockCollaborators(jwtToken string, blockParam common.ResourceIdParam) (response.Block, error) {
+func UnshareCourseFromCollaborator(jwtToken string, blockAclParam common.AclParam) (response.Block, error) {
 	resBlock := response.Block{}
 	route, err := helpers2.GetRoute(
-		lib.RouteCollaborationGetBlockCollaborators,
-		blockParam.BlockId,
-		blockParam.KeyId,
+		lib.RouteCollaborationUnshareCourseFromCollaborator,
+		blockAclParam.ResourceIds.BlockId,
+		blockAclParam.UserId,
+		blockAclParam.ResourceIds.KeyId,
 	)
-	if err != nil {
-		fmt.Println(err)
-		return resBlock, err
-	}
-
-	var req *http.Request
-	req, err = http.NewRequest(http.MethodGet, route, nil)
+	req, err := http.NewRequest(http.MethodPatch, route, nil)
 	if err != nil {
 		fmt.Println(err)
 		return resBlock, err
@@ -33,8 +28,7 @@ func GetBlockCollaborators(jwtToken string, blockParam common.ResourceIdParam) (
 
 	helpers2.AddUserHeaders(jwtToken, req)
 
-	var res *http.Response
-	res, err = helpers2.MakeRequest(req)
+	res, err := helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
 		return resBlock, err
@@ -42,8 +36,7 @@ func GetBlockCollaborators(jwtToken string, blockParam common.ResourceIdParam) (
 
 	defer helpers2.CloseBody(res.Body)
 
-	var body []byte
-	body, err = io.ReadAll(res.Body)
+	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
 		return resBlock, err

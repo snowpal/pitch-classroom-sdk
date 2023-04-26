@@ -9,9 +9,9 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 )
 
-func LeaveBlock(jwtToken string, blockParam common.ResourceIdParam) error {
+func LeaveCourse(jwtToken string, blockParam common.ResourceIdParam) error {
 	route, err := helpers.GetRoute(
-		lib.RouteCollaborationLeaveBlock,
+		lib.RouteCollaborationLeaveCourse,
 		blockParam.BlockId,
 		blockParam.KeyId,
 	)

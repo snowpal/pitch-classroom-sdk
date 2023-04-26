@@ -171,14 +171,13 @@ const (
 )
 
 const (
-	RouteCollaborationGetBlockCollaborators                   = "blocks/%s/acl?keyId=%s"
-	RouteCollaborationUpdateBlockAcl                          = "blocks/%s/users/%s/acl?keyId=%s"
-	RouteCollaborationUnshareBlockFromCollaborator            = "blocks/%s/users/%s/unshare?keyId=%s"
-	RouteCollaborationShareBlockWithCollaborator              = "blocks/%s/users/%s/share?keyId=%s"
-	RouteCollaborationShareBlockWithCollaboratorAlongWithPods = "blocks/%s/users/%s/share/with/pods?keyId=%s"
-	RouteCollaborationGetUsersThisBlockCanBeSharedWith        = "search/blocks/%s/shareable/users?keyId=%s&token=%s"
-	RouteCollaborationBulkShareBlocksWithCollaborators        = "blocks/users/%s/share?keyId=%s"
-	RouteCollaborationLeaveBlock                              = "blocks/%s/leave?keyId=%s"
+	RouteCollaborationGetCourseCollaborators            = "courses/%s/acl?keyId=%s"
+	RouteCollaborationUpdateCourseAcl                   = "courses/%s/users/%s/acl?keyId=%s"
+	RouteCollaborationUnshareCourseFromCollaborator     = "courses/%s/users/%s/unshare?keyId=%s"
+	RouteCollaborationShareCourseWithCollaborator       = "courses/%s/users/%s/share?keyId=%s"
+	RouteCollaborationGetUsersThisCourseCanBeSharedWith = "search/courses/%s/shareable/users?keyId=%s&token=%s"
+	RouteCollaborationBulkShareCoursesWithCollaborators = "courses/users/%s/share?keyId=%s"
+	RouteCollaborationLeaveCourse                       = "courses/%s/leave?keyId=%s"
 )
 
 const (

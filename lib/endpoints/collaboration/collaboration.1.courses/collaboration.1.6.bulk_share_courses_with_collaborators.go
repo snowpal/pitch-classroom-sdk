@@ -15,7 +15,7 @@ type BlockBulkShareReqBody struct {
 	BlockIds string `json:"blockIds"`
 }
 
-func ShareBlocksWithCollaborators(
+func ShareCoursesWithCollaborators(
 	jwtToken string,
 	reqBody BlockBulkShareReqBody,
 	blockAclParam common.AclParam,
@@ -27,7 +27,7 @@ func ShareBlocksWithCollaborators(
 	}
 	payload := strings.NewReader(requestBody)
 	route, err := helpers.GetRoute(
-		lib.RouteCollaborationBulkShareBlocksWithCollaborators,
+		lib.RouteCollaborationBulkShareCoursesWithCollaborators,
 		blockAclParam.UserId,
 		blockAclParam.ResourceIds.KeyId,
 	)

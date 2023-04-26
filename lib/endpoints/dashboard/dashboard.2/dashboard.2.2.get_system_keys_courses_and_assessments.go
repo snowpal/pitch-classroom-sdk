@@ -1,4 +1,4 @@
-package keys
+package dashboard
 
 import (
 	"encoding/json"
@@ -8,27 +8,22 @@ import (
 
 	"github.com/snowpal/pitch-classroom-sdk/lib"
 	helpers2 "github.com/snowpal/pitch-classroom-sdk/lib/helpers"
-	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetKeyPodAndBlockScaleValues(jwtToken string, scaleParam request.ScaleIdParam) (response.ScaleValues, error) {
-	resScaleValues := response.ScaleValues{}
-	route, err := helpers2.GetRoute(
-		lib.RouteKeysGetCourseScaleValues,
-		scaleParam.KeyId,
-		scaleParam.ScaleId,
-	)
+func GetSystemKeysCoursesAndAssessments(jwtToken string) ([]response.UserKey, error) {
+	resUserKeys := response.UserKeys{}
+	route, err := helpers2.GetRoute(lib.RouteDashboardGetSystemKeysCoursesAndAssessments)
 	if err != nil {
 		fmt.Println(err)
-		return resScaleValues, err
+		return resUserKeys.Keys, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resScaleValues, err
+		return resUserKeys.Keys, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -37,7 +32,7 @@ func GetKeyPodAndBlockScaleValues(jwtToken string, scaleParam request.ScaleIdPar
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resScaleValues, err
+		return resUserKeys.Keys, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -46,13 +41,13 @@ func GetKeyPodAndBlockScaleValues(jwtToken string, scaleParam request.ScaleIdPar
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resScaleValues, err
+		return resUserKeys.Keys, err
 	}
 
-	err = json.Unmarshal(body, &resScaleValues)
+	err = json.Unmarshal(body, &resUserKeys)
 	if err != nil {
 		fmt.Println(err)
-		return resScaleValues, err
+		return resUserKeys.Keys, err
 	}
-	return resScaleValues, nil
+	return resUserKeys.Keys, nil
 }

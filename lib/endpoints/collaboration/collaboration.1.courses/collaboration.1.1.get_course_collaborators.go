@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"strings"
 
 	"github.com/snowpal/pitch-classroom-sdk/lib"
 	helpers2 "github.com/snowpal/pitch-classroom-sdk/lib/helpers"
@@ -13,30 +12,20 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-type ShareBlockWithPodsReqBody struct {
-	Acl    string `json:"blockAcl"`
-	PodIds string `json:"podIds"`
-}
-
-func ShareBlockWithUserWithPods(
-	jwtToken string,
-	reqBody ShareBlockWithPodsReqBody,
-	blockAclParam common.AclParam,
-) (response.Block, error) {
+func GetCourseCollaborators(jwtToken string, blockParam common.ResourceIdParam) (response.Block, error) {
 	resBlock := response.Block{}
-	requestBody, err := helpers2.GetRequestBody(reqBody)
+	route, err := helpers2.GetRoute(
+		lib.RouteCollaborationGetCourseCollaborators,
+		blockParam.BlockId,
+		blockParam.KeyId,
+	)
 	if err != nil {
 		fmt.Println(err)
 		return resBlock, err
 	}
-	payload := strings.NewReader(requestBody)
-	route, err := helpers2.GetRoute(
-		lib.RouteCollaborationShareBlockWithCollaboratorAlongWithPods,
-		blockAclParam.ResourceIds.BlockId,
-		blockAclParam.UserId,
-		blockAclParam.ResourceIds.KeyId,
-	)
-	req, err := http.NewRequest(http.MethodPatch, route, payload)
+
+	var req *http.Request
+	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
 		return resBlock, err
@@ -44,7 +33,8 @@ func ShareBlockWithUserWithPods(
 
 	helpers2.AddUserHeaders(jwtToken, req)
 
-	res, err := helpers2.MakeRequest(req)
+	var res *http.Response
+	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
 		return resBlock, err
@@ -52,7 +42,8 @@ func ShareBlockWithUserWithPods(
 
 	defer helpers2.CloseBody(res.Body)
 
-	body, err := io.ReadAll(res.Body)
+	var body []byte
+	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
 		return resBlock, err
