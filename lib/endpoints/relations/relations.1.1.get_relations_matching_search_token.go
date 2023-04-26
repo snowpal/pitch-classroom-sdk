@@ -91,13 +91,13 @@ func SearchRelationsForKeyMatchingSearchToken(
 	return searchResults, nil
 }
 
-func SearchRelationsForBlockMatchingSearchToken(
+func SearchRelationsForCourseMatchingSearchToken(
 	jwtToken string,
 	relationParam SearchBlockRelationParam,
 ) ([]response.SearchResource, error) {
 	var searchResults []response.SearchResource
 	route, err := helpers2.GetRoute(
-		lib.RouteRelationsGetRelationsForBlockMatchingSearchToken,
+		lib.RouteRelationsGetRelationsForCourseMatchingSearchToken,
 		relationParam.Token,
 		relationParam.CurrentBlockId,
 		relationParam.KeyId,
@@ -114,13 +114,13 @@ func SearchRelationsForBlockMatchingSearchToken(
 	return searchResults, nil
 }
 
-func SearchRelationsForBlockPodMatchingSearchToken(
+func SearchRelationsForAssessmentMatchingSearchToken(
 	jwtToken string,
 	relationParam SearchBlockPodRelationParam,
 ) ([]response.SearchResource, error) {
 	var searchResults []response.SearchResource
 	route, err := helpers2.GetRoute(
-		lib.RouteRelationsGetRelationsForBlockPodMatchingSearchToken,
+		lib.RouteRelationsGetRelationsForAssessmentMatchingSearchToken,
 		relationParam.Token,
 		relationParam.CurrentPodId,
 		relationParam.KeyId,

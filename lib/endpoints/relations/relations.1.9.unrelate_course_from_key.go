@@ -9,10 +9,10 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 )
 
-func RelateBlockToBlock(jwtToken string, relationParam request.BlockToBlockRelationParam) error {
+func UnrelateCourseFromKey(jwtToken string, relationParam request.KeyToBlockRelationParam) error {
 	route, err := helpers.GetRoute(
-		lib.RouteRelationsRelateBlockToBlock,
-		relationParam.BlockId,
+		lib.RouteRelationsUnrelateCourseFromKey,
+		relationParam.KeyId,
 		relationParam.TargetBlockId,
 	)
 	if err != nil {

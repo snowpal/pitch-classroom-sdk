@@ -12,10 +12,10 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetRelationsForBlock(jwtToken string, relationParam common.ResourceIdParam) (response.Relationships, error) {
+func GetRelationsForCourse(jwtToken string, relationParam common.ResourceIdParam) (response.Relationships, error) {
 	resRelations := response.Relations{}
 	route, err := helpers2.GetRoute(
-		lib.RouteRelationsGetRelationsForBlock,
+		lib.RouteRelationsGetRelationsForCourse,
 		relationParam.BlockId,
 		relationParam.KeyId,
 	)
