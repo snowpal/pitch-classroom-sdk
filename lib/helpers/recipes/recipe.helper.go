@@ -5,14 +5,13 @@ import (
 	"time"
 
 	"github.com/snowpal/pitch-classroom-sdk/lib"
-	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/blocks/blocks.1"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/assessments/assessments.1"
 	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/collaboration/collaboration.1.courses"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/courses/courses.1"
 	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/keys/keys.1"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
-
-	blockPods "github.com/snowpal/pitch-classroom-sdk/lib/endpoints/block_pods/block_pods.1"
 )
 
 func sleepWindow(sleepTime time.Duration) {
@@ -70,7 +69,7 @@ func AddTeacherKey(user response.User, keyName string) (response.Key, error) {
 }
 
 func AddBlock(user response.User, blockName string, key response.Key) (response.Block, error) {
-	newBlock, err := blocks.AddBlock(
+	newBlock, err := courses.AddCourse(
 		user.JwtToken,
 		request.AddBlockReqBody{Name: blockName},
 		key.ID)
@@ -81,7 +80,7 @@ func AddBlock(user response.User, blockName string, key response.Key) (response.
 }
 
 func AddPodToBlock(user response.User, podName string, block response.Block) (response.Pod, error) {
-	newPod, err := blockPods.AddBlockPod(
+	newPod, err := assessments.AddAssessment(
 		user.JwtToken,
 		request.AddPodReqBody{Name: podName},
 		common.ResourceIdParam{BlockId: block.ID, KeyId: block.Key.ID})

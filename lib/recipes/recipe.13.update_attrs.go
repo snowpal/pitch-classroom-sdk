@@ -63,7 +63,7 @@ func UpdateAttributes() {
 	if err != nil {
 		return
 	}
-	err = attributes.UpdateBlockAttrs(
+	err = attributes.UpdateCourseDisplayAttributes(
 		user.JwtToken,
 		common.ResourceIdParam{
 			BlockId: block.ID,

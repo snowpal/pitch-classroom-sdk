@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	"github.com/snowpal/pitch-classroom-sdk/lib"
-	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/blocks/blocks.1"
 	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/collaboration/collaboration.1.courses"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/courses/courses.1"
 	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/keys/keys.1"
 	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/notifications"
 	"github.com/snowpal/pitch-classroom-sdk/lib/helpers/recipes"
@@ -156,9 +156,9 @@ func updateBlockAsWriteUser(writeUser response.User, block response.Block) (resp
 		}
 	}
 	updatedBlockName := UpdatedBlockName
-	resBlock, err := blocks.UpdateBlock(
+	resBlock, err := courses.UpdateCourse(
 		writeUser.JwtToken,
-		blocks.UpdateBlockReqBody{Name: &updatedBlockName},
+		courses.UpdateBlockReqBody{Name: &updatedBlockName},
 		common.ResourceIdParam{
 			BlockId: block.ID,
 			KeyId:   customSystemKey.ID,

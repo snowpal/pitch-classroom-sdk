@@ -45,7 +45,7 @@ func AddRelation() {
 }
 
 func removeRelation(user response.User, key response.Key, block response.Block) error {
-	err := relations.UnrelateKeyFromBlock(
+	err := relations.UnrelateCourseFromKey(
 		user.JwtToken,
 		request.KeyToBlockRelationParam{
 			KeyId:         key.ID,
@@ -71,7 +71,7 @@ func addRelation(user response.User) (response.Key, response.Block, error) {
 	if err != nil {
 		return key, block, err
 	}
-	err = relations.RelateKeyToBlock(
+	err = relations.RelateCourseToKey(
 		user.JwtToken,
 		request.KeyToBlockRelationParam{
 			KeyId:         key.ID,

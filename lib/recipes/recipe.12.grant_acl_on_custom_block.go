@@ -2,7 +2,7 @@ package recipes
 
 import (
 	"github.com/snowpal/pitch-classroom-sdk/lib"
-	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/blocks/blocks.1"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/courses/courses.1"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 
 	recipes "github.com/snowpal/pitch-classroom-sdk/lib/helpers/recipes"
@@ -71,7 +71,7 @@ func GrantAclOnCustomBlock() {
 }
 
 func copyBlock(user response.User, block response.Block) (response.Block, error) {
-	resBlock, err := blocks.CopyBlock(
+	resBlock, err := courses.CopyCourse(
 		user.JwtToken,
 		request.CopyMoveBlockParam{
 			BlockId:       block.ID,

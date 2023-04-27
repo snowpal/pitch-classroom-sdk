@@ -12,10 +12,10 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetLinkedCourseAssessments(jwtToken string, blockParam common.ResourceIdParam) (response.LinkedResources, error) {
+func GetLinkedAssessments(jwtToken string, blockParam common.ResourceIdParam) (response.LinkedResources, error) {
 	resLinkedPods := response.LinkedResources{}
 	route, err := helpers2.GetRoute(
-		lib.RouteCoursesGetLinkedCourseAssessments,
+		lib.RouteCoursesGetLinkedAssessments,
 		blockParam.KeyId,
 		blockParam.BlockId,
 	)

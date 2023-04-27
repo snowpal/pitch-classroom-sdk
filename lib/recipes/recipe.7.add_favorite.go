@@ -60,7 +60,7 @@ func addFavorite(user response.User) (response.AddFavorite, error) {
 	if err != nil {
 		return favorite, err
 	}
-	favorite, err = favorites.AddBlockAsFavorite(
+	favorite, err = favorites.AddCourseAsFavorite(
 		user.JwtToken,
 		common.ResourceIdParam{BlockId: block.ID, KeyId: key.ID})
 	if err != nil {
