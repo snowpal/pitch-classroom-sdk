@@ -109,11 +109,11 @@ func getWriteUser(user response.User, block response.Block) (response.User, erro
 
 func shareBlock(user response.User) (response.Block, error) {
 	var block response.Block
-	key, err := recipes.AddCustomKey(user, KeyName)
+	key, err := recipes.AddTeacherKey(user, KeyName)
 	if err != nil {
 		return block, err
 	}
-	block, err = recipes.AddBlock(user, BlockName, key)
+	block, err = recipes.AddCourse(user, BlockName, key)
 	if err != nil {
 		return block, err
 	}

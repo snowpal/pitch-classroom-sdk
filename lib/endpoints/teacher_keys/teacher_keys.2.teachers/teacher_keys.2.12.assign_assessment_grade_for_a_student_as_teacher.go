@@ -13,7 +13,7 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func AssignPodGradeForAStudentAsTeacher(
+func AssignAssessmentGradeForAStudentAsTeacher(
 	jwtToken string,
 	reqBody request.UpdateScaleValueReqBody,
 	classroomParam request.ClassroomIdParam,
@@ -26,7 +26,7 @@ func AssignPodGradeForAStudentAsTeacher(
 	}
 	payload := strings.NewReader(requestBody)
 	route, err := helpers.GetRoute(
-		lib.RouteTeacherKeysAssignPodGradeForAStudentAsTeacher,
+		lib.RouteTeacherKeysAssignAssessmentGradeForAStudentAsTeacher,
 		classroomParam.ResourceIds.PodId,
 		classroomParam.StudentId,
 		classroomParam.ResourceIds.KeyId,

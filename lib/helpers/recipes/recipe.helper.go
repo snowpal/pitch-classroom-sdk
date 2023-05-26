@@ -52,8 +52,8 @@ func addKey(user response.User, keyName string, keyType string) (response.Key, e
 	return newKey, nil
 }
 
-func AddCustomKey(user response.User, keyName string) (response.Key, error) {
-	newKey, err := addKey(user, keyName, lib.CustomKeyType)
+func AddStudentKey(user response.User, keyName string) (response.Key, error) {
+	newKey, err := addKey(user, keyName, lib.StudentKeyType)
 	if err != nil {
 		return newKey, err
 	}

@@ -7,14 +7,17 @@ import (
 
 	"github.com/snowpal/pitch-classroom-sdk/lib"
 	"github.com/snowpal/pitch-classroom-sdk/lib/helpers"
-	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 )
 
-func PublishStudentGradesForABlock(
+type PublishStudentGradeReqBody struct {
+	PodIds string `json:"podIds"`
+}
+
+func BulkPublishAssessmentGradesForAStudent(
 	jwtToken string,
-	reqBody request.PublishGradesReqBody,
-	podParam common.ResourceIdParam,
+	reqBody PublishStudentGradeReqBody,
+	classroomParam request.ClassroomIdParam,
 ) error {
 	requestBody, err := helpers.GetRequestBody(reqBody)
 	if err != nil {
@@ -23,9 +26,10 @@ func PublishStudentGradesForABlock(
 	}
 	payload := strings.NewReader(requestBody)
 	route, err := helpers.GetRoute(
-		lib.RouteTeacherKeysPublishStudentGradesForABlock,
-		podParam.BlockId,
-		podParam.KeyId,
+		lib.RouteTeacherKeysBulkPublishAssessmentGradesForAStudent,
+		classroomParam.StudentId,
+		classroomParam.ResourceIds.KeyId,
+		classroomParam.ResourceIds.BlockId,
 	)
 	if err != nil {
 		fmt.Println(err)

@@ -11,9 +11,9 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetPodTemplates(jwtToken string) ([]response.PodTemplate, error) {
+func GetAssessmentTemplates(jwtToken string) ([]response.PodTemplate, error) {
 	resPodTemplates := response.PodTemplates{}
-	route, err := helpers2.GetRoute(lib.RouteTemplatesGetPodTemplates)
+	route, err := helpers2.GetRoute(lib.RouteTemplatesGetAssessmentTemplates)
 	if err != nil {
 		fmt.Println(err)
 		return resPodTemplates.Templates, err

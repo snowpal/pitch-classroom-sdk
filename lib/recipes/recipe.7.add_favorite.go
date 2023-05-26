@@ -52,11 +52,11 @@ func removeFavorite(user response.User, favorite response.AddFavorite) error {
 
 func addFavorite(user response.User) (response.AddFavorite, error) {
 	var favorite response.AddFavorite
-	key, err := recipes.AddCustomKey(user, FavKeyName)
+	key, err := recipes.AddTeacherKey(user, FavKeyName)
 	if err != nil {
 		return favorite, err
 	}
-	block, err := recipes.AddBlock(user, FavBlockName, key)
+	block, err := recipes.AddCourse(user, FavBlockName, key)
 	if err != nil {
 		return favorite, err
 	}

@@ -12,18 +12,25 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetStudentsInABlock(jwtToken string, blockParam common.ResourceIdParam) ([]response.Student, error) {
-	resStudents := response.Students{}
-	route, err := helpers2.GetRoute(lib.RouteTeacherKeysGetStudentsInABlock, blockParam.BlockId, blockParam.KeyId)
+func GetCourseGradesForStudents(
+	jwtToken string,
+	blockParam common.ResourceIdParam,
+) (response.StudentGradeForBlockAndPod, error) {
+	resStudentGradesForBlock := response.StudentGradeForBlockAndPod{}
+	route, err := helpers2.GetRoute(
+		lib.RouteTeacherKeysGetCourseGradesForStudents,
+		blockParam.BlockId,
+		blockParam.KeyId,
+	)
 	if err != nil {
 		fmt.Println(err)
-		return resStudents.Students, err
+		return resStudentGradesForBlock, err
 	}
 
 	req, err := http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resStudents.Students, err
+		return resStudentGradesForBlock, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -31,7 +38,7 @@ func GetStudentsInABlock(jwtToken string, blockParam common.ResourceIdParam) ([]
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resStudents.Students, err
+		return resStudentGradesForBlock, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -39,13 +46,13 @@ func GetStudentsInABlock(jwtToken string, blockParam common.ResourceIdParam) ([]
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resStudents.Students, err
+		return resStudentGradesForBlock, err
 	}
 
-	err = json.Unmarshal(body, &resStudents)
+	err = json.Unmarshal(body, &resStudentGradesForBlock)
 	if err != nil {
 		fmt.Println(err)
-		return resStudents.Students, err
+		return resStudentGradesForBlock, err
 	}
-	return resStudents.Students, nil
+	return resStudentGradesForBlock, nil
 }

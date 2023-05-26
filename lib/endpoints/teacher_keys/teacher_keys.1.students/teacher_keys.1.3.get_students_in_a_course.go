@@ -12,26 +12,18 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetPodGradesForStudents(
-	jwtToken string,
-	podParam common.ResourceIdParam,
-) (response.StudentGradeForBlockAndPod, error) {
-	resStudentGradesForPod := response.StudentGradeForBlockAndPod{}
-	route, err := helpers2.GetRoute(
-		lib.RouteTeacherKeysGetPodGradesForStudents,
-		podParam.PodId,
-		podParam.KeyId,
-		podParam.BlockId,
-	)
+func GetStudentsInACourse(jwtToken string, blockParam common.ResourceIdParam) ([]response.Student, error) {
+	resStudents := response.Students{}
+	route, err := helpers2.GetRoute(lib.RouteTeacherKeysGetStudentsInACourse, blockParam.BlockId, blockParam.KeyId)
 	if err != nil {
 		fmt.Println(err)
-		return resStudentGradesForPod, err
+		return resStudents.Students, err
 	}
 
 	req, err := http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resStudentGradesForPod, err
+		return resStudents.Students, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -39,7 +31,7 @@ func GetPodGradesForStudents(
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resStudentGradesForPod, err
+		return resStudents.Students, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -47,13 +39,13 @@ func GetPodGradesForStudents(
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resStudentGradesForPod, err
+		return resStudents.Students, err
 	}
 
-	err = json.Unmarshal(body, &resStudentGradesForPod)
+	err = json.Unmarshal(body, &resStudents)
 	if err != nil {
 		fmt.Println(err)
-		return resStudentGradesForPod, err
+		return resStudents.Students, err
 	}
-	return resStudentGradesForPod, nil
+	return resStudents.Students, nil
 }

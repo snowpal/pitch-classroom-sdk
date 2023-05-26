@@ -12,13 +12,13 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetBlockAndPodsGradesForAStudentAsTeacher(
+func GetCourseAndAssessmentsGradesForAStudentAsTeacher(
 	jwtToken string,
 	classroomParam request.ClassroomIdParam,
 ) (response.StudentGradeForBlockAndPod, error) {
 	resStudentGrades := response.StudentGradeForBlockAndPod{}
 	route, err := helpers2.GetRoute(
-		lib.RouteTeacherKeysGetBlockAndPodsGradesForAStudentAsTeacher,
+		lib.RouteTeacherKeysGetCourseAndAssessmentsGradesForAStudentAsTeacher,
 		classroomParam.ResourceIds.BlockId,
 		classroomParam.StudentId,
 		classroomParam.ResourceIds.KeyId,

@@ -11,7 +11,7 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 )
 
-func BulkPublishPodGradesForStudents(
+func PublishStudentGradesForACourse(
 	jwtToken string,
 	reqBody request.PublishGradesReqBody,
 	podParam common.ResourceIdParam,
@@ -23,10 +23,9 @@ func BulkPublishPodGradesForStudents(
 	}
 	payload := strings.NewReader(requestBody)
 	route, err := helpers.GetRoute(
-		lib.RouteTeacherKeysBulkPublishPodGradesForStudents,
-		podParam.PodId,
-		podParam.KeyId,
+		lib.RouteTeacherKeysPublishStudentGradesForACourse,
 		podParam.BlockId,
+		podParam.KeyId,
 	)
 	if err != nil {
 		fmt.Println(err)
