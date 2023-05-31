@@ -13,7 +13,7 @@ import (
 )
 
 func GetTaskStatusForCourse(jwtToken string, taskParam common.ResourceIdParam) (response.TasksStatusCourse, error) {
-	resBlockTasksStatus := response.TasksStatusCourse{}
+	resCourseTasksStatus := response.TasksStatusCourse{}
 	route, err := helpers2.GetRoute(
 		lib.RouteCoursesGetTaskStatusForCourse,
 		taskParam.KeyId,
@@ -21,14 +21,14 @@ func GetTaskStatusForCourse(jwtToken string, taskParam common.ResourceIdParam) (
 	)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTasksStatus, err
+		return resCourseTasksStatus, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTasksStatus, err
+		return resCourseTasksStatus, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -37,7 +37,7 @@ func GetTaskStatusForCourse(jwtToken string, taskParam common.ResourceIdParam) (
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTasksStatus, err
+		return resCourseTasksStatus, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -46,13 +46,13 @@ func GetTaskStatusForCourse(jwtToken string, taskParam common.ResourceIdParam) (
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTasksStatus, err
+		return resCourseTasksStatus, err
 	}
 
-	err = json.Unmarshal(body, &resBlockTasksStatus)
+	err = json.Unmarshal(body, &resCourseTasksStatus)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTasksStatus, err
+		return resCourseTasksStatus, err
 	}
-	return resBlockTasksStatus, nil
+	return resCourseTasksStatus, nil
 }

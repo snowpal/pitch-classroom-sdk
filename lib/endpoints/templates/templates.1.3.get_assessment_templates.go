@@ -12,18 +12,18 @@ import (
 )
 
 func GetAssessmentTemplates(jwtToken string) ([]response.AssessmentTemplate, error) {
-	resPodTemplates := response.AssessmentTemplates{}
+	resAssessmentTemplates := response.AssessmentTemplates{}
 	route, err := helpers2.GetRoute(lib.RouteTemplatesGetAssessmentTemplates)
 	if err != nil {
 		fmt.Println(err)
-		return resPodTemplates.Templates, err
+		return resAssessmentTemplates.Templates, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resPodTemplates.Templates, err
+		return resAssessmentTemplates.Templates, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -32,7 +32,7 @@ func GetAssessmentTemplates(jwtToken string) ([]response.AssessmentTemplate, err
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resPodTemplates.Templates, err
+		return resAssessmentTemplates.Templates, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -41,13 +41,13 @@ func GetAssessmentTemplates(jwtToken string) ([]response.AssessmentTemplate, err
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resPodTemplates.Templates, err
+		return resAssessmentTemplates.Templates, err
 	}
 
-	err = json.Unmarshal(body, &resPodTemplates)
+	err = json.Unmarshal(body, &resAssessmentTemplates)
 	if err != nil {
 		fmt.Println(err)
-		return resPodTemplates.Templates, err
+		return resAssessmentTemplates.Templates, err
 	}
-	return resPodTemplates.Templates, nil
+	return resAssessmentTemplates.Templates, nil
 }

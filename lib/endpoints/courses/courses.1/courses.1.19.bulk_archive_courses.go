@@ -9,11 +9,11 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/helpers"
 )
 
-type BulkArchiveBlocksReqBody struct {
-	BlockIds string `json:"blockIds"`
+type BulkArchiveCoursesReqBody struct {
+	CourseIds string `json:"courseIds"`
 }
 
-func BulkArchiveCourses(jwtToken string, reqBody BulkArchiveBlocksReqBody, keyId string) error {
+func BulkArchiveCourses(jwtToken string, reqBody BulkArchiveCoursesReqBody, keyId string) error {
 	requestBody, err := helpers.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)

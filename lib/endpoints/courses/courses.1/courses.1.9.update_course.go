@@ -15,35 +15,35 @@ import (
 
 type UpdateCourseReqBody struct {
 	Name              *string `json:"courseName"`
-	CourseId          *string `json:"blockId"`
+	CourseId          *string `json:"courseId"`
 	SimpleDescription *string `json:"simpleDescription"`
-	DueDate           *string `json:"blockDueDate"`
-	StartTime         *string `json:"blockStartTime"`
-	EndTime           *string `json:"blockEndTime"`
-	Color             *string `json:"blockColor"`
-	Tags              *string `json:"blockTags"`
+	DueDate           *string `json:"courseDueDate"`
+	StartTime         *string `json:"courseStartTime"`
+	EndTime           *string `json:"courseEndTime"`
+	Color             *string `json:"courseColor"`
+	Tags              *string `json:"courseTags"`
 	KanbanMode        *bool   `json:"kanbanMode"`
-	Completed         bool    `json:"blockCompleted"`
+	Completed         bool    `json:"courseCompleted"`
 }
 
 func UpdateCourse(jwtToken string, reqBody UpdateCourseReqBody, courseParam common.ResourceIdParam) (response.Course, error) {
-	resBlock := response.Course{}
+	resCourse := response.Course{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(lib.RouteCoursesUpdateCourse, courseParam.CourseId, courseParam.KeyId)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 
 	req, err := http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -51,7 +51,7 @@ func UpdateCourse(jwtToken string, reqBody UpdateCourseReqBody, courseParam comm
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -59,13 +59,13 @@ func UpdateCourse(jwtToken string, reqBody UpdateCourseReqBody, courseParam comm
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 
-	err = json.Unmarshal(body, &resBlock)
+	err = json.Unmarshal(body, &resCourse)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
-	return resBlock, nil
+	return resCourse, nil
 }

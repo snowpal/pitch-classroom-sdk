@@ -76,7 +76,7 @@ type ScalesKeysCourse struct {
 }
 
 type ScalesKeysAssessment struct {
-	BlockPod ScalesKeys `json:"assessment"`
+	Assessment ScalesKeys `json:"assessment"`
 }
 
 type ScalesKeys struct {

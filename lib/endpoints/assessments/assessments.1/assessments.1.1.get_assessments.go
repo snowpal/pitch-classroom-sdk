@@ -15,7 +15,7 @@ import (
 )
 
 func GetAssessments(jwtToken string, assessmentsParam request.GetAssessmentsParam) ([]response.Assessment, error) {
-	resPods := response.Assessments{}
+	resAssessments := response.Assessments{}
 	route, err := helpers.GetRoute(
 		lib.RouteAssessmentsGetAssessments,
 		*assessmentsParam.CourseId,
@@ -24,14 +24,14 @@ func GetAssessments(jwtToken string, assessmentsParam request.GetAssessmentsPara
 	)
 	if err != nil {
 		fmt.Println(err)
-		return resPods.Assessments, err
+		return resAssessments.Assessments, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resPods.Assessments, err
+		return resAssessments.Assessments, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -40,7 +40,7 @@ func GetAssessments(jwtToken string, assessmentsParam request.GetAssessmentsPara
 	_, err = helpers.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resPods.Assessments, err
+		return resAssessments.Assessments, err
 	}
 
 	defer helpers.CloseBody(res.Body)
@@ -49,13 +49,13 @@ func GetAssessments(jwtToken string, assessmentsParam request.GetAssessmentsPara
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resPods.Assessments, err
+		return resAssessments.Assessments, err
 	}
 
-	err = json.Unmarshal(body, &resPods)
+	err = json.Unmarshal(body, &resAssessments)
 	if err != nil {
 		fmt.Println(err)
-		return resPods.Assessments, err
+		return resAssessments.Assessments, err
 	}
-	return resPods.Assessments, nil
+	return resAssessments.Assessments, nil
 }

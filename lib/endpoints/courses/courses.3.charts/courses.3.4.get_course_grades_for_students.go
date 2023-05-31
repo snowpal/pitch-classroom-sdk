@@ -12,13 +12,13 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-type BlockGradesForStudents struct {
+type CourseGradesForStudents struct {
 	Course      response.CourseGrade       `json:"course"`
-	Assessments []response.AssessmentGrade `json:"pods"`
+	Assessments []response.AssessmentGrade `json:"assessments"`
 }
 
-func GetCourseGradesForStudents(jwtToken string, gradeParam common.ResourceIdParam) (BlockGradesForStudents, error) {
-	resBlockGrades := BlockGradesForStudents{}
+func GetCourseGradesForStudents(jwtToken string, gradeParam common.ResourceIdParam) (CourseGradesForStudents, error) {
+	resCourseGrades := CourseGradesForStudents{}
 	route, err := helpers2.GetRoute(
 		lib.RouteCoursesGetCourseGradesForStudents,
 		gradeParam.CourseId,
@@ -26,14 +26,14 @@ func GetCourseGradesForStudents(jwtToken string, gradeParam common.ResourceIdPar
 	)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockGrades, err
+		return resCourseGrades, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockGrades, err
+		return resCourseGrades, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -42,7 +42,7 @@ func GetCourseGradesForStudents(jwtToken string, gradeParam common.ResourceIdPar
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockGrades, err
+		return resCourseGrades, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -51,13 +51,13 @@ func GetCourseGradesForStudents(jwtToken string, gradeParam common.ResourceIdPar
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockGrades, err
+		return resCourseGrades, err
 	}
 
-	err = json.Unmarshal(body, &resBlockGrades)
+	err = json.Unmarshal(body, &resCourseGrades)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockGrades, err
+		return resCourseGrades, err
 	}
-	return resBlockGrades, nil
+	return resCourseGrades, nil
 }

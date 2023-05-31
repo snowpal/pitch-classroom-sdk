@@ -10,15 +10,15 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 )
 
-type BlockBulkShareReqBody struct {
-	Acl      string `json:"blockAcl"`
-	BlockIds string `json:"blockIds"`
+type CourseBulkShareReqBody struct {
+	Acl       string `json:"courseAcl"`
+	CourseIds string `json:"courseIds"`
 }
 
 func ShareCoursesWithCollaborators(
 	jwtToken string,
-	reqBody BlockBulkShareReqBody,
-	blockAclParam common.AclParam,
+	reqBody CourseBulkShareReqBody,
+	courseAclParam common.AclParam,
 ) error {
 	requestBody, err := helpers.GetRequestBody(reqBody)
 	if err != nil {
@@ -28,8 +28,8 @@ func ShareCoursesWithCollaborators(
 	payload := strings.NewReader(requestBody)
 	route, err := helpers.GetRoute(
 		lib.RouteCollaborationBulkShareCoursesWithCollaborators,
-		blockAclParam.UserId,
-		blockAclParam.ResourceIds.KeyId,
+		courseAclParam.UserId,
+		courseAclParam.ResourceIds.KeyId,
 	)
 	if err != nil {
 		fmt.Println(err)

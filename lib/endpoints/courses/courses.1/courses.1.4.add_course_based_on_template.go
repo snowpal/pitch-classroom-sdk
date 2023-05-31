@@ -14,23 +14,23 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-type BlockByTemplateParam struct {
-	KeyId        string
-	TemplateId   string
-	ExcludePods  bool
-	ExcludeTasks bool
+type CourseByTemplateParam struct {
+	KeyId              string
+	TemplateId         string
+	ExcludeAssessments bool
+	ExcludeTasks       bool
 }
 
 func AddCourseBasedOnTemplate(
 	jwtToken string,
 	reqBody request.AddCourseReqBody,
-	courseParam BlockByTemplateParam,
+	courseParam CourseByTemplateParam,
 ) (response.Course, error) {
-	resBlock := response.Course{}
+	resCourse := response.Course{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 	payload := strings.NewReader(requestBody)
 	var route string
@@ -38,17 +38,17 @@ func AddCourseBasedOnTemplate(
 		lib.RouteCoursesAddCourseBasedOnTemplate,
 		courseParam.KeyId,
 		courseParam.TemplateId,
-		strconv.FormatBool(courseParam.ExcludePods),
+		strconv.FormatBool(courseParam.ExcludeAssessments),
 		strconv.FormatBool(courseParam.ExcludeTasks),
 	)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 	req, err := http.NewRequest(http.MethodPost, route, payload)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -56,7 +56,7 @@ func AddCourseBasedOnTemplate(
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -64,13 +64,13 @@ func AddCourseBasedOnTemplate(
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 
-	err = json.Unmarshal(body, &resBlock)
+	err = json.Unmarshal(body, &resCourse)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
-	return resBlock, nil
+	return resCourse, nil
 }

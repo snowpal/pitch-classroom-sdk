@@ -17,25 +17,25 @@ import (
 func ShareCourseWithCollaborator(
 	jwtToken string,
 	reqBody request.CourseAclReqBody,
-	blockAclParam common.AclParam,
+	courseAclParam common.AclParam,
 ) (response.Course, error) {
-	resBlock := response.Course{}
+	resCourse := response.Course{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(
 		lib.RouteCollaborationShareCourseWithCollaborator,
-		blockAclParam.ResourceIds.CourseId,
-		blockAclParam.UserId,
-		blockAclParam.ResourceIds.KeyId,
+		courseAclParam.ResourceIds.CourseId,
+		courseAclParam.UserId,
+		courseAclParam.ResourceIds.KeyId,
 	)
 	req, err := http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -43,7 +43,7 @@ func ShareCourseWithCollaborator(
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -51,13 +51,13 @@ func ShareCourseWithCollaborator(
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 
-	err = json.Unmarshal(body, &resBlock)
+	err = json.Unmarshal(body, &resCourse)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
-	return resBlock, nil
+	return resCourse, nil
 }

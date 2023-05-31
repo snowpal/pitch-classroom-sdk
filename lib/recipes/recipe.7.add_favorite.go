@@ -56,13 +56,13 @@ func addFavorite(user response.User) (response.AddFavorite, error) {
 	if err != nil {
 		return favorite, err
 	}
-	block, err := recipes.AddCourse(user, FavCourseName, key)
+	course, err := recipes.AddCourse(user, FavCourseName, key)
 	if err != nil {
 		return favorite, err
 	}
 	favorite, err = favorites.AddCourseAsFavorite(
 		user.JwtToken,
-		common.ResourceIdParam{CourseId: block.ID, KeyId: key.ID})
+		common.ResourceIdParam{CourseId: course.ID, KeyId: key.ID})
 	if err != nil {
 		return favorite, err
 	}

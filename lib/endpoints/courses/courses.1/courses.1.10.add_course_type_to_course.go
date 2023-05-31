@@ -8,17 +8,17 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/helpers"
 )
 
-type AddBlockTypeIdParam struct {
-	KeyId       string
-	CourseId    string
-	BlockTypeId string
+type AddCourseTypeIdParam struct {
+	KeyId        string
+	CourseId     string
+	CourseTypeId string
 }
 
-func AddCourseTypeToCourse(jwtToken string, assessmentParam AddBlockTypeIdParam) error {
+func AddCourseTypeToCourse(jwtToken string, assessmentParam AddCourseTypeIdParam) error {
 	route, err := helpers.GetRoute(
 		lib.RouteCoursesAddCourseTypeToCourse,
 		assessmentParam.CourseId,
-		assessmentParam.BlockTypeId,
+		assessmentParam.CourseTypeId,
 		assessmentParam.KeyId,
 	)
 	if err != nil {

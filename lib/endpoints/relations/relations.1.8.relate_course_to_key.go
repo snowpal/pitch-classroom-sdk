@@ -13,7 +13,7 @@ func RelateCourseToKey(jwtToken string, relationParam request.KeyToCourseRelatio
 	route, err := helpers.GetRoute(
 		lib.RouteRelationsRelateCourseToKey,
 		relationParam.KeyId,
-		relationParam.TargetBlockId,
+		relationParam.TargetCourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

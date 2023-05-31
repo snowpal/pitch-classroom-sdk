@@ -11,7 +11,7 @@ import (
 )
 
 type PublishStudentGradeReqBody struct {
-	PodIds string `json:"podIds"`
+	AssessmentIds string `json:"assessmentIds"`
 }
 
 func BulkPublishAssessmentGradesForAStudent(

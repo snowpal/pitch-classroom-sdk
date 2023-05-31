@@ -19,11 +19,11 @@ func UpdateAssessmentScaleValue(
 	reqBody request.UpdateScaleValueReqBody,
 	assessmentParam common.ResourceIdParam,
 ) (response.UpdateAssessmentScaleValue, error) {
-	resPodScaleValue := response.UpdateAssessmentScaleValue{}
+	resAssessmentscaleValue := response.UpdateAssessmentScaleValue{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)
-		return resPodScaleValue, err
+		return resAssessmentscaleValue, err
 	}
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(
@@ -34,14 +34,14 @@ func UpdateAssessmentScaleValue(
 	)
 	if err != nil {
 		fmt.Println(err)
-		return resPodScaleValue, err
+		return resAssessmentscaleValue, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {
 		fmt.Println(err)
-		return resPodScaleValue, err
+		return resAssessmentscaleValue, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -50,7 +50,7 @@ func UpdateAssessmentScaleValue(
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resPodScaleValue, err
+		return resAssessmentscaleValue, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -59,13 +59,13 @@ func UpdateAssessmentScaleValue(
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resPodScaleValue, err
+		return resAssessmentscaleValue, err
 	}
 
-	err = json.Unmarshal(body, &resPodScaleValue)
+	err = json.Unmarshal(body, &resAssessmentscaleValue)
 	if err != nil {
 		fmt.Println(err)
-		return resPodScaleValue, err
+		return resAssessmentscaleValue, err
 	}
-	return resPodScaleValue, nil
+	return resAssessmentscaleValue, nil
 }

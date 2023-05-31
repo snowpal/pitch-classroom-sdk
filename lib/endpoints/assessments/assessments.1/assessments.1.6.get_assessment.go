@@ -13,18 +13,18 @@ import (
 )
 
 func GetAssessment(jwtToken string, assessmentParam common.ResourceIdParam) (response.Assessment, error) {
-	resPod := response.Assessment{}
+	resAssessment := response.Assessment{}
 	route, err := helpers2.GetRoute(lib.RouteAssessmentsGetAssessment, assessmentParam.AssessmentId, assessmentParam.KeyId, assessmentParam.CourseId)
 	if err != nil {
 		fmt.Println(err)
-		return resPod, err
+		return resAssessment, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resPod, err
+		return resAssessment, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -33,7 +33,7 @@ func GetAssessment(jwtToken string, assessmentParam common.ResourceIdParam) (res
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resPod, err
+		return resAssessment, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -42,13 +42,13 @@ func GetAssessment(jwtToken string, assessmentParam common.ResourceIdParam) (res
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resPod, err
+		return resAssessment, err
 	}
 
-	err = json.Unmarshal(body, &resPod)
+	err = json.Unmarshal(body, &resAssessment)
 	if err != nil {
 		fmt.Println(err)
-		return resPod, err
+		return resAssessment, err
 	}
-	return resPod, nil
+	return resAssessment, nil
 }

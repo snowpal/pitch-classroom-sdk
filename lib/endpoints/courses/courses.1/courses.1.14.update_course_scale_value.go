@@ -18,12 +18,12 @@ func UpdateCourseScaleValue(
 	jwtToken string,
 	reqBody request.UpdateScaleValueReqBody,
 	courseParam common.ResourceIdParam,
-) (response.UpdateBlockScaleValue, error) {
-	resBlockScaleValue := response.UpdateBlockScaleValue{}
+) (response.UpdateCourseScaleValue, error) {
+	resCourseScaleValue := response.UpdateCourseScaleValue{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockScaleValue, err
+		return resCourseScaleValue, err
 	}
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(
@@ -33,14 +33,14 @@ func UpdateCourseScaleValue(
 	)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockScaleValue, err
+		return resCourseScaleValue, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockScaleValue, err
+		return resCourseScaleValue, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -49,7 +49,7 @@ func UpdateCourseScaleValue(
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockScaleValue, err
+		return resCourseScaleValue, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -58,13 +58,13 @@ func UpdateCourseScaleValue(
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockScaleValue, err
+		return resCourseScaleValue, err
 	}
 
-	err = json.Unmarshal(body, &resBlockScaleValue)
+	err = json.Unmarshal(body, &resCourseScaleValue)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockScaleValue, err
+		return resCourseScaleValue, err
 	}
-	return resBlockScaleValue, nil
+	return resCourseScaleValue, nil
 }

@@ -13,7 +13,7 @@ import (
 )
 
 func GetLinkedAssessments(jwtToken string, courseParam common.ResourceIdParam) (response.LinkedResources, error) {
-	resLinkedPods := response.LinkedResources{}
+	resLinkedAssessments := response.LinkedResources{}
 	route, err := helpers2.GetRoute(
 		lib.RouteCoursesGetLinkedAssessments,
 		courseParam.KeyId,
@@ -21,14 +21,14 @@ func GetLinkedAssessments(jwtToken string, courseParam common.ResourceIdParam) (
 	)
 	if err != nil {
 		fmt.Println(err)
-		return resLinkedPods, err
+		return resLinkedAssessments, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resLinkedPods, err
+		return resLinkedAssessments, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -37,7 +37,7 @@ func GetLinkedAssessments(jwtToken string, courseParam common.ResourceIdParam) (
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resLinkedPods, err
+		return resLinkedAssessments, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -46,13 +46,13 @@ func GetLinkedAssessments(jwtToken string, courseParam common.ResourceIdParam) (
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resLinkedPods, err
+		return resLinkedAssessments, err
 	}
 
-	err = json.Unmarshal(body, &resLinkedPods)
+	err = json.Unmarshal(body, &resLinkedAssessments)
 	if err != nil {
 		fmt.Println(err)
-		return resLinkedPods, err
+		return resLinkedAssessments, err
 	}
-	return resLinkedPods, nil
+	return resLinkedAssessments, nil
 }

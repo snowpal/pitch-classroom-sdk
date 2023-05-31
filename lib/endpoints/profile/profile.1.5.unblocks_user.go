@@ -8,8 +8,8 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/helpers"
 )
 
-func UnblocksUser(jwtToken string, userId string) error {
-	route, err := helpers.GetRoute(lib.RouteProfileUnblocksUser, userId)
+func UnblockUser(jwtToken string, userId string) error {
+	route, err := helpers.GetRoute(lib.RouteProfileUnblockUser, userId)
 	if err != nil {
 		fmt.Println(err)
 		return err

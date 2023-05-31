@@ -1,4 +1,4 @@
-package podTypes
+package assessmentTypes
 
 import (
 	"encoding/json"
@@ -13,16 +13,16 @@ import (
 )
 
 func GetAssessmentTypes(jwtToken string, includeCounts bool) ([]response.AssessmentType, error) {
-	resPodTypes := response.AssessmentTypes{}
+	resAssessmentTypes := response.AssessmentTypes{}
 	route, err := helpers2.GetRoute(lib.RouteAssessmentTypesGetAssessmentTypes, strconv.FormatBool(includeCounts))
 	if err != nil {
 		fmt.Println(err)
-		return resPodTypes.AssessmentTypes, err
+		return resAssessmentTypes.AssessmentTypes, err
 	}
 	req, err := http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resPodTypes.AssessmentTypes, err
+		return resAssessmentTypes.AssessmentTypes, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -30,7 +30,7 @@ func GetAssessmentTypes(jwtToken string, includeCounts bool) ([]response.Assessm
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resPodTypes.AssessmentTypes, err
+		return resAssessmentTypes.AssessmentTypes, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -38,13 +38,13 @@ func GetAssessmentTypes(jwtToken string, includeCounts bool) ([]response.Assessm
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resPodTypes.AssessmentTypes, err
+		return resAssessmentTypes.AssessmentTypes, err
 	}
 
-	err = json.Unmarshal(body, &resPodTypes)
+	err = json.Unmarshal(body, &resAssessmentTypes)
 	if err != nil {
 		fmt.Println(err)
-		return resPodTypes.AssessmentTypes, err
+		return resAssessmentTypes.AssessmentTypes, err
 	}
-	return resPodTypes.AssessmentTypes, nil
+	return resAssessmentTypes.AssessmentTypes, nil
 }

@@ -13,18 +13,18 @@ import (
 )
 
 func GetAssessmentsAvailableToBeLinked(jwtToken string, assessmentParam common.ResourceIdParam) ([]response.Assessment, error) {
-	resPods := response.Assessments{}
+	resAssessments := response.Assessments{}
 	route, err := helpers2.GetRoute(lib.RouteAssessmentsGetAssessmentsAvailableToBeLinkedToThisCourse, assessmentParam.CourseId, assessmentParam.KeyId)
 	if err != nil {
 		fmt.Println(err)
-		return resPods.Assessments, err
+		return resAssessments.Assessments, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resPods.Assessments, err
+		return resAssessments.Assessments, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -33,7 +33,7 @@ func GetAssessmentsAvailableToBeLinked(jwtToken string, assessmentParam common.R
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resPods.Assessments, err
+		return resAssessments.Assessments, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -42,13 +42,13 @@ func GetAssessmentsAvailableToBeLinked(jwtToken string, assessmentParam common.R
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resPods.Assessments, err
+		return resAssessments.Assessments, err
 	}
 
-	err = json.Unmarshal(body, &resPods)
+	err = json.Unmarshal(body, &resAssessments)
 	if err != nil {
 		fmt.Println(err)
-		return resPods.Assessments, err
+		return resAssessments.Assessments, err
 	}
-	return resPods.Assessments, nil
+	return resAssessments.Assessments, nil
 }

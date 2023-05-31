@@ -12,18 +12,18 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func UnshareCourseFromCollaborator(jwtToken string, blockAclParam common.AclParam) (response.Course, error) {
-	resBlock := response.Course{}
+func UnshareCourseFromCollaborator(jwtToken string, courseAclParam common.AclParam) (response.Course, error) {
+	resCourse := response.Course{}
 	route, err := helpers2.GetRoute(
 		lib.RouteCollaborationUnshareCourseFromCollaborator,
-		blockAclParam.ResourceIds.CourseId,
-		blockAclParam.UserId,
-		blockAclParam.ResourceIds.KeyId,
+		courseAclParam.ResourceIds.CourseId,
+		courseAclParam.UserId,
+		courseAclParam.ResourceIds.KeyId,
 	)
 	req, err := http.NewRequest(http.MethodPatch, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -31,7 +31,7 @@ func UnshareCourseFromCollaborator(jwtToken string, blockAclParam common.AclPara
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -39,13 +39,13 @@ func UnshareCourseFromCollaborator(jwtToken string, blockAclParam common.AclPara
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 
-	err = json.Unmarshal(body, &resBlock)
+	err = json.Unmarshal(body, &resCourse)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
-	return resBlock, nil
+	return resCourse, nil
 }

@@ -68,39 +68,39 @@ func AddTeacherKey(user response.User, keyName string) (response.Key, error) {
 	return newKey, nil
 }
 
-func AddCourse(user response.User, blockName string, key response.Key) (response.Course, error) {
-	newBlock, err := courses.AddCourse(
+func AddCourse(user response.User, coursesName string, key response.Key) (response.Course, error) {
+	newCourse, err := courses.AddCourse(
 		user.JwtToken,
-		request.AddCourseReqBody{Name: blockName},
+		request.AddCourseReqBody{Name: coursesName},
 		key.ID)
 	if err != nil {
-		return newBlock, err
+		return newCourse, err
 	}
-	return newBlock, nil
+	return newCourse, nil
 }
 
-func AddPodToBlock(user response.User, podName string, block response.Course) (response.Assessment, error) {
-	newPod, err := assessments.AddAssessment(
+func AddAssessmentToCourse(user response.User, assessmentName string, course response.Course) (response.Assessment, error) {
+	newAssessment, err := assessments.AddAssessment(
 		user.JwtToken,
-		request.AddAssessmentReqBody{Name: podName},
-		common.ResourceIdParam{CourseId: block.ID, KeyId: block.Key.ID})
+		request.AddAssessmentReqBody{Name: assessmentName},
+		common.ResourceIdParam{CourseId: course.ID, KeyId: course.Key.ID})
 	if err != nil {
-		return newPod, err
+		return newAssessment, err
 	}
-	return newPod, nil
+	return newAssessment, nil
 }
 
-func SearchUserAndShareBlock(user response.User, block response.Course, searchToken string, acl string) error {
-	blockIdParam := common.ResourceIdParam{
-		CourseId: block.ID,
-		KeyId:    block.Key.ID,
+func SearchUserAndShareCourse(user response.User, course response.Course, searchToken string, acl string) error {
+	courseIdParam := common.ResourceIdParam{
+		CourseId: course.ID,
+		KeyId:    course.Key.ID,
 	}
 
 	searchedUsers, err := collaboration.GetUsersThisCourseCanBeSharedWith(
 		user.JwtToken,
 		common.SearchUsersParam{
 			SearchToken: searchToken,
-			ResourceIds: blockIdParam,
+			ResourceIds: courseIdParam,
 		})
 	if err != nil {
 		return err
@@ -113,7 +113,7 @@ func SearchUserAndShareBlock(user response.User, block response.Course, searchTo
 		request.CourseAclReqBody{Acl: acl},
 		common.AclParam{
 			UserId:      searchedUsers[0].ID,
-			ResourceIds: blockIdParam,
+			ResourceIds: courseIdParam,
 		})
 	if err != nil {
 		return err

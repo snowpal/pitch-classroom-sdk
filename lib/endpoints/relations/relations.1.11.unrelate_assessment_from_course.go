@@ -9,7 +9,7 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 )
 
-func unrelateBlockToPod(jwtToken string, route string) error {
+func unrelateCourseToAssessment(jwtToken string, route string) error {
 	req, err := http.NewRequest(http.MethodPatch, route, nil)
 	if err != nil {
 		fmt.Println(err)
@@ -30,16 +30,16 @@ func UnrelateCourseFromAssessment(jwtToken string, relationParam request.CourseT
 	route, err := helpers.GetRoute(
 		lib.RouteRelationsUnrelateAssessmentFromCourse,
 		relationParam.CourseId,
-		relationParam.TargetPodId,
+		relationParam.TargetAssessmentId,
 		relationParam.TargetKeyId,
-		relationParam.TargetBlockId,
+		relationParam.TargetCourseId,
 	)
 	if err != nil {
 		fmt.Println(err)
 		return err
 	}
 
-	err = unrelateBlockToPod(jwtToken, route)
+	err = unrelateCourseToAssessment(jwtToken, route)
 	if err != nil {
 		fmt.Println(err)
 		return err
