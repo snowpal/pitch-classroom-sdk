@@ -21,7 +21,7 @@ func AssignCourseTask(jwtToken string, reqBody request.AssignTaskReqBody, taskPa
 		lib.RouteCoursesAssignCourseTask,
 		*taskParam.TaskId,
 		taskParam.KeyId,
-		*taskParam.BlockId,
+		*taskParam.CourseId,
 	)
 	req, err := http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {

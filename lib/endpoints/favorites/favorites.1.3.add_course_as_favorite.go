@@ -16,7 +16,7 @@ func AddCourseAsFavorite(jwtToken string, favoriteParam common.ResourceIdParam) 
 	resFavorite := response.AddFavorite{}
 	route, err := helpers2.GetRoute(
 		lib.RouteFavoritesAddCourseAsFavorite,
-		favoriteParam.BlockId,
+		favoriteParam.CourseId,
 		favoriteParam.KeyId,
 	)
 	if err != nil {

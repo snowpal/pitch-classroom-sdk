@@ -17,9 +17,9 @@ import (
 func AddAssessmentBasedOnTemplate(
 	jwtToken string,
 	reqBody request.AddAssessmentReqBody,
-	podParam request.PodByTemplateParam,
-) (response.Pod, error) {
-	resPod := response.Pod{}
+	assessmentParam request.AssessmentByTemplateParam,
+) (response.Assessment, error) {
+	resPod := response.Assessment{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)
@@ -30,10 +30,10 @@ func AddAssessmentBasedOnTemplate(
 	var route string
 	route, err = helpers2.GetRoute(
 		lib.RouteAssessmentsAddAssessmentBasedOnTemplate,
-		*podParam.BlockId,
-		podParam.KeyId,
-		podParam.TemplateId,
-		strconv.FormatBool(podParam.ExcludeTasks),
+		*assessmentParam.CourseId,
+		assessmentParam.KeyId,
+		assessmentParam.TemplateId,
+		strconv.FormatBool(assessmentParam.ExcludeTasks),
 	)
 	if err != nil {
 		fmt.Println(err)

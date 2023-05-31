@@ -24,7 +24,7 @@ type BlockByTemplateParam struct {
 func AddCourseBasedOnTemplate(
 	jwtToken string,
 	reqBody request.AddCourseReqBody,
-	blockParam BlockByTemplateParam,
+	courseParam BlockByTemplateParam,
 ) (response.Course, error) {
 	resBlock := response.Course{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
@@ -36,10 +36,10 @@ func AddCourseBasedOnTemplate(
 	var route string
 	route, err = helpers2.GetRoute(
 		lib.RouteCoursesAddCourseBasedOnTemplate,
-		blockParam.KeyId,
-		blockParam.TemplateId,
-		strconv.FormatBool(blockParam.ExcludePods),
-		strconv.FormatBool(blockParam.ExcludeTasks),
+		courseParam.KeyId,
+		courseParam.TemplateId,
+		strconv.FormatBool(courseParam.ExcludePods),
+		strconv.FormatBool(courseParam.ExcludeTasks),
 	)
 	if err != nil {
 		fmt.Println(err)

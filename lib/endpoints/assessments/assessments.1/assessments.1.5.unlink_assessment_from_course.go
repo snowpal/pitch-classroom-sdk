@@ -9,8 +9,8 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 )
 
-func UnlinkAssessmentFromCourse(jwtToken string, podParam common.ResourceIdParam) error {
-	route, err := helpers.GetRoute(lib.RouteAssessmentsUnlinkAssessmentFromCourse, podParam.BlockId, podParam.PodId, podParam.KeyId)
+func UnlinkAssessmentFromCourse(jwtToken string, assessmentParam common.ResourceIdParam) error {
+	route, err := helpers.GetRoute(lib.RouteAssessmentsUnlinkAssessmentFromCourse, assessmentParam.CourseId, assessmentParam.AssessmentId, assessmentParam.KeyId)
 	if err != nil {
 		fmt.Println(err)
 		return err

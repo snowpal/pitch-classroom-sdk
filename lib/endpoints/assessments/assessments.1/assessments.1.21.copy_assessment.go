@@ -10,16 +10,16 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 )
 
-func CopyAssessment(jwtToken string, podParam request.CopyMovePodParam) error {
+func CopyAssessment(jwtToken string, assessmentParam request.CopyMoveAssessmentParam) error {
 	route, err := helpers.GetRoute(
 		lib.RouteAssessmentsCopyAssessment,
-		podParam.PodId,
-		podParam.KeyId,
-		podParam.BlockId,
-		strconv.FormatBool(podParam.AllTasks),
-		strconv.FormatBool(podParam.AllChecklists),
-		podParam.TargetKeyId,
-		podParam.TargetBlockId,
+		assessmentParam.AssessmentId,
+		assessmentParam.KeyId,
+		assessmentParam.CourseId,
+		strconv.FormatBool(assessmentParam.AllTasks),
+		strconv.FormatBool(assessmentParam.AllChecklists),
+		assessmentParam.TargetKeyId,
+		assessmentParam.TargetCourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

@@ -29,7 +29,7 @@ func unrelateAssessmentFromAssessment(jwtToken string, route string) error {
 func UnrelateAssessmentFromAssessment(jwtToken string, relationParam request.AssessmentToAssessmentRelationParam) error {
 	route, err := helpers.GetRoute(
 		lib.RouteRelationsUnrelateAssessmentFromAssessment,
-		relationParam.PodId,
+		relationParam.AssessmentId,
 		relationParam.SourceKeyId,
 		relationParam.SourceBlockId,
 		relationParam.TargetPodId,

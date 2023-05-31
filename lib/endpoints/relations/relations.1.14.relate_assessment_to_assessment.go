@@ -29,7 +29,7 @@ func relatePodToPod(jwtToken string, route string) error {
 func RelateAssessmentToAssessment(jwtToken string, relationParam request.AssessmentToAssessmentRelationParam) error {
 	route, err := helpers.GetRoute(
 		lib.RouteRelationsRelateAssessmentToAssessment,
-		relationParam.PodId,
+		relationParam.AssessmentId,
 		relationParam.SourceKeyId,
 		relationParam.SourceBlockId,
 		relationParam.TargetPodId,

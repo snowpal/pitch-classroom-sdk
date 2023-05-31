@@ -19,9 +19,9 @@ func GetCommentSubmissionsAsStudent(
 	resComments := response.Comments{}
 	route, err := helpers2.GetRoute(
 		lib.RouteTeacherKeysGetCommentSubmissionsAsStudent,
-		submissionParam.PodId,
+		submissionParam.AssessmentId,
 		submissionParam.KeyId,
-		submissionParam.BlockId,
+		submissionParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

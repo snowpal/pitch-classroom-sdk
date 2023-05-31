@@ -19,7 +19,7 @@ func GetCourseAndAssessmentsGradesForAStudentAsTeacher(
 	resStudentGrades := response.StudentGradeForCourseAndAssessment{}
 	route, err := helpers2.GetRoute(
 		lib.RouteTeacherKeysGetCourseAndAssessmentsGradesForAStudentAsTeacher,
-		classroomParam.ResourceIds.BlockId,
+		classroomParam.ResourceIds.CourseId,
 		classroomParam.StudentId,
 		classroomParam.ResourceIds.KeyId,
 	)

@@ -28,7 +28,7 @@ func ShareCourseWithCollaborator(
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(
 		lib.RouteCollaborationShareCourseWithCollaborator,
-		blockAclParam.ResourceIds.BlockId,
+		blockAclParam.ResourceIds.CourseId,
 		blockAclParam.UserId,
 		blockAclParam.ResourceIds.KeyId,
 	)

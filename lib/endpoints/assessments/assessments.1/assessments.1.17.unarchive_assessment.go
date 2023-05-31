@@ -9,12 +9,12 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 )
 
-func UnarchiveAssessment(jwtToken string, podParam common.ResourceIdParam) error {
+func UnarchiveAssessment(jwtToken string, assessmentParam common.ResourceIdParam) error {
 	route, err := helpers.GetRoute(
 		lib.RouteAssessmentsUnarchiveAssessment,
-		podParam.PodId,
-		podParam.KeyId,
-		podParam.BlockId,
+		assessmentParam.AssessmentId,
+		assessmentParam.KeyId,
+		assessmentParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

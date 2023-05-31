@@ -14,7 +14,7 @@ func DeleteCourseTask(jwtToken string, taskParam request.TaskIdParam) error {
 		lib.RouteCoursesDeleteCourseTask,
 		*taskParam.TaskId,
 		taskParam.KeyId,
-		*taskParam.BlockId,
+		*taskParam.CourseId,
 	)
 	req, err := http.NewRequest(http.MethodDelete, route, nil)
 	if err != nil {

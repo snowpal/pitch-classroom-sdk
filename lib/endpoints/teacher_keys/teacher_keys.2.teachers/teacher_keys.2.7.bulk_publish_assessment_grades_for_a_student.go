@@ -29,7 +29,7 @@ func BulkPublishAssessmentGradesForAStudent(
 		lib.RouteTeacherKeysBulkPublishAssessmentGradesForAStudent,
 		classroomParam.StudentId,
 		classroomParam.ResourceIds.KeyId,
-		classroomParam.ResourceIds.BlockId,
+		classroomParam.ResourceIds.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

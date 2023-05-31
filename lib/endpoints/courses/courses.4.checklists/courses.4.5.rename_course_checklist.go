@@ -27,7 +27,7 @@ func RenameCourseChecklist(
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(
 		lib.RouteCoursesRenameCourseChecklist,
-		*checklistParam.BlockId,
+		*checklistParam.CourseId,
 		*checklistParam.ChecklistId,
 		checklistParam.KeyId,
 	)

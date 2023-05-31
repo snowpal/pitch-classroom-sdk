@@ -14,7 +14,7 @@ import (
 func PublishStudentGradesForACourse(
 	jwtToken string,
 	reqBody request.PublishGradesReqBody,
-	podParam common.ResourceIdParam,
+	assessmentParam common.ResourceIdParam,
 ) error {
 	requestBody, err := helpers.GetRequestBody(reqBody)
 	if err != nil {
@@ -24,8 +24,8 @@ func PublishStudentGradesForACourse(
 	payload := strings.NewReader(requestBody)
 	route, err := helpers.GetRoute(
 		lib.RouteTeacherKeysPublishStudentGradesForACourse,
-		podParam.BlockId,
-		podParam.KeyId,
+		assessmentParam.CourseId,
+		assessmentParam.KeyId,
 	)
 	if err != nil {
 		fmt.Println(err)

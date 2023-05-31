@@ -21,7 +21,7 @@ func UnassignCourseTask(jwtToken string, reqBody request.AssignTaskReqBody, task
 		lib.RouteCoursesUnassignCourseTask,
 		*taskParam.TaskId,
 		taskParam.KeyId,
-		*taskParam.BlockId,
+		*taskParam.CourseId,
 	)
 	req, err := http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {

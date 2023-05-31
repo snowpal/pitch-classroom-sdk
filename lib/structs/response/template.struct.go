@@ -23,11 +23,11 @@ type KeyTemplate struct {
 	LastModified string `json:"lastModified"`
 }
 
-type BlockTemplates struct {
-	Templates []BlockTemplate `json:"templates"`
+type CourseTemplates struct {
+	Templates []CourseTemplate `json:"templates"`
 }
 
-type BlockTemplate struct {
+type CourseTemplate struct {
 	ID            string  `json:"id"`
 	Name          string  `json:"templateName"`
 	Description   string  `json:"templateDescription"`
@@ -39,19 +39,19 @@ type BlockTemplate struct {
 	LastModified  string  `json:"lastModified"`
 }
 
-type PodTemplates struct {
-	Templates []PodTemplate `json:"templates"`
+type AssessmentTemplates struct {
+	Templates []AssessmentTemplate `json:"templates"`
 }
 
-type PodTemplate struct {
-	ID              string  `json:"id"`
-	Name            string  `json:"templateName"`
-	Description     string  `json:"templateDescription"`
-	Color           string  `json:"color"`
-	Tags            string  `json:"tags"`
-	PreviewUrl      string  `json:"previewUrl"`
-	Archived        bool    `json:"archived"`
-	KeyTemplateId   *string `json:"keyTemplateId"`
-	BlockTemplateId *string `json:"blockTemplateId"`
-	LastModified    string  `json:"lastModified"`
+type AssessmentTemplate struct {
+	ID               string  `json:"id"`
+	Name             string  `json:"templateName"`
+	Description      string  `json:"templateDescription"`
+	Color            string  `json:"color"`
+	Tags             string  `json:"tags"`
+	PreviewUrl       string  `json:"previewUrl"`
+	Archived         bool    `json:"archived"`
+	KeyTemplateId    *string `json:"keyTemplateId"`
+	CourseTemplateId *string `json:"courseTemplateId"`
+	LastModified     string  `json:"lastModified"`
 }

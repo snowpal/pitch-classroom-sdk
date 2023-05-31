@@ -12,10 +12,10 @@ import (
 func DeleteAssessmentChecklist(jwtToken string, checklistParam request.ChecklistIdParam) error {
 	route, err := helpers.GetRoute(
 		lib.RouteAssessmentsDeleteAssessmentChecklist,
-		*checklistParam.PodId,
+		*checklistParam.AssessmentId,
 		*checklistParam.ChecklistId,
 		checklistParam.KeyId,
-		*checklistParam.BlockId,
+		*checklistParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

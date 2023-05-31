@@ -16,7 +16,7 @@ func GetCourseChecklists(jwtToken string, checklistParam request.ChecklistIdPara
 	resChecklists := response.Checklists{}
 	route, err := helpers2.GetRoute(
 		lib.RouteCoursesGetCourseChecklists,
-		*checklistParam.BlockId,
+		*checklistParam.CourseId,
 		checklistParam.KeyId,
 	)
 	if err != nil {

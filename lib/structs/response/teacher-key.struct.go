@@ -8,7 +8,7 @@ type StudentGradeForCourseAndAssessment struct {
 	ID           string                       `json:"id"`
 	Name         string                       `json:"courseName"`
 	Key          common2.SlimKey              `json:"key"`
-	Pod          *common2.SlimAssessment      `json:"assessment"`
+	Assessment   *common2.SlimAssessment      `json:"assessment"`
 	StudentGrade *StudentGrade                `json:"scaleValue"`
 	Assessments  *[]StudentGradeForAssessment `json:"assessments"`
 	Students     *[]Student                   `json:"students"`

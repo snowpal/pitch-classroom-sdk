@@ -18,14 +18,14 @@ type RecentlyModifiedKeys struct {
 }
 
 type RecentlyModifiedResources struct {
-	Blocks []DashboardCourse     `json:"courses"`
-	Pods   []DashboardAssessment `json:"assessments"`
+	Courses     []DashboardCourse     `json:"courses"`
+	Assessments []DashboardAssessment `json:"assessments"`
 }
 
 type DueShortlyResources struct {
-	Blocks *[]DashboardCourse    `json:"courses"`
-	Pods   []DashboardAssessment `json:"assessments"`
-	Tasks  []DashboardTask       `json:"tasks"`
+	Courses     *[]DashboardCourse    `json:"courses"`
+	Assessments []DashboardAssessment `json:"assessments"`
+	Tasks       []DashboardTask       `json:"tasks"`
 }
 
 type DashboardCourse struct {

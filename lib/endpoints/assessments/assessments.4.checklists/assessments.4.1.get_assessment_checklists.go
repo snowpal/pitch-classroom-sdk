@@ -16,9 +16,9 @@ func GetAssessmentChecklists(jwtToken string, checklistParam request.ChecklistId
 	resChecklists := response.Checklists{}
 	route, err := helpers2.GetRoute(
 		lib.RouteAssessmentsGetAssessmentChecklists,
-		*checklistParam.PodId,
+		*checklistParam.AssessmentId,
 		checklistParam.KeyId,
-		*checklistParam.BlockId,
+		*checklistParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

@@ -29,7 +29,7 @@ func unrelateBlockToPod(jwtToken string, route string) error {
 func UnrelateCourseFromAssessment(jwtToken string, relationParam request.CourseToAssessmentRelationParam) error {
 	route, err := helpers.GetRoute(
 		lib.RouteRelationsUnrelateAssessmentFromCourse,
-		relationParam.BlockId,
+		relationParam.CourseId,
 		relationParam.TargetPodId,
 		relationParam.TargetKeyId,
 		relationParam.TargetBlockId,

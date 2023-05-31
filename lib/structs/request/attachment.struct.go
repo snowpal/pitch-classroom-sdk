@@ -12,6 +12,6 @@ type AttachmentReqBody struct {
 type AttachmentParam struct {
 	AttachmentId *string
 	KeyId        string
-	BlockId      *string
-	PodId        *string
+	CourseId     *string
+	AssessmentId *string
 }

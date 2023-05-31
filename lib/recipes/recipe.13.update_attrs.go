@@ -66,8 +66,8 @@ func UpdateAttributes() {
 	err = attributes.UpdateCourseDisplayAttributes(
 		user.JwtToken,
 		common.ResourceIdParam{
-			BlockId: block.ID,
-			KeyId:   block.Key.ID,
+			CourseId: block.ID,
+			KeyId:    block.Key.ID,
 		},
 		request.ResourceAttributeReqBody{
 			AttributeNames: "tags,rendering_mode",

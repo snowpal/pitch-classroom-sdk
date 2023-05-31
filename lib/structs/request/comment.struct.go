@@ -6,8 +6,8 @@ type CommentReqBody struct {
 }
 
 type CommentIdParam struct {
-	KeyId     string
-	BlockId   *string
-	PodId     *string
-	CommentId *string
+	KeyId        string
+	CourseId     *string
+	AssessmentId *string
+	CommentId    *string
 }

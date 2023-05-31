@@ -28,7 +28,7 @@ func UpdateCourseAcl(
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(
 		lib.RouteCollaborationUpdateCourseAcl,
-		blockAclParam.ResourceIds.BlockId,
+		blockAclParam.ResourceIds.CourseId,
 		blockAclParam.UserId,
 		blockAclParam.ResourceIds.KeyId,
 	)

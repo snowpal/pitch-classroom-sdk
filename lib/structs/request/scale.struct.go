@@ -11,8 +11,8 @@ type UpdateScaleValueReqBody struct {
 }
 
 type ScaleIdParam struct {
-	ScaleId string
-	KeyId   string
-	BlockId *string
-	PodId   *string
+	ScaleId      string
+	KeyId        string
+	CourseId     *string
+	AssessmentId *string
 }

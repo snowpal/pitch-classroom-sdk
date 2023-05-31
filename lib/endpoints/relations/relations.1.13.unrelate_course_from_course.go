@@ -12,7 +12,7 @@ import (
 func UnrelateCourseFromCourse(jwtToken string, relationParam request.CourseToCourseRelationParam) error {
 	route, err := helpers.GetRoute(
 		lib.RouteRelationsUnrelateCourseFromCourse,
-		relationParam.BlockId,
+		relationParam.CourseId,
 		relationParam.TargetBlockId,
 	)
 	if err != nil {

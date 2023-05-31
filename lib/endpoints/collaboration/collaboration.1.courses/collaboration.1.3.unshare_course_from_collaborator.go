@@ -16,7 +16,7 @@ func UnshareCourseFromCollaborator(jwtToken string, blockAclParam common.AclPara
 	resBlock := response.Course{}
 	route, err := helpers2.GetRoute(
 		lib.RouteCollaborationUnshareCourseFromCollaborator,
-		blockAclParam.ResourceIds.BlockId,
+		blockAclParam.ResourceIds.CourseId,
 		blockAclParam.UserId,
 		blockAclParam.ResourceIds.KeyId,
 	)

@@ -12,7 +12,7 @@ import (
 func RelateCourseToCourse(jwtToken string, relationParam request.CourseToCourseRelationParam) error {
 	route, err := helpers.GetRoute(
 		lib.RouteRelationsRelateCourseToCourse,
-		relationParam.BlockId,
+		relationParam.CourseId,
 		relationParam.TargetBlockId,
 	)
 	if err != nil {

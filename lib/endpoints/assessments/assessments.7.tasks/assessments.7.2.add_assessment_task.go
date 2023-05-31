@@ -27,9 +27,9 @@ func AddAssessmentTask(
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(
 		lib.RouteAssessmentsAddAssessmentTask,
-		*taskParam.PodId,
+		*taskParam.AssessmentId,
 		taskParam.KeyId,
-		*taskParam.BlockId,
+		*taskParam.CourseId,
 	)
 	req, err := http.NewRequest(http.MethodPost, route, payload)
 	if err != nil {

@@ -27,9 +27,9 @@ func AddAssessmentAttachment(
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(
 		lib.RouteAssessmentsAddAssessmentAttachment,
-		*attachmentParam.PodId,
+		*attachmentParam.AssessmentId,
 		attachmentParam.KeyId,
-		*attachmentParam.BlockId,
+		*attachmentParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

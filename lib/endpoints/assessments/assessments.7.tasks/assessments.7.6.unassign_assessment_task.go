@@ -21,8 +21,8 @@ func UnassignAssessmentTask(jwtToken string, reqBody request.AssignTaskReqBody, 
 		lib.RouteAssessmentsUnassignAssessmentTask,
 		*taskParam.TaskId,
 		taskParam.KeyId,
-		*taskParam.BlockId,
-		*taskParam.PodId,
+		*taskParam.CourseId,
+		*taskParam.AssessmentId,
 	)
 	req, err := http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {

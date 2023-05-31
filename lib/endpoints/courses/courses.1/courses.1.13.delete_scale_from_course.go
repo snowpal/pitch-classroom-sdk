@@ -9,11 +9,11 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 )
 
-func DeleteScaleFromCourse(jwtToken string, blockParam common.ResourceIdParam) error {
+func DeleteScaleFromCourse(jwtToken string, courseParam common.ResourceIdParam) error {
 	route, err := helpers.GetRoute(
 		lib.RouteCoursesDeleteScaleFromCourse,
-		blockParam.BlockId,
-		blockParam.KeyId,
+		courseParam.CourseId,
+		courseParam.KeyId,
 	)
 	if err != nil {
 		fmt.Println(err)

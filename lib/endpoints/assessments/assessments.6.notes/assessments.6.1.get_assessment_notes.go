@@ -16,9 +16,9 @@ func GetAssessmentNotes(jwtToken string, noteParam request.NoteIdParam) ([]respo
 	resNotes := response.Notes{}
 	route, err := helpers2.GetRoute(
 		lib.RouteAssessmentsGetAssessmentNotes,
-		*noteParam.PodId,
+		*noteParam.AssessmentId,
 		noteParam.KeyId,
-		*noteParam.BlockId,
+		*noteParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

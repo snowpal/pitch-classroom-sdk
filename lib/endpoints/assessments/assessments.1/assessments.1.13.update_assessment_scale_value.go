@@ -17,9 +17,9 @@ import (
 func UpdateAssessmentScaleValue(
 	jwtToken string,
 	reqBody request.UpdateScaleValueReqBody,
-	podParam common.ResourceIdParam,
-) (response.UpdatePodScaleValue, error) {
-	resPodScaleValue := response.UpdatePodScaleValue{}
+	assessmentParam common.ResourceIdParam,
+) (response.UpdateAssessmentScaleValue, error) {
+	resPodScaleValue := response.UpdateAssessmentScaleValue{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)
@@ -28,9 +28,9 @@ func UpdateAssessmentScaleValue(
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(
 		lib.RouteAssessmentsUpdateAssessmentScaleValue,
-		podParam.PodId,
-		podParam.KeyId,
-		podParam.BlockId,
+		assessmentParam.AssessmentId,
+		assessmentParam.KeyId,
+		assessmentParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

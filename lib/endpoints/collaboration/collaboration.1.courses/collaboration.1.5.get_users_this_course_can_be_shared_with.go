@@ -19,7 +19,7 @@ func GetUsersThisCourseCanBeSharedWith(
 	resUsers := response.SearchUsers{}
 	route, err := helpers2.GetRoute(
 		lib.RouteCollaborationGetUsersThisCourseCanBeSharedWith,
-		blockAclParam.ResourceIds.BlockId,
+		blockAclParam.ResourceIds.CourseId,
 		blockAclParam.ResourceIds.KeyId,
 		blockAclParam.SearchToken,
 	)

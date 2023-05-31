@@ -29,7 +29,7 @@ func UpdateCourseComment(
 		lib.RouteCoursesUpdateCourseComment,
 		*commentParam.CommentId,
 		commentParam.KeyId,
-		*commentParam.BlockId,
+		*commentParam.CourseId,
 	)
 	req, err := http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {

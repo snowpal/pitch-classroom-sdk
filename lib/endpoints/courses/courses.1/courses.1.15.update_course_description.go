@@ -21,7 +21,7 @@ type UpdateBlockDescReqBody struct {
 func UpdateCourseDescription(
 	jwtToken string,
 	reqBody UpdateBlockDescReqBody,
-	podParam common.ResourceIdParam,
+	assessmentParam common.ResourceIdParam,
 ) (response.Course, error) {
 	resBlock := response.Course{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
@@ -34,8 +34,8 @@ func UpdateCourseDescription(
 	var route string
 	route, err = helpers2.GetRoute(
 		lib.RouteCoursesUpdateCourseDescription,
-		podParam.BlockId,
-		podParam.KeyId,
+		assessmentParam.CourseId,
+		assessmentParam.KeyId,
 	)
 	if err != nil {
 		fmt.Println(err)

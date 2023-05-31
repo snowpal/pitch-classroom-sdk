@@ -14,8 +14,8 @@ func DeleteAssessmentNote(jwtToken string, commentParam request.NoteIdParam) err
 		lib.RouteAssessmentsDeleteAssessmentNote,
 		*commentParam.NoteId,
 		commentParam.KeyId,
-		*commentParam.BlockId,
-		*commentParam.PodId,
+		*commentParam.CourseId,
+		*commentParam.AssessmentId,
 	)
 	req, err := http.NewRequest(http.MethodDelete, route, nil)
 	if err != nil {

@@ -27,9 +27,9 @@ func AddCommentToTeacherAssessmentAsTeacher(
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(
 		lib.RouteTeacherKeysAddCommentToTeacherAssessmentAsTeacher,
-		*commentParam.PodId,
+		*commentParam.AssessmentId,
 		commentParam.KeyId,
-		*commentParam.BlockId,
+		*commentParam.CourseId,
 	)
 	req, err := http.NewRequest(http.MethodPost, route, payload)
 	if err != nil {

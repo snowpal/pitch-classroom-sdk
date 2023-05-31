@@ -47,7 +47,7 @@ func AddAndLinkResources() {
 
 	var (
 		newBlock    response.Course
-		newBlockPod response.Pod
+		newBlockPod response.Assessment
 	)
 	newBlock, newBlockPod, err = addBlocksAndPods(user, newKey)
 	if err != nil {
@@ -83,14 +83,14 @@ func linkResources(
 	anotherKey response.Key,
 	anotherBlock response.Course,
 	newBlock response.Course,
-	newBlockPod response.Pod,
+	newBlockPod response.Assessment,
 ) error {
 	log.Info("Link course into the other key")
 	recipes.SleepBefore()
 	err := courses.LinkCourseToKey(user.JwtToken,
 		common.ResourceIdParam{
-			BlockId: newBlock.ID,
-			KeyId:   anotherKey.ID,
+			CourseId: newBlock.ID,
+			KeyId:    anotherKey.ID,
 		})
 	if err != nil {
 		return err
@@ -100,9 +100,9 @@ func linkResources(
 	return nil
 }
 
-func addBlocksAndPods(user response.User, newKey response.Key) (response.Course, response.Pod, error) {
+func addBlocksAndPods(user response.User, newKey response.Key) (response.Course, response.Assessment, error) {
 	var (
-		pod   response.Pod
+		pod   response.Assessment
 		block response.Course
 	)
 	log.Info("Add a new block")
@@ -116,14 +116,14 @@ func addBlocksAndPods(user response.User, newKey response.Key) (response.Course,
 
 	log.Info("Add a new block pod in this block")
 	recipes.SleepBefore()
-	var newBlockPod response.Pod
+	var newBlockPod response.Assessment
 	newBlockPod, err = assessments.AddAssessment(user.JwtToken,
 		request.AddAssessmentReqBody{
 			Name: BlockPod1Name,
 		},
 		common.ResourceIdParam{
-			BlockId: newBlock.ID,
-			KeyId:   newKey.ID,
+			CourseId: newBlock.ID,
+			KeyId:    newKey.ID,
 		})
 	if err != nil {
 		return block, pod, err

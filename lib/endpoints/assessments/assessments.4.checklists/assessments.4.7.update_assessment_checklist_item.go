@@ -27,11 +27,11 @@ func UpdateAssessmentChecklistItem(
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(
 		lib.RouteAssessmentsUpdateAssessmentChecklistItem,
-		*checklistParam.PodId,
+		*checklistParam.AssessmentId,
 		*checklistParam.ChecklistId,
 		*checklistParam.ChecklistItemId,
 		checklistParam.KeyId,
-		*checklistParam.BlockId,
+		*checklistParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

@@ -16,7 +16,7 @@ func GetCourseComments(jwtToken string, commentParam request.CommentIdParam) ([]
 	resComments := response.Comments{}
 	route, err := helpers2.GetRoute(
 		lib.RouteCoursesGetCourseComments,
-		*commentParam.BlockId,
+		*commentParam.CourseId,
 		commentParam.KeyId,
 	)
 	if err != nil {

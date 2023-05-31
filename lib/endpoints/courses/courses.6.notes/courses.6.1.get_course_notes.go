@@ -16,7 +16,7 @@ func GetCourseNotes(jwtToken string, noteParam request.NoteIdParam) ([]response.
 	resNotes := response.Notes{}
 	route, err := helpers2.GetRoute(
 		lib.RouteCoursesGetCourseNotes,
-		*noteParam.BlockId,
+		*noteParam.CourseId,
 		noteParam.KeyId,
 	)
 	if err != nil {

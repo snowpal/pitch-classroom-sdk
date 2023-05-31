@@ -16,7 +16,7 @@ func GetRelationsForCourse(jwtToken string, relationParam common.ResourceIdParam
 	resRelations := response.Relations{}
 	route, err := helpers2.GetRoute(
 		lib.RouteRelationsGetRelationsForCourse,
-		relationParam.BlockId,
+		relationParam.CourseId,
 		relationParam.KeyId,
 	)
 	if err != nil {

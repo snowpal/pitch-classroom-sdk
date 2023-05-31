@@ -17,7 +17,7 @@ func GetScaleValuesForScale(jwtToken string, scaleParam request.ScaleIdParam) (r
 	route, err := helpers2.GetRoute(
 		lib.RouteCoursesGetScaleValuesForScale,
 		scaleParam.KeyId,
-		*scaleParam.BlockId,
+		*scaleParam.CourseId,
 		scaleParam.ScaleId,
 	)
 	if err != nil {

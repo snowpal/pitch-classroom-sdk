@@ -12,13 +12,13 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetAssessmentTasksForCharts(jwtToken string, podParam common.ResourceIdParam) ([]response.Task, error) {
+func GetAssessmentTasksForCharts(jwtToken string, assessmentParam common.ResourceIdParam) ([]response.Task, error) {
 	resTasks := response.Tasks{}
 	route, err := helpers2.GetRoute(
 		lib.RouteAssessmentsGetAssessmentTasksForCharts,
-		podParam.PodId,
-		podParam.KeyId,
-		podParam.BlockId,
+		assessmentParam.AssessmentId,
+		assessmentParam.KeyId,
+		assessmentParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

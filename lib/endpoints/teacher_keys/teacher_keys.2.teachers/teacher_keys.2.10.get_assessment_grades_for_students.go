@@ -14,14 +14,14 @@ import (
 
 func GetAssessmentGradesForStudents(
 	jwtToken string,
-	podParam common.ResourceIdParam,
+	assessmentParam common.ResourceIdParam,
 ) (response.StudentGradeForCourseAndAssessment, error) {
 	resStudentGradesForPod := response.StudentGradeForCourseAndAssessment{}
 	route, err := helpers2.GetRoute(
 		lib.RouteTeacherKeysGetAssessmentGradesForStudents,
-		podParam.PodId,
-		podParam.KeyId,
-		podParam.BlockId,
+		assessmentParam.AssessmentId,
+		assessmentParam.KeyId,
+		assessmentParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

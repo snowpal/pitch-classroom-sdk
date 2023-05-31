@@ -79,11 +79,11 @@ func AddCourse(user response.User, blockName string, key response.Key) (response
 	return newBlock, nil
 }
 
-func AddPodToBlock(user response.User, podName string, block response.Course) (response.Pod, error) {
+func AddPodToBlock(user response.User, podName string, block response.Course) (response.Assessment, error) {
 	newPod, err := assessments.AddAssessment(
 		user.JwtToken,
 		request.AddAssessmentReqBody{Name: podName},
-		common.ResourceIdParam{BlockId: block.ID, KeyId: block.Key.ID})
+		common.ResourceIdParam{CourseId: block.ID, KeyId: block.Key.ID})
 	if err != nil {
 		return newPod, err
 	}
@@ -92,8 +92,8 @@ func AddPodToBlock(user response.User, podName string, block response.Course) (r
 
 func SearchUserAndShareBlock(user response.User, block response.Course, searchToken string, acl string) error {
 	blockIdParam := common.ResourceIdParam{
-		BlockId: block.ID,
-		KeyId:   block.Key.ID,
+		CourseId: block.ID,
+		KeyId:    block.Key.ID,
 	}
 
 	searchedUsers, err := collaboration.GetUsersThisCourseCanBeSharedWith(

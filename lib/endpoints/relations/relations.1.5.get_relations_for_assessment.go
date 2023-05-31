@@ -16,9 +16,9 @@ func GetRelationsForAssessment(jwtToken string, relationParam common.ResourceIdP
 	resRelations := response.Relations{}
 	route, err := helpers2.GetRoute(
 		lib.RouteRelationsGetRelationsForAssessment,
-		relationParam.PodId,
+		relationParam.AssessmentId,
 		relationParam.KeyId,
-		relationParam.BlockId,
+		relationParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

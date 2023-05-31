@@ -6,37 +6,37 @@ type KeyToKeyRelationParam struct {
 }
 
 type KeyToCourseRelationParam struct {
-	KeyId         string
-	TargetBlockId string
+	KeyId          string
+	TargetCourseId string
 }
 
 type KeyToAssessmentRelationParam struct {
 	KeyId string
 
-	TargetPodId   string
-	TargetKeyId   string
-	TargetBlockId string
+	TargetAssessmentId string
+	TargetKeyId        string
+	TargetCourseId     string
 }
 
 type CourseToCourseRelationParam struct {
-	BlockId       string
-	TargetBlockId string
+	CourseId       string
+	TargetCourseId string
 }
 
 type CourseToAssessmentRelationParam struct {
-	BlockId string
+	CourseId string
 
-	TargetPodId   string
-	TargetKeyId   string
-	TargetBlockId string
+	TargetAssessmentId string
+	TargetKeyId        string
+	TargetCourseId     string
 }
 
 type AssessmentToAssessmentRelationParam struct {
-	PodId         string
-	SourceKeyId   string
-	SourceBlockId string
+	AssessmentId   string
+	SourceKeyId    string
+	SourceCourseId string
 
-	TargetPodId   string
-	TargetKeyId   string
-	TargetBlockId string
+	TargetAssessmentId string
+	TargetKeyId        string
+	TargetCourseId     string
 }
