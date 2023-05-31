@@ -26,15 +26,6 @@ type UpdateAssessmentReqBody struct {
 	KanbanMode        *bool   `json:"kanbanMode"`
 }
 
-type AssessmentAclReqBody struct {
-	Acl string `json:"assessmentAcl"`
-}
-
-type AssessmentBulkShareReqBody struct {
-	Acl           string `json:"assessmentAcl"`
-	AssessmentIds string `json:"assessmentIds"`
-}
-
 type GetAssessmentsParam struct {
 	KeyId      string
 	CourseId   *string
