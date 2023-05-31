@@ -13,8 +13,8 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetArchivedCourses(jwtToken string, blocksParam request.GetBlocksParam) ([]response.Block, error) {
-	resBlocks := response.Blocks{}
+func GetArchivedCourses(jwtToken string, blocksParam request.GetCoursesParam) ([]response.Course, error) {
+	resBlocks := response.Courses{}
 	route, err := helpers2.GetRoute(
 		lib.RouteCoursesGetArchivedCourses,
 		strconv.Itoa(blocksParam.BatchIndex),
@@ -22,14 +22,14 @@ func GetArchivedCourses(jwtToken string, blocksParam request.GetBlocksParam) ([]
 	)
 	if err != nil {
 		fmt.Println(err)
-		return resBlocks.Blocks, err
+		return resBlocks.Courses, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resBlocks.Blocks, err
+		return resBlocks.Courses, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -38,7 +38,7 @@ func GetArchivedCourses(jwtToken string, blocksParam request.GetBlocksParam) ([]
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resBlocks.Blocks, err
+		return resBlocks.Courses, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -47,13 +47,13 @@ func GetArchivedCourses(jwtToken string, blocksParam request.GetBlocksParam) ([]
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resBlocks.Blocks, err
+		return resBlocks.Courses, err
 	}
 
 	err = json.Unmarshal(body, &resBlocks)
 	if err != nil {
 		fmt.Println(err)
-		return resBlocks.Blocks, err
+		return resBlocks.Courses, err
 	}
-	return resBlocks.Blocks, nil
+	return resBlocks.Courses, nil
 }

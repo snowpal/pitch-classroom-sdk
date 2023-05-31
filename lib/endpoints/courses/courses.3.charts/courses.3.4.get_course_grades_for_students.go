@@ -13,8 +13,8 @@ import (
 )
 
 type BlockGradesForStudents struct {
-	Block response.BlockGrade `json:"block"`
-	Pods  []response.PodGrade `json:"pods"`
+	Course      response.BlockGrade `json:"course"`
+	Assessments []response.PodGrade `json:"pods"`
 }
 
 func GetCourseGradesForStudents(jwtToken string, gradeParam common.ResourceIdParam) (BlockGradesForStudents, error) {

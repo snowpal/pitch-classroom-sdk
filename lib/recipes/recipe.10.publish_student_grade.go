@@ -39,7 +39,7 @@ func PublishStudentGrade() {
 		return
 	}
 
-	var block response.Block
+	var block response.Course
 	block, err = recipes.AddCourse(user, TeacherBlockName, key)
 	if err != nil {
 		return
@@ -89,10 +89,10 @@ func PublishStudentGrade() {
 func publishAssessment(user response.User, pod response.Pod) error {
 	_, err := assessments.UpdateAssessmentCompletionStatus(
 		user.JwtToken,
-		request.UpdatePodStatusReqBody{Completed: true},
+		request.UpdateAssessmentStatusReqBody{Completed: true},
 		common.ResourceIdParam{
 			PodId:   pod.ID,
-			BlockId: pod.Block.ID,
+			BlockId: pod.Course.ID,
 			KeyId:   pod.Key.ID,
 		},
 	)
@@ -115,7 +115,7 @@ func assignAssessmentGrade(user response.User, pod response.Pod, student respons
 		}
 	}
 	podId := pod.ID
-	blockId := pod.Block.ID
+	blockId := pod.Course.ID
 	err := assessments.AddScaleToAssessment(user.JwtToken, request.ScaleIdParam{
 		ScaleId: alphabeticScale.ID,
 		PodId:   &podId,
@@ -150,7 +150,7 @@ func publishAssessmentGrade(user response.User, pod response.Pod, student respon
 		request.ClassroomIdParam{
 			StudentId: student.ID,
 			ResourceIds: common.ResourceIdParam{
-				BlockId: pod.Block.ID,
+				BlockId: pod.Course.ID,
 				KeyId:   pod.Key.ID,
 			},
 		},

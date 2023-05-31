@@ -4,22 +4,22 @@ import (
 	common2 "github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 )
 
-type Blocks struct {
-	Blocks []Block `json:"blocks"`
+type Courses struct {
+	Courses []Course `json:"courses"`
 }
 
-type Block struct {
+type Course struct {
 	ID                string  `json:"id"`
-	Name              string  `json:"blockName"`
-	BlockId           string  `json:"blockId"`
-	Description       string  `json:"blockDescription"`
+	Name              string  `json:"courseName"`
+	BlockId           string  `json:"courseId"`
+	Description       string  `json:"courseDescription"`
 	SimpleDescription string  `json:"simpleDescription"`
 	Color             string  `json:"color"`
 	Tags              string  `json:"tags"`
 	ScaleValue        *string `json:"scaleValue"`
 
 	Attributes  []common2.DisplayAttribute `json:"attributes"`
-	BlockType   *BlockType                 `json:"blockType"`
+	CourseType  *CourseType                `json:"courseType"`
 	Scale       *Scale                     `json:"scale"`
 	TaggedUsers []TaggedUser               `json:"taggedUsers"`
 	Key         *common2.SlimKey           `json:"key"`
@@ -32,9 +32,9 @@ type Block struct {
 	PublicKey  *bool `json:"publicKey"`
 
 	// Time Attributes
-	DueDate   string `json:"blockDueDate"`
-	StartTime string `json:"blockStartTime"`
-	EndTime   string `json:"blockEndTime"`
+	DueDate   string `json:"courseDueDate"`
+	StartTime string `json:"courseStartTime"`
+	EndTime   string `json:"courseEndTime"`
 
 	// Acl Attributes
 	Acl            *string       `json:"acl"`

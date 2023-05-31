@@ -15,8 +15,8 @@ import (
 func GetAssessmentGradesForStudents(
 	jwtToken string,
 	podParam common.ResourceIdParam,
-) (response.StudentGradeForBlockAndPod, error) {
-	resStudentGradesForPod := response.StudentGradeForBlockAndPod{}
+) (response.StudentGradeForCourseAndAssessment, error) {
+	resStudentGradesForPod := response.StudentGradeForCourseAndAssessment{}
 	route, err := helpers2.GetRoute(
 		lib.RouteTeacherKeysGetAssessmentGradesForStudents,
 		podParam.PodId,

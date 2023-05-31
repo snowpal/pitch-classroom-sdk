@@ -18,45 +18,45 @@ type RecentlyModifiedKeys struct {
 }
 
 type RecentlyModifiedResources struct {
-	Blocks []DashboardBlock `json:"blocks"`
-	Pods   []DashboardPod   `json:"pods"`
+	Blocks []DashboardCourse     `json:"courses"`
+	Pods   []DashboardAssessment `json:"assessments"`
 }
 
 type DueShortlyResources struct {
-	Blocks *[]DashboardBlock `json:"blocks"`
-	Pods   []DashboardPod    `json:"pods"`
-	Tasks  []DashboardTask   `json:"tasks"`
+	Blocks *[]DashboardCourse    `json:"courses"`
+	Pods   []DashboardAssessment `json:"assessments"`
+	Tasks  []DashboardTask       `json:"tasks"`
 }
 
-type DashboardBlock struct {
+type DashboardCourse struct {
 	ID      string `json:"id"`
-	Name    string `json:"blockName"`
-	DueDate string `json:"blockDueDate"`
+	Name    string `json:"courseName"`
+	DueDate string `json:"courseDueDate"`
 
-	Key       *common2.SlimKey `json:"key"`
-	BlockType *BlockType       `json:"blockType"`
+	Key        *common2.SlimKey `json:"key"`
+	CourseType *CourseType      `json:"courseType"`
 
 	Creator  common2.ResourceCreator  `json:"creator"`
 	Modifier common2.ResourceModifier `json:"modifier"`
 }
 
-type DashboardPod struct {
+type DashboardAssessment struct {
 	ID      string `json:"id"`
-	Name    string `json:"podName"`
-	DueDate string `json:"podDueDate"`
+	Name    string `json:"assessmentName"`
+	DueDate string `json:"assessmentDueDate"`
 
-	Key    *common2.SlimKey    `json:"key"`
-	Blocks *[]BlockWithPodType `json:"blocks"`
+	Key     *common2.SlimKey            `json:"key"`
+	Courses *[]CourseWithAssessmentType `json:"courses"`
 
 	Creator  common2.ResourceCreator  `json:"creator"`
 	Modifier common2.ResourceModifier `json:"modifier"`
 }
 
-type BlockWithPodType struct {
-	ID      string           `json:"id"`
-	Name    string           `json:"blockName"`
-	Key     *common2.SlimKey `json:"key"`
-	PodType *PodType         `json:"podType"`
+type CourseWithAssessmentType struct {
+	ID             string           `json:"id"`
+	Name           string           `json:"courseName"`
+	Key            *common2.SlimKey `json:"key"`
+	AssessmentType *AssessmentType  `json:"assessmentType"`
 }
 
 type DashboardTask struct {
@@ -64,19 +64,19 @@ type DashboardTask struct {
 	Name    string `json:"taskName"`
 	DueDate string `json:"taskDueDate"`
 
-	Key    *common2.SlimKey     `json:"key"`
-	Block  *common2.SlimBlock   `json:"block"`
-	Pod    *common2.SlimPod     `json:"pod"`
-	Blocks *[]common2.SlimBlock `json:"blocks"`
+	Key        *common2.SlimKey        `json:"key"`
+	Course     *common2.SlimCourse     `json:"course"`
+	Assessment *common2.SlimAssessment `json:"assessment"`
+	Courses    *[]common2.SlimCourse   `json:"courses"`
 
 	Creator  common2.ResourceCreator  `json:"creator"`
 	Modifier common2.ResourceModifier `json:"modifier"`
 }
 
 type DashboardUnreadCount struct {
-	DueTasks  int `json:"dueTasks"`
-	DueBlocks int `json:"dueBlocks"`
-	DuePods   int `json:"duePods"`
+	DueTasks       int `json:"dueTasks"`
+	DueCourses     int `json:"dueCourses"`
+	DueAssessments int `json:"dueAssessments"`
 
 	Notifications int `json:"notifications"`
 	Conversations int `json:"conversations"`

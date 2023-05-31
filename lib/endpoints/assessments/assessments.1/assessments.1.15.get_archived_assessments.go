@@ -13,8 +13,8 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetArchivedAssessments(jwtToken string, podsParam request.GetPodsParam) ([]response.Pod, error) {
-	resPods := response.Pods{}
+func GetArchivedAssessments(jwtToken string, podsParam request.GetAssessmentsParam) ([]response.Pod, error) {
+	resPods := response.Assessments{}
 	route, err := helpers2.GetRoute(
 		lib.RouteAssessmentsGetArchivedAssessments,
 		strconv.Itoa(podsParam.BatchIndex),
@@ -23,14 +23,14 @@ func GetArchivedAssessments(jwtToken string, podsParam request.GetPodsParam) ([]
 	)
 	if err != nil {
 		fmt.Println(err)
-		return resPods.Pods, err
+		return resPods.Assessments, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resPods.Pods, err
+		return resPods.Assessments, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -39,7 +39,7 @@ func GetArchivedAssessments(jwtToken string, podsParam request.GetPodsParam) ([]
 	_, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resPods.Pods, err
+		return resPods.Assessments, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -48,13 +48,13 @@ func GetArchivedAssessments(jwtToken string, podsParam request.GetPodsParam) ([]
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resPods.Pods, err
+		return resPods.Assessments, err
 	}
 
 	err = json.Unmarshal(body, &resPods)
 	if err != nil {
 		fmt.Println(err)
-		return resPods.Pods, err
+		return resPods.Assessments, err
 	}
-	return resPods.Pods, nil
+	return resPods.Assessments, nil
 }

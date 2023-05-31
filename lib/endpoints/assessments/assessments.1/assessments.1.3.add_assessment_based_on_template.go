@@ -16,7 +16,7 @@ import (
 
 func AddAssessmentBasedOnTemplate(
 	jwtToken string,
-	reqBody request.AddPodReqBody,
+	reqBody request.AddAssessmentReqBody,
 	podParam request.PodByTemplateParam,
 ) (response.Pod, error) {
 	resPod := response.Pod{}

@@ -12,8 +12,8 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetCourseCollaborators(jwtToken string, blockParam common.ResourceIdParam) (response.Block, error) {
-	resBlock := response.Block{}
+func GetCourseCollaborators(jwtToken string, blockParam common.ResourceIdParam) (response.Course, error) {
+	resBlock := response.Course{}
 	route, err := helpers2.GetRoute(
 		lib.RouteCollaborationGetCourseCollaborators,
 		blockParam.BlockId,

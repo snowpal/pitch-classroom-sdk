@@ -17,7 +17,7 @@ const (
 )
 
 func GrantAclOnCustomBlock() {
-	log.Info("Objective: Add Custom Block, Share Block, Grant Read Access, Copy Block, Grant Admin Access")
+	log.Info("Objective: Add Custom Course, Share Course, Grant Read Access, Copy Course, Grant Admin Access")
 	_, err := recipes.ValidateDependencies()
 	if err != nil {
 		return
@@ -28,18 +28,18 @@ func GrantAclOnCustomBlock() {
 		return
 	}
 
-	key, err := recipes.AddCustomKey(user, CopyKeyName)
+	key, err := recipes.AddTeacherKey(user, CopyKeyName)
 	if err != nil {
 		return
 	}
 
 	log.Info("Add custom block")
 	recipes.SleepBefore()
-	block, err := recipes.AddBlock(user, CopyBlockName, key)
+	block, err := recipes.AddCourse(user, CopyBlockName, key)
 	if err != nil {
 		return
 	}
-	log.Printf(".Block %s added successfully", block.Name)
+	log.Printf(".Course %s added successfully", block.Name)
 	recipes.SleepAfter()
 
 	log.Info("Share block with read access")
@@ -48,7 +48,7 @@ func GrantAclOnCustomBlock() {
 	if err != nil {
 		return
 	}
-	log.Printf(".Block %s shared with %s with read access level", block.Name, lib.ReadUser)
+	log.Printf(".Course %s shared with %s with read access level", block.Name, lib.ReadUser)
 	recipes.SleepAfter()
 
 	log.Info("Copy block and see acl is not copied")
@@ -57,7 +57,7 @@ func GrantAclOnCustomBlock() {
 	if err != nil {
 		return
 	}
-	log.Printf(".Block %s copied but %s don't have access on copied block", block.Name, lib.ReadUser)
+	log.Printf(".Course %s copied but %s don't have access on copied block", block.Name, lib.ReadUser)
 	recipes.SleepAfter()
 
 	log.Info("Share block with admin access")
@@ -66,20 +66,20 @@ func GrantAclOnCustomBlock() {
 	if err != nil {
 		return
 	}
-	log.Printf(".Block %s shared with %s with admin access", block.Name, lib.ReadUser)
+	log.Printf(".Course %s shared with %s with admin access", block.Name, lib.ReadUser)
 	recipes.SleepAfter()
 }
 
-func copyBlock(user response.User, block response.Block) (response.Block, error) {
+func copyBlock(user response.User, block response.Course) (response.Course, error) {
 	resBlock, err := courses.CopyCourse(
 		user.JwtToken,
-		request.CopyMoveBlockParam{
-			BlockId:       block.ID,
-			KeyId:         block.Key.ID,
-			TargetKeyId:   block.Key.ID,
-			AllPods:       true,
-			AllTasks:      true,
-			AllChecklists: true,
+		request.CopyMoveCourseParam{
+			CourseId:       block.ID,
+			KeyId:          block.Key.ID,
+			TargetKeyId:    block.Key.ID,
+			AllAssessments: true,
+			AllTasks:       true,
+			AllChecklists:  true,
 		},
 	)
 	if err != nil {

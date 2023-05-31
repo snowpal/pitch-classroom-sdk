@@ -14,7 +14,7 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func AddAssessment(jwtToken string, reqBody request.AddPodReqBody, podParam common.ResourceIdParam) (response.Pod, error) {
+func AddAssessment(jwtToken string, reqBody request.AddAssessmentReqBody, podParam common.ResourceIdParam) (response.Pod, error) {
 	resPod := response.Pod{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {

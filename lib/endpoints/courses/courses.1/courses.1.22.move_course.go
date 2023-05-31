@@ -9,12 +9,12 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 )
 
-func MoveCourse(jwtToken string, blockParam request.CopyMoveBlockParam) error {
+func MoveCourse(jwtToken string, courseParam request.CopyMoveCourseParam) error {
 	route, err := helpers.GetRoute(
 		lib.RouteCoursesMoveCourse,
-		blockParam.BlockId,
-		blockParam.KeyId,
-		blockParam.TargetKeyId,
+		courseParam.CourseId,
+		courseParam.KeyId,
+		courseParam.TargetKeyId,
 	)
 	if err != nil {
 		fmt.Println(err)

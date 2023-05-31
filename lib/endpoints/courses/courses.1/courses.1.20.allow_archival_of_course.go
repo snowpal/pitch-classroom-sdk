@@ -17,8 +17,8 @@ func AllowArchivalOfCourse(
 	jwtToken string,
 	reqBody common.AllowArchivalReqBody,
 	blockParam common.ResourceIdParam,
-) (response.Block, error) {
-	resBlock := response.Block{}
+) (response.Course, error) {
+	resBlock := response.Course{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)

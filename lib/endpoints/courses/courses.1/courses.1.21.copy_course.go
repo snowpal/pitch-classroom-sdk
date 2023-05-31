@@ -14,17 +14,17 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func CopyCourse(jwtToken string, blockParam request.CopyMoveBlockParam) (response.Block, error) {
-	var resBlock response.Block
+func CopyCourse(jwtToken string, courseParam request.CopyMoveCourseParam) (response.Course, error) {
+	var resBlock response.Course
 	route, err := helpers2.GetRoute(
 		lib.RouteCoursesCopyCourse,
-		blockParam.BlockId,
-		blockParam.KeyId,
-		strconv.FormatBool(blockParam.AllTasks),
-		strings.Join(blockParam.PodIds, ","),
-		strconv.FormatBool(blockParam.AllPods),
-		strconv.FormatBool(blockParam.AllChecklists),
-		blockParam.TargetKeyId,
+		courseParam.CourseId,
+		courseParam.KeyId,
+		strconv.FormatBool(courseParam.AllTasks),
+		strings.Join(courseParam.AssessmentIds, ","),
+		strconv.FormatBool(courseParam.AllAssessments),
+		strconv.FormatBool(courseParam.AllChecklists),
+		courseParam.TargetKeyId,
 	)
 	if err != nil {
 		fmt.Println(err)

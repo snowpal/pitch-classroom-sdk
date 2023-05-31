@@ -12,18 +12,18 @@ import (
 )
 
 func GetAssessmentsUsingScale(jwtToken string, scaleId string) ([]response.Pod, error) {
-	resPods := response.Pods{}
+	resPods := response.Assessments{}
 	route, err := helpers2.GetRoute(lib.RouteScalesGetAssessmentsUsingScale, scaleId)
 	if err != nil {
 		fmt.Println(err)
-		return resPods.Pods, err
+		return resPods.Assessments, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resPods.Pods, err
+		return resPods.Assessments, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -32,7 +32,7 @@ func GetAssessmentsUsingScale(jwtToken string, scaleId string) ([]response.Pod, 
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resPods.Pods, err
+		return resPods.Assessments, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -41,13 +41,13 @@ func GetAssessmentsUsingScale(jwtToken string, scaleId string) ([]response.Pod, 
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resPods.Pods, err
+		return resPods.Assessments, err
 	}
 
 	err = json.Unmarshal(body, &resPods)
 	if err != nil {
 		fmt.Println(err)
-		return resPods.Pods, err
+		return resPods.Assessments, err
 	}
-	return resPods.Pods, nil
+	return resPods.Assessments, nil
 }

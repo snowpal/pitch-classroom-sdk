@@ -12,8 +12,8 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func UnshareCourseFromCollaborator(jwtToken string, blockAclParam common.AclParam) (response.Block, error) {
-	resBlock := response.Block{}
+func UnshareCourseFromCollaborator(jwtToken string, blockAclParam common.AclParam) (response.Course, error) {
+	resBlock := response.Course{}
 	route, err := helpers2.GetRoute(
 		lib.RouteCollaborationUnshareCourseFromCollaborator,
 		blockAclParam.ResourceIds.BlockId,

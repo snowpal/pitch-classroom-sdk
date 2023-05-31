@@ -34,20 +34,20 @@ func AddRelation() {
 	if err != nil {
 		return
 	}
-	log.Printf(".Block %s is related with pod %s successfully", block.Name, key.Name)
+	log.Printf(".Course %s is related with pod %s successfully", block.Name, key.Name)
 
 	log.Info("Unrelate the block from key pod")
 	err = removeRelation(user, key, block)
 	if err != nil {
 		return
 	}
-	log.Printf(".Block %s is unrelated from pod %s successfully", block.Name, key.Name)
+	log.Printf(".Course %s is unrelated from pod %s successfully", block.Name, key.Name)
 }
 
-func removeRelation(user response.User, key response.Key, block response.Block) error {
+func removeRelation(user response.User, key response.Key, block response.Course) error {
 	err := relations.UnrelateCourseFromKey(
 		user.JwtToken,
-		request.KeyToBlockRelationParam{
+		request.KeyToCourseRelationParam{
 			KeyId:         key.ID,
 			TargetBlockId: block.ID,
 		},
@@ -58,22 +58,22 @@ func removeRelation(user response.User, key response.Key, block response.Block) 
 	return nil
 }
 
-func addRelation(user response.User) (response.Key, response.Block, error) {
+func addRelation(user response.User) (response.Key, response.Course, error) {
 	var (
 		key   response.Key
-		block response.Block
+		block response.Course
 	)
-	key, err := recipes.AddCustomKey(user, RelationKeyName)
+	key, err := recipes.AddTeacherKey(user, RelationKeyName)
 	if err != nil {
 		return key, block, err
 	}
-	block, err = recipes.AddBlock(user, RelationBlockName, key)
+	block, err = recipes.AddCourse(user, RelationBlockName, key)
 	if err != nil {
 		return key, block, err
 	}
 	err = relations.RelateCourseToKey(
 		user.JwtToken,
-		request.KeyToBlockRelationParam{
+		request.KeyToCourseRelationParam{
 			KeyId:         key.ID,
 			TargetBlockId: block.ID,
 		},

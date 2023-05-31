@@ -13,8 +13,8 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func AddAssessmentType(jwtToken string, reqBody request.PodTypeReqBody) (response.PodType, error) {
-	resPodType := response.PodType{}
+func AddAssessmentType(jwtToken string, reqBody request.AssessmentTypeReqBody) (response.AssessmentType, error) {
+	resPodType := response.AssessmentType{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)

@@ -11,49 +11,49 @@ type AllEvents struct {
 }
 
 type EndDateEvent struct {
-	Blocks []BlockEvent `json:"blocks"`
+	Courses []CourseEvent `json:"courses"`
 }
 
 type DueDateEvent struct {
-	Tasks  TasksEvent   `json:"tasks"`
-	Blocks []BlockEvent `json:"blocks"`
-	Pods   []PodEvent   `json:"pods"`
+	Tasks       TasksEvent        `json:"tasks"`
+	Courses     []CourseEvent     `json:"courses"`
+	Assessments []AssessmentEvent `json:"assessments"`
 }
 
-type BlockEvent struct {
+type CourseEvent struct {
 	ID          string `json:"id"`
-	Name        string `json:"blockName"`
-	Description string `json:"blockDescription"`
+	Name        string `json:"courseName"`
+	Description string `json:"courseDescription"`
 
-	DueDate   *string `json:"blockDueDate"`
-	StartTime *string `json:"blockStartTime"`
-	EndTime   *string `json:"blockEndTime"`
+	DueDate   *string `json:"courseDueDate"`
+	StartTime *string `json:"courseStartTime"`
+	EndTime   *string `json:"courseEndTime"`
 
 	Key common2.SlimKey `json:"key"`
 }
 
-type PodEvent struct {
+type AssessmentEvent struct {
 	ID      string `json:"id"`
-	Name    string `json:"podName"`
-	DueDate string `json:"podDueDate"`
+	Name    string `json:"assessmentName"`
+	DueDate string `json:"assessmentDueDate"`
 
-	Key   common2.SlimKey   `json:"key"`
-	Block common2.SlimBlock `json:"block"`
+	Key    common2.SlimKey    `json:"key"`
+	Course common2.SlimCourse `json:"course"`
 }
 
 type TasksEvent struct {
-	KeyTasks   []TaskEvent `json:"keys"`
-	BlockTasks []TaskEvent `json:"blocks"`
-	PodTasks   []TaskEvent `json:"pods"`
+	KeyTasks        []TaskEvent `json:"keys"`
+	CourseTasks     []TaskEvent `json:"courses"`
+	AssessmentTasks []TaskEvent `json:"assessment"`
 }
 
 type TaskEvent struct {
-	ID      string             `json:"id"`
-	Name    string             `json:"taskName"`
-	DueDate string             `json:"taskDueDate"`
-	Key     common2.SlimKey    `json:"key"`
-	Block   *common2.SlimBlock `json:"block"`
-	Pod     *common2.SlimPod   `json:"pod"`
+	ID         string                  `json:"id"`
+	Name       string                  `json:"taskName"`
+	DueDate    string                  `json:"taskDueDate"`
+	Key        common2.SlimKey         `json:"key"`
+	Course     *common2.SlimCourse     `json:"course"`
+	Assessment *common2.SlimAssessment `json:"assessment"`
 }
 
 type SchedulerEvent struct {

@@ -13,11 +13,11 @@ import (
 )
 
 type BlockPodGradesForStudents struct {
-	ID       string             `json:"id"`
-	Name     string             `json:"blockName"`
-	Key      common2.SlimKey    `json:"key"`
-	Pod      common2.SlimPod    `json:"pod"`
-	Students []response.Student `json:"students"`
+	ID       string                 `json:"id"`
+	Name     string                 `json:"courseName"`
+	Key      common2.SlimKey        `json:"key"`
+	Pod      common2.SlimAssessment `json:"pod"`
+	Students []response.Student     `json:"students"`
 }
 
 func GetAssessmentGradesForStudents(jwtToken string, podParam common2.ResourceIdParam) (BlockPodGradesForStudents, error) {
