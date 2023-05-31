@@ -27,7 +27,7 @@ func UpdateCourseChecklistItem(
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(
 		lib.RouteCoursesUpdateCourseChecklistItem,
-		*checklistParam.BlockId,
+		*checklistParam.CourseId,
 		*checklistParam.ChecklistId,
 		*checklistParam.ChecklistItemId,
 		checklistParam.KeyId,

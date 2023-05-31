@@ -12,12 +12,12 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetTaskStatusForCourse(jwtToken string, taskParam common.ResourceIdParam) (response.TasksStatusBlock, error) {
-	resBlockTasksStatus := response.TasksStatusBlock{}
+func GetTaskStatusForCourse(jwtToken string, taskParam common.ResourceIdParam) (response.TasksStatusCourse, error) {
+	resBlockTasksStatus := response.TasksStatusCourse{}
 	route, err := helpers2.GetRoute(
 		lib.RouteCoursesGetTaskStatusForCourse,
 		taskParam.KeyId,
-		taskParam.BlockId,
+		taskParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

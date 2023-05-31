@@ -14,7 +14,7 @@ func DeleteCourseComment(jwtToken string, commentParam request.CommentIdParam) e
 		lib.RouteCoursesDeleteCourseComment,
 		*commentParam.CommentId,
 		commentParam.KeyId,
-		*commentParam.BlockId,
+		*commentParam.CourseId,
 	)
 	req, err := http.NewRequest(http.MethodDelete, route, nil)
 	if err != nil {

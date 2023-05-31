@@ -9,11 +9,11 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 )
 
-func ArchiveCourse(jwtToken string, blockParam common.ResourceIdParam) error {
+func ArchiveCourse(jwtToken string, courseParam common.ResourceIdParam) error {
 	route, err := helpers.GetRoute(
 		lib.RouteCoursesArchiveCourse,
-		blockParam.BlockId,
-		blockParam.KeyId,
+		courseParam.CourseId,
+		courseParam.KeyId,
 	)
 	if err != nil {
 		fmt.Println(err)

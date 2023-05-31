@@ -16,9 +16,9 @@ func GetAssessmentComments(jwtToken string, commentParam request.CommentIdParam)
 	resComments := response.Comments{}
 	route, err := helpers2.GetRoute(
 		lib.RouteAssessmentsGetAssessmentComments,
-		*commentParam.PodId,
+		*commentParam.AssessmentId,
 		commentParam.KeyId,
-		*commentParam.BlockId,
+		*commentParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

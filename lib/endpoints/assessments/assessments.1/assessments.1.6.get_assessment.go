@@ -12,9 +12,9 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetAssessment(jwtToken string, podParam common.ResourceIdParam) (response.Pod, error) {
-	resPod := response.Pod{}
-	route, err := helpers2.GetRoute(lib.RouteAssessmentsGetAssessment, podParam.PodId, podParam.KeyId, podParam.BlockId)
+func GetAssessment(jwtToken string, assessmentParam common.ResourceIdParam) (response.Assessment, error) {
+	resPod := response.Assessment{}
+	route, err := helpers2.GetRoute(lib.RouteAssessmentsGetAssessment, assessmentParam.AssessmentId, assessmentParam.KeyId, assessmentParam.CourseId)
 	if err != nil {
 		fmt.Println(err)
 		return resPod, err

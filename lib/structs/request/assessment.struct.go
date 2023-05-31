@@ -10,7 +10,7 @@ type UpdateAssessmentDescReqBody struct {
 }
 
 type BulkArchiveAssessmentsReqBody struct {
-	PodIds string `json:"assessmentIds"`
+	AssessmentIds string `json:"assessmentIds"`
 }
 
 type UpdateAssessmentStatusReqBody struct {
@@ -31,37 +31,37 @@ type AssessmentAclReqBody struct {
 }
 
 type AssessmentBulkShareReqBody struct {
-	Acl    string `json:"assessmentAcl"`
-	PodIds string `json:"assessmentIds"`
+	Acl           string `json:"assessmentAcl"`
+	AssessmentIds string `json:"assessmentIds"`
 }
 
 type GetAssessmentsParam struct {
 	KeyId      string
-	BlockId    *string
+	CourseId   *string
 	BatchIndex int
 }
 
-type AddPodTypeIdParam struct {
-	PodId     string
-	PodTypeId string
-	KeyId     string
-	BlockId   *string
+type AddAssessmentTypeIdParam struct {
+	AssessmentId     string
+	AssessmentTypeId string
+	KeyId            string
+	CourseId         *string
 }
 
-type PodByTemplateParam struct {
+type AssessmentByTemplateParam struct {
 	KeyId        string
-	BlockId      *string
+	CourseId     *string
 	TemplateId   string
 	ExcludeTasks bool
 }
 
-type CopyMovePodParam struct {
-	PodId       string
-	KeyId       string
-	TargetKeyId string
+type CopyMoveAssessmentParam struct {
+	AssessmentId string
+	KeyId        string
+	TargetKeyId  string
 
-	BlockId       string
-	TargetBlockId string
+	CourseId       string
+	TargetCourseId string
 
 	AllTasks      bool
 	AllChecklists bool

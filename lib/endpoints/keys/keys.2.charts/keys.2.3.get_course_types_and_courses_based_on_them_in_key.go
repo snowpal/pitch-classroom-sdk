@@ -11,8 +11,8 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetCourseTypesAndCoursesBasedOnThemInKey(jwtToken string, keyId string) (response.BlockTypesKey, error) {
-	resBlockTypesKey := response.BlockTypesKey{}
+func GetCourseTypesAndCoursesBasedOnThemInKey(jwtToken string, keyId string) (response.CourseTypesKey, error) {
+	resBlockTypesKey := response.CourseTypesKey{}
 	route, err := helpers2.GetRoute(lib.RouteKeysGetCourseTypesAndCoursesBasedOnThemInKey, keyId)
 	if err != nil {
 		fmt.Println(err)

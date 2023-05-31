@@ -27,19 +27,19 @@ func AddFavorite() {
 		return
 	}
 
-	log.Info("Create a key and a block into it. Then add that block as favorite")
+	log.Info("Create a key and a course into it. Then add that course as favorite")
 	var favorite response.AddFavorite
 	favorite, err = addFavorite(user)
 	if err != nil {
 		return
 	}
-	log.Info(".Course added as favorite")
+	log.Info(".course added as favorite")
 
 	err = removeFavorite(user, favorite)
 	if err != nil {
 		return
 	}
-	log.Info(".Course removed from favorite")
+	log.Info(".course removed from favorite")
 }
 
 func removeFavorite(user response.User, favorite response.AddFavorite) error {
@@ -62,7 +62,7 @@ func addFavorite(user response.User) (response.AddFavorite, error) {
 	}
 	favorite, err = favorites.AddCourseAsFavorite(
 		user.JwtToken,
-		common.ResourceIdParam{BlockId: block.ID, KeyId: key.ID})
+		common.ResourceIdParam{CourseId: block.ID, KeyId: key.ID})
 	if err != nil {
 		return favorite, err
 	}

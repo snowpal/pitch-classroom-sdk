@@ -16,9 +16,9 @@ func GetAssessmentTasks(jwtToken string, taskParam request.TaskIdParam) ([]respo
 	resTasks := response.Tasks{}
 	route, err := helpers2.GetRoute(
 		lib.RouteAssessmentsGetAssessmentTasks,
-		*taskParam.PodId,
+		*taskParam.AssessmentId,
 		taskParam.KeyId,
-		*taskParam.BlockId,
+		*taskParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

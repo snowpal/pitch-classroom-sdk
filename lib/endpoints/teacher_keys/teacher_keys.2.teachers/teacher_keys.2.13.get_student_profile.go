@@ -17,7 +17,7 @@ func GetStudentProfile(jwtToken string, classroomParam request.ClassroomIdParam)
 	route, err := helpers2.GetRoute(
 		lib.RouteTeacherKeysGetStudentProfile,
 		classroomParam.StudentId,
-		classroomParam.ResourceIds.BlockId,
+		classroomParam.ResourceIds.CourseId,
 		classroomParam.ResourceIds.KeyId,
 	)
 	if err != nil {

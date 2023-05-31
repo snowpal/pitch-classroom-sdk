@@ -9,8 +9,8 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 )
 
-func LinkCourseToKey(jwtToken string, blockParam common.ResourceIdParam) error {
-	route, err := helpers.GetRoute(lib.RouteCoursesLinkCourseToKey, blockParam.KeyId, blockParam.BlockId)
+func LinkCourseToKey(jwtToken string, courseParam common.ResourceIdParam) error {
+	route, err := helpers.GetRoute(lib.RouteCoursesLinkCourseToKey, courseParam.KeyId, courseParam.CourseId)
 	if err != nil {
 		fmt.Println(err)
 		return err

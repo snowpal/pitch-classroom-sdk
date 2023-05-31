@@ -11,7 +11,7 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 )
 
-func BulkArchiveAssessments(jwtToken string, reqBody request.BulkArchiveAssessmentsReqBody, podParam common.ResourceIdParam) error {
+func BulkArchiveAssessments(jwtToken string, reqBody request.BulkArchiveAssessmentsReqBody, assessmentParam common.ResourceIdParam) error {
 	requestBody, err := helpers.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)
@@ -20,7 +20,7 @@ func BulkArchiveAssessments(jwtToken string, reqBody request.BulkArchiveAssessme
 	payload := strings.NewReader(requestBody)
 
 	var route string
-	route, err = helpers.GetRoute(lib.RouteAssessmentsBulkArchiveAssessments, podParam.KeyId, podParam.BlockId)
+	route, err = helpers.GetRoute(lib.RouteAssessmentsBulkArchiveAssessments, assessmentParam.KeyId, assessmentParam.CourseId)
 	if err != nil {
 		fmt.Println(err)
 		return err

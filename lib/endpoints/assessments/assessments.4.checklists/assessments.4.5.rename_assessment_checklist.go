@@ -27,10 +27,10 @@ func RenameAssessmentChecklist(
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(
 		lib.RouteAssessmentsRenameAssessmentChecklist,
-		*checklistParam.PodId,
+		*checklistParam.AssessmentId,
 		*checklistParam.ChecklistId,
 		checklistParam.KeyId,
-		*checklistParam.BlockId,
+		*checklistParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

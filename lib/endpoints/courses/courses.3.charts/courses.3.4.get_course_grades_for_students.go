@@ -13,15 +13,15 @@ import (
 )
 
 type BlockGradesForStudents struct {
-	Course      response.BlockGrade `json:"course"`
-	Assessments []response.PodGrade `json:"pods"`
+	Course      response.CourseGrade       `json:"course"`
+	Assessments []response.AssessmentGrade `json:"pods"`
 }
 
 func GetCourseGradesForStudents(jwtToken string, gradeParam common.ResourceIdParam) (BlockGradesForStudents, error) {
 	resBlockGrades := BlockGradesForStudents{}
 	route, err := helpers2.GetRoute(
 		lib.RouteCoursesGetCourseGradesForStudents,
-		gradeParam.BlockId,
+		gradeParam.CourseId,
 		gradeParam.KeyId,
 	)
 	if err != nil {

@@ -27,7 +27,7 @@ func AssignCourseGradeToStudent(
 	payload := strings.NewReader(requestBody)
 	route, err := helpers.GetRoute(
 		lib.RouteTeacherKeysAssignGradeToStudent,
-		classroomParam.ResourceIds.BlockId,
+		classroomParam.ResourceIds.CourseId,
 		classroomParam.StudentId,
 		classroomParam.ResourceIds.KeyId,
 	)

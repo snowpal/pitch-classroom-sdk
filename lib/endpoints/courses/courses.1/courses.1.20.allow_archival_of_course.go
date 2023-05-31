@@ -16,7 +16,7 @@ import (
 func AllowArchivalOfCourse(
 	jwtToken string,
 	reqBody common.AllowArchivalReqBody,
-	blockParam common.ResourceIdParam,
+	courseParam common.ResourceIdParam,
 ) (response.Course, error) {
 	resBlock := response.Course{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
@@ -29,8 +29,8 @@ func AllowArchivalOfCourse(
 	var route string
 	route, err = helpers2.GetRoute(
 		lib.RouteCoursesAllowArchivalOfCourse,
-		blockParam.BlockId,
-		blockParam.KeyId,
+		courseParam.CourseId,
+		courseParam.KeyId,
 	)
 	if err != nil {
 		fmt.Println(err)

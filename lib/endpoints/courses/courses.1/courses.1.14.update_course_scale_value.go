@@ -17,7 +17,7 @@ import (
 func UpdateCourseScaleValue(
 	jwtToken string,
 	reqBody request.UpdateScaleValueReqBody,
-	blockParam common.ResourceIdParam,
+	courseParam common.ResourceIdParam,
 ) (response.UpdateBlockScaleValue, error) {
 	resBlockScaleValue := response.UpdateBlockScaleValue{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
@@ -28,8 +28,8 @@ func UpdateCourseScaleValue(
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(
 		lib.RouteCoursesUpdateCourseScaleValue,
-		blockParam.BlockId,
-		blockParam.KeyId,
+		courseParam.CourseId,
+		courseParam.KeyId,
 	)
 	if err != nil {
 		fmt.Println(err)

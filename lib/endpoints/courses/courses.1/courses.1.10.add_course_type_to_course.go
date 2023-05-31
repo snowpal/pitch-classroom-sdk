@@ -10,16 +10,16 @@ import (
 
 type AddBlockTypeIdParam struct {
 	KeyId       string
-	BlockId     string
+	CourseId    string
 	BlockTypeId string
 }
 
-func AddCourseTypeToCourse(jwtToken string, podParam AddBlockTypeIdParam) error {
+func AddCourseTypeToCourse(jwtToken string, assessmentParam AddBlockTypeIdParam) error {
 	route, err := helpers.GetRoute(
 		lib.RouteCoursesAddCourseTypeToCourse,
-		podParam.BlockId,
-		podParam.BlockTypeId,
-		podParam.KeyId,
+		assessmentParam.CourseId,
+		assessmentParam.BlockTypeId,
+		assessmentParam.KeyId,
 	)
 	if err != nil {
 		fmt.Println(err)

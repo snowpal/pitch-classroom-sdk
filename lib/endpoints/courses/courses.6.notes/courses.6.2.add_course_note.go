@@ -27,7 +27,7 @@ func AddCourseNote(
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(
 		lib.RouteCoursesAddCourseNote,
-		*commentParam.BlockId,
+		*commentParam.CourseId,
 		commentParam.KeyId,
 	)
 	req, err := http.NewRequest(http.MethodPost, route, payload)

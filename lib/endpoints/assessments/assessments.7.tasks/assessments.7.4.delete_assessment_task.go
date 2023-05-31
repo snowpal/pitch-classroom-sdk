@@ -14,8 +14,8 @@ func DeleteAssessmentTask(jwtToken string, taskParam request.TaskIdParam) error 
 		lib.RouteAssessmentsDeleteAssessmentTask,
 		*taskParam.TaskId,
 		taskParam.KeyId,
-		*taskParam.BlockId,
-		*taskParam.PodId,
+		*taskParam.CourseId,
+		*taskParam.AssessmentId,
 	)
 	req, err := http.NewRequest(http.MethodDelete, route, nil)
 	if err != nil {

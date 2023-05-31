@@ -17,8 +17,8 @@ func AssignAssessmentGradeForAStudentAsTeacher(
 	jwtToken string,
 	reqBody request.UpdateScaleValueReqBody,
 	classroomParam request.ClassroomIdParam,
-) (response.UpdatePodScaleValue, error) {
-	resPodScaleValue := response.UpdatePodScaleValue{}
+) (response.UpdateAssessmentScaleValue, error) {
+	resPodScaleValue := response.UpdateAssessmentScaleValue{}
 	requestBody, err := helpers.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)
@@ -27,10 +27,10 @@ func AssignAssessmentGradeForAStudentAsTeacher(
 	payload := strings.NewReader(requestBody)
 	route, err := helpers.GetRoute(
 		lib.RouteTeacherKeysAssignAssessmentGradeForAStudentAsTeacher,
-		classroomParam.ResourceIds.PodId,
+		classroomParam.ResourceIds.AssessmentId,
 		classroomParam.StudentId,
 		classroomParam.ResourceIds.KeyId,
-		classroomParam.ResourceIds.BlockId,
+		classroomParam.ResourceIds.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

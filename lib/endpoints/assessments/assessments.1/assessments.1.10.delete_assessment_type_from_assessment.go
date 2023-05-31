@@ -9,12 +9,12 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 )
 
-func DeleteAssessmentTypeFromAssessment(jwtToken string, podParam common.ResourceIdParam) error {
+func DeleteAssessmentTypeFromAssessment(jwtToken string, assessmentParam common.ResourceIdParam) error {
 	route, err := helpers.GetRoute(
 		lib.RouteAssessmentsDeleteAssessmentTypeFromAssessment,
-		podParam.PodId,
-		podParam.KeyId,
-		podParam.BlockId,
+		assessmentParam.AssessmentId,
+		assessmentParam.KeyId,
+		assessmentParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

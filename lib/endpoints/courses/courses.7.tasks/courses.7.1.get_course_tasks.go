@@ -16,7 +16,7 @@ func GetCourseTasks(jwtToken string, taskParam request.TaskIdParam) ([]response.
 	resTasks := response.Tasks{}
 	route, err := helpers2.GetRoute(
 		lib.RouteCoursesGetCourseTasks,
-		*taskParam.BlockId,
+		*taskParam.CourseId,
 		taskParam.KeyId,
 	)
 	if err != nil {

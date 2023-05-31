@@ -5,10 +5,10 @@ import (
 )
 
 type Assessments struct {
-	Assessments []Pod `json:"pods"`
+	Assessments []Assessment `json:"assessments"`
 }
 
-type Pod struct {
+type Assessment struct {
 	ID                string  `json:"id"`
 	Name              string  `json:"assessmentName"`
 	Description       string  `json:"assessmentDescription"`
@@ -18,7 +18,7 @@ type Pod struct {
 	ScaleValue        *string `json:"scaleValue"`
 
 	Attributes     []common2.DisplayAttribute `json:"attributes"`
-	AssessmentType *AssessmentType            `json:"podType"`
+	AssessmentType *AssessmentType            `json:"assessmentType"`
 	Scale          *Scale                     `json:"scale"`
 	TaggedUsers    []TaggedUser               `json:"taggedUsers"`
 	Key            *common2.SlimKey           `json:"key"`
@@ -33,7 +33,7 @@ type Pod struct {
 	PublicKey    *bool `json:"publicKey"`
 
 	// Time Attributes
-	DueDate string `json:"podDueDate"`
+	DueDate string `json:"assessmentDueDate"`
 
 	// Acl Attributes
 	Acl            *string       `json:"acl"`
@@ -46,7 +46,7 @@ type Pod struct {
 
 	// Count Attributes
 	KeysCount        *int `json:"keysCount"`
-	BlocksCount      *int `json:"podsCount"`
+	CoursesCount     *int `json:"coursesCount"`
 	TasksCount       *int `json:"tasksCount"`
 	ChecklistsCount  *int `json:"checklistsCount"`
 	AttachmentsCount *int `json:"attachmentsCount"`
@@ -58,7 +58,7 @@ type Pod struct {
 	LastModified string                   `json:"lastModified"`
 }
 
-type UpdatePodScaleValue struct {
+type UpdateAssessmentScaleValue struct {
 	ID           string `json:"id"`
 	Name         string `json:"name"`
 	ScaleValue   string `json:"scaleValue"`

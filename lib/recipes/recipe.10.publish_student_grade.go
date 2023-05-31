@@ -21,7 +21,7 @@ const (
 )
 
 func PublishStudentGrade() {
-	log.Info("Objective: Assign and Publish Pod Grades for a Student")
+	log.Info("Objective: Assign and Publish Assessment Grades for a Student")
 	_, err := recipes.ValidateDependencies()
 	if err != nil {
 		return
@@ -45,7 +45,7 @@ func PublishStudentGrade() {
 		return
 	}
 
-	var pod response.Pod
+	var pod response.Assessment
 	pod, err = recipes.AddPodToBlock(user, TeacherPodName, block)
 	if err != nil {
 		return
@@ -86,14 +86,14 @@ func PublishStudentGrade() {
 	recipes.SleepAfter()
 }
 
-func publishAssessment(user response.User, pod response.Pod) error {
+func publishAssessment(user response.User, pod response.Assessment) error {
 	_, err := assessments.UpdateAssessmentCompletionStatus(
 		user.JwtToken,
 		request.UpdateAssessmentStatusReqBody{Completed: true},
 		common.ResourceIdParam{
-			PodId:   pod.ID,
-			BlockId: pod.Course.ID,
-			KeyId:   pod.Key.ID,
+			AssessmentId: pod.ID,
+			CourseId:     pod.Course.ID,
+			KeyId:        pod.Key.ID,
 		},
 	)
 	if err != nil {
@@ -102,7 +102,7 @@ func publishAssessment(user response.User, pod response.Pod) error {
 	return nil
 }
 
-func assignAssessmentGrade(user response.User, pod response.Pod, student response.User) error {
+func assignAssessmentGrade(user response.User, pod response.Assessment, student response.User) error {
 	resScales, _ := scales.GetScales(user.JwtToken, scales.GetScalesParam{
 		IncludeCounts: false,
 		ExcludeEmpty:  true,
@@ -117,10 +117,10 @@ func assignAssessmentGrade(user response.User, pod response.Pod, student respons
 	podId := pod.ID
 	blockId := pod.Course.ID
 	err := assessments.AddScaleToAssessment(user.JwtToken, request.ScaleIdParam{
-		ScaleId: alphabeticScale.ID,
-		PodId:   &podId,
-		BlockId: &blockId,
-		KeyId:   pod.Key.ID,
+		ScaleId:      alphabeticScale.ID,
+		AssessmentId: &podId,
+		CourseId:     &blockId,
+		KeyId:        pod.Key.ID,
 	})
 	if err != nil {
 		return err
@@ -131,9 +131,9 @@ func assignAssessmentGrade(user response.User, pod response.Pod, student respons
 		request.ClassroomIdParam{
 			StudentId: student.ID,
 			ResourceIds: common.ResourceIdParam{
-				PodId:   podId,
-				BlockId: blockId,
-				KeyId:   pod.Key.ID,
+				AssessmentId: podId,
+				CourseId:     blockId,
+				KeyId:        pod.Key.ID,
 			},
 		},
 	)
@@ -143,15 +143,15 @@ func assignAssessmentGrade(user response.User, pod response.Pod, student respons
 	return nil
 }
 
-func publishAssessmentGrade(user response.User, pod response.Pod, student response.User) error {
+func publishAssessmentGrade(user response.User, pod response.Assessment, student response.User) error {
 	err := teacherKeys.BulkPublishAssessmentGradesForAStudent(
 		user.JwtToken,
 		teacherKeys.PublishStudentGradeReqBody{PodIds: pod.ID},
 		request.ClassroomIdParam{
 			StudentId: student.ID,
 			ResourceIds: common.ResourceIdParam{
-				BlockId: pod.Course.ID,
-				KeyId:   pod.Key.ID,
+				CourseId: pod.Course.ID,
+				KeyId:    pod.Key.ID,
 			},
 		},
 	)

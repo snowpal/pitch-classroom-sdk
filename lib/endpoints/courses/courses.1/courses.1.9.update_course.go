@@ -15,7 +15,7 @@ import (
 
 type UpdateCourseReqBody struct {
 	Name              *string `json:"courseName"`
-	BlockId           *string `json:"blockId"`
+	CourseId          *string `json:"blockId"`
 	SimpleDescription *string `json:"simpleDescription"`
 	DueDate           *string `json:"blockDueDate"`
 	StartTime         *string `json:"blockStartTime"`
@@ -26,7 +26,7 @@ type UpdateCourseReqBody struct {
 	Completed         bool    `json:"blockCompleted"`
 }
 
-func UpdateCourse(jwtToken string, reqBody UpdateCourseReqBody, blockParam common.ResourceIdParam) (response.Course, error) {
+func UpdateCourse(jwtToken string, reqBody UpdateCourseReqBody, courseParam common.ResourceIdParam) (response.Course, error) {
 	resBlock := response.Course{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
@@ -34,7 +34,7 @@ func UpdateCourse(jwtToken string, reqBody UpdateCourseReqBody, blockParam commo
 		return resBlock, err
 	}
 	payload := strings.NewReader(requestBody)
-	route, err := helpers2.GetRoute(lib.RouteCoursesUpdateCourse, blockParam.BlockId, blockParam.KeyId)
+	route, err := helpers2.GetRoute(lib.RouteCoursesUpdateCourse, courseParam.CourseId, courseParam.KeyId)
 	if err != nil {
 		fmt.Println(err)
 		return resBlock, err

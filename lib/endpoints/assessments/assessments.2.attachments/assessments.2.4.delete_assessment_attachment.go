@@ -14,8 +14,8 @@ func DeleteAssessmentAttachment(jwtToken string, attachmentParam request.Attachm
 		lib.RouteAssessmentsDeleteAssessmentAttachment,
 		*attachmentParam.AttachmentId,
 		attachmentParam.KeyId,
-		*attachmentParam.BlockId,
-		*attachmentParam.PodId,
+		*attachmentParam.CourseId,
+		*attachmentParam.AssessmentId,
 	)
 	if err != nil {
 		fmt.Println(err)

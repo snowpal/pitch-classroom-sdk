@@ -14,7 +14,7 @@ import (
 
 func GetKeysLinkedToCourse(jwtToken string, keyParam common.ResourceIdParam) ([]response.Key, error) {
 	resKeys := response.Keys{}
-	route, err := helpers2.GetRoute(lib.RouteKeysGetKeysLinkedToCourse, keyParam.BlockId, keyParam.KeyId)
+	route, err := helpers2.GetRoute(lib.RouteKeysGetKeysLinkedToCourse, keyParam.CourseId, keyParam.KeyId)
 	if err != nil {
 		fmt.Println(err)
 		return resKeys.Keys, err

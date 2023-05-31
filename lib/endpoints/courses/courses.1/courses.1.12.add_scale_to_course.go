@@ -9,12 +9,12 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 )
 
-func AddScaleToCourse(jwtToken string, blockParam request.ScaleIdParam) error {
+func AddScaleToCourse(jwtToken string, courseParam request.ScaleIdParam) error {
 	route, err := helpers.GetRoute(
 		lib.RouteCoursesAddScaleToCourse,
-		*blockParam.BlockId,
-		blockParam.ScaleId,
-		blockParam.KeyId,
+		*courseParam.CourseId,
+		courseParam.ScaleId,
+		courseParam.KeyId,
 	)
 	if err != nil {
 		fmt.Println(err)

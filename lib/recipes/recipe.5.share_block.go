@@ -81,8 +81,8 @@ func getWriteUser(user response.User, block response.Course) (response.User, err
 	resBlock, err := collaboration.GetCourseCollaborators(
 		user.JwtToken,
 		common.ResourceIdParam{
-			BlockId: block.ID,
-			KeyId:   block.Key.ID,
+			CourseId: block.ID,
+			KeyId:    block.Key.ID,
 		})
 	if err != nil {
 		return writeUser, err
@@ -160,8 +160,8 @@ func updateBlockAsWriteUser(writeUser response.User, block response.Course) (res
 		writeUser.JwtToken,
 		courses.UpdateCourseReqBody{Name: &updatedCourseName},
 		common.ResourceIdParam{
-			BlockId: block.ID,
-			KeyId:   customSystemKey.ID,
+			CourseId: block.ID,
+			KeyId:    customSystemKey.ID,
 		})
 	if err != nil {
 		return resBlock, err
@@ -173,8 +173,8 @@ func makeReadUserAsAdmin(user response.User, block response.Course) error {
 	resBlock, err := collaboration.GetCourseCollaborators(
 		user.JwtToken,
 		common.ResourceIdParam{
-			BlockId: block.ID,
-			KeyId:   block.Key.ID,
+			CourseId: block.ID,
+			KeyId:    block.Key.ID,
 		})
 	if err != nil {
 		return err
@@ -194,8 +194,8 @@ func makeReadUserAsAdmin(user response.User, block response.Course) error {
 		common.AclParam{
 			UserId: readUser.ID,
 			ResourceIds: common.ResourceIdParam{
-				BlockId: block.ID,
-				KeyId:   block.Key.ID,
+				CourseId: block.ID,
+				KeyId:    block.Key.ID,
 			},
 		})
 	if err != nil {

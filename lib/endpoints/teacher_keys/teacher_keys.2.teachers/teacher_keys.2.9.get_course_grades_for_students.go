@@ -14,13 +14,13 @@ import (
 
 func GetCourseGradesForStudents(
 	jwtToken string,
-	blockParam common.ResourceIdParam,
+	courseParam common.ResourceIdParam,
 ) (response.StudentGradeForCourseAndAssessment, error) {
 	resStudentGradesForBlock := response.StudentGradeForCourseAndAssessment{}
 	route, err := helpers2.GetRoute(
 		lib.RouteTeacherKeysGetCourseGradesForStudents,
-		blockParam.BlockId,
-		blockParam.KeyId,
+		courseParam.CourseId,
+		courseParam.KeyId,
 	)
 	if err != nil {
 		fmt.Println(err)

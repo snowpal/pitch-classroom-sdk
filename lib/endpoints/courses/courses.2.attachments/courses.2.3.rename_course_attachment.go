@@ -25,7 +25,7 @@ func RenameCourseAttachment(
 		lib.RouteCoursesRenameCourseAttachment,
 		*attachmentParam.AttachmentId,
 		attachmentParam.KeyId,
-		*attachmentParam.BlockId,
+		*attachmentParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

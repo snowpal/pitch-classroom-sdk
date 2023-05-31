@@ -14,7 +14,7 @@ import (
 func BulkPublishAssessmentGradesForStudents(
 	jwtToken string,
 	reqBody request.PublishGradesReqBody,
-	podParam common.ResourceIdParam,
+	assessmentParam common.ResourceIdParam,
 ) error {
 	requestBody, err := helpers.GetRequestBody(reqBody)
 	if err != nil {
@@ -24,9 +24,9 @@ func BulkPublishAssessmentGradesForStudents(
 	payload := strings.NewReader(requestBody)
 	route, err := helpers.GetRoute(
 		lib.RouteTeacherKeysBulkPublishAssessmentGradesForStudents,
-		podParam.PodId,
-		podParam.KeyId,
-		podParam.BlockId,
+		assessmentParam.AssessmentId,
+		assessmentParam.KeyId,
+		assessmentParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

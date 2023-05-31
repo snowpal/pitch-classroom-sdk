@@ -16,9 +16,9 @@ func GetAssessmentAttachments(jwtToken string, attachmentParam request.Attachmen
 	resAttachments := response.Attachments{}
 	route, err := helpers2.GetRoute(
 		lib.RouteAssessmentsGetAssessmentAttachments,
-		*attachmentParam.PodId,
+		*attachmentParam.AssessmentId,
 		attachmentParam.KeyId,
-		*attachmentParam.BlockId,
+		*attachmentParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

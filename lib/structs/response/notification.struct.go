@@ -22,9 +22,9 @@ type NotificationResource struct {
 	ResourceType string `json:"resourceType"`
 	IsTask       *bool  `json:"isTask"`
 
-	KeyName    *string `json:"keyName"`
-	Coursename *string `json:"courseName"`
-	PodName    *string `json:"assessmentName"`
+	KeyName        *string `json:"keyName"`
+	Coursename     *string `json:"courseName"`
+	AssessmentName *string `json:"assessmentName"`
 
 	Key     *common2.SlimKey      `json:"key"`
 	Courses *[]common2.SlimCourse `json:"courses"`

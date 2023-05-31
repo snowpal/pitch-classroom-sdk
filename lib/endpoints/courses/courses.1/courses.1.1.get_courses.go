@@ -13,14 +13,14 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetCourses(jwtToken string, blockParam request.GetCoursesParam) ([]response.Course, error) {
+func GetCourses(jwtToken string, courseParam request.GetCoursesParam) ([]response.Course, error) {
 	resBlocks := response.Courses{}
 	route, err := helpers2.GetRoute(
 		lib.RouteCoursesGetCourses,
-		blockParam.KeyId,
-		blockParam.Filter,
-		strconv.Itoa(blockParam.BatchIndex),
-		strconv.FormatBool(blockParam.WriteOrHigherAcl),
+		courseParam.KeyId,
+		courseParam.Filter,
+		strconv.Itoa(courseParam.BatchIndex),
+		strconv.FormatBool(courseParam.WriteOrHigherAcl),
 	)
 	if err != nil {
 		fmt.Println(err)

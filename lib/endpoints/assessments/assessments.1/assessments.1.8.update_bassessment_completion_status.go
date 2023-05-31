@@ -17,9 +17,9 @@ import (
 func UpdateAssessmentCompletionStatus(
 	jwtToken string,
 	reqBody request.UpdateAssessmentStatusReqBody,
-	podParam common.ResourceIdParam,
-) (response.Pod, error) {
-	resPod := response.Pod{}
+	assessmentParam common.ResourceIdParam,
+) (response.Assessment, error) {
+	resPod := response.Assessment{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)
@@ -30,9 +30,9 @@ func UpdateAssessmentCompletionStatus(
 	var route string
 	route, err = helpers2.GetRoute(
 		lib.RouteAssessmentsUpdateAssessmentCompletionStatus,
-		podParam.PodId,
-		podParam.KeyId,
-		podParam.BlockId,
+		assessmentParam.AssessmentId,
+		assessmentParam.KeyId,
+		assessmentParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

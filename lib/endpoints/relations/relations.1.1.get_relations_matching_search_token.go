@@ -32,7 +32,7 @@ type SearchBlockPodRelationParam struct {
 	Token        string
 	CurrentPodId string
 	KeyId        string
-	BlockId      string
+	CourseId     string
 }
 
 func searchRelationsMatchingSearchToken(jwtToken string, route string) ([]response.SearchResource, error) {
@@ -124,7 +124,7 @@ func SearchRelationsForAssessmentMatchingSearchToken(
 		relationParam.Token,
 		relationParam.CurrentPodId,
 		relationParam.KeyId,
-		relationParam.BlockId,
+		relationParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

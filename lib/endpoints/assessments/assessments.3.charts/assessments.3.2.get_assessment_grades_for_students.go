@@ -13,20 +13,20 @@ import (
 )
 
 type BlockPodGradesForStudents struct {
-	ID       string                 `json:"id"`
-	Name     string                 `json:"courseName"`
-	Key      common2.SlimKey        `json:"key"`
-	Pod      common2.SlimAssessment `json:"pod"`
-	Students []response.Student     `json:"students"`
+	ID         string                 `json:"id"`
+	Name       string                 `json:"courseName"`
+	Key        common2.SlimKey        `json:"key"`
+	Assessment common2.SlimAssessment `json:"pod"`
+	Students   []response.Student     `json:"students"`
 }
 
-func GetAssessmentGradesForStudents(jwtToken string, podParam common2.ResourceIdParam) (BlockPodGradesForStudents, error) {
+func GetAssessmentGradesForStudents(jwtToken string, assessmentParam common2.ResourceIdParam) (BlockPodGradesForStudents, error) {
 	resBlockPodGrades := BlockPodGradesForStudents{}
 	route, err := helpers2.GetRoute(
 		lib.RouteAssessmentsGetAssessmentGradesForStudents,
-		podParam.PodId,
-		podParam.KeyId,
-		podParam.BlockId,
+		assessmentParam.AssessmentId,
+		assessmentParam.KeyId,
+		assessmentParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

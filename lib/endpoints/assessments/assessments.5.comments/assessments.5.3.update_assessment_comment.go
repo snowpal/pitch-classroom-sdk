@@ -29,8 +29,8 @@ func UpdateAssessmentComment(
 		lib.RouteAssessmentsUpdateAssessmentComment,
 		*commentParam.CommentId,
 		commentParam.KeyId,
-		*commentParam.BlockId,
-		*commentParam.PodId,
+		*commentParam.CourseId,
+		*commentParam.AssessmentId,
 	)
 	req, err := http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {

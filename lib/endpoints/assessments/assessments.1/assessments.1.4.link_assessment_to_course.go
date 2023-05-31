@@ -9,8 +9,8 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 )
 
-func LinkAssessmentToCourse(jwtToken string, podParam common.ResourceIdParam) error {
-	route, err := helpers.GetRoute(lib.RouteAssessmentsLinkAssessmentToCourse, podParam.BlockId, podParam.PodId, podParam.KeyId)
+func LinkAssessmentToCourse(jwtToken string, assessmentParam common.ResourceIdParam) error {
+	route, err := helpers.GetRoute(lib.RouteAssessmentsLinkAssessmentToCourse, assessmentParam.CourseId, assessmentParam.AssessmentId, assessmentParam.KeyId)
 	if err != nil {
 		fmt.Println(err)
 		return err

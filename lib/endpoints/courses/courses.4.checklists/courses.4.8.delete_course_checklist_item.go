@@ -12,7 +12,7 @@ import (
 func DeleteCourseChecklistItem(jwtToken string, checklistParam request.ChecklistIdParam) error {
 	route, err := helpers.GetRoute(
 		lib.RouteCoursesDeleteCourseChecklistItem,
-		*checklistParam.BlockId,
+		*checklistParam.CourseId,
 		*checklistParam.ChecklistId,
 		*checklistParam.ChecklistItemId,
 		checklistParam.KeyId,

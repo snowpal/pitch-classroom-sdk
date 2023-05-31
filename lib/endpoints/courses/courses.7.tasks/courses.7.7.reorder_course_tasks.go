@@ -27,7 +27,7 @@ func ReorderCourseTasks(
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(
 		lib.RouteCoursesReorderCourseTasks,
-		*taskParam.BlockId,
+		*taskParam.CourseId,
 		taskParam.KeyId,
 	)
 	req, err := http.NewRequest(http.MethodPatch, route, payload)

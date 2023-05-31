@@ -19,9 +19,9 @@ func GetAttachmentSubmissionsAsStudent(
 	resAttachments := response.Attachments{}
 	route, err := helpers2.GetRoute(
 		lib.RouteTeacherKeysGetAttachmentSubmissionsAsStudent,
-		submissionParam.PodId,
+		submissionParam.AssessmentId,
 		submissionParam.KeyId,
-		submissionParam.BlockId,
+		submissionParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

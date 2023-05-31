@@ -14,7 +14,7 @@ func DeleteCourseAttachment(jwtToken string, attachmentParam request.AttachmentP
 		lib.RouteCoursesDeleteCourseAttachment,
 		*attachmentParam.AttachmentId,
 		attachmentParam.KeyId,
-		*attachmentParam.BlockId,
+		*attachmentParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

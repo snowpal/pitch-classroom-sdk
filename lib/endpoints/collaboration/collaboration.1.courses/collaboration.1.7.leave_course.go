@@ -9,11 +9,11 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 )
 
-func LeaveCourse(jwtToken string, blockParam common.ResourceIdParam) error {
+func LeaveCourse(jwtToken string, courseParam common.ResourceIdParam) error {
 	route, err := helpers.GetRoute(
 		lib.RouteCollaborationLeaveCourse,
-		blockParam.BlockId,
-		blockParam.KeyId,
+		courseParam.CourseId,
+		courseParam.KeyId,
 	)
 	req, err := http.NewRequest(http.MethodPatch, route, nil)
 	if err != nil {

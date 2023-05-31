@@ -13,13 +13,13 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetArchivedAssessments(jwtToken string, podsParam request.GetAssessmentsParam) ([]response.Pod, error) {
+func GetArchivedAssessments(jwtToken string, assessmentsParam request.GetAssessmentsParam) ([]response.Assessment, error) {
 	resPods := response.Assessments{}
 	route, err := helpers2.GetRoute(
 		lib.RouteAssessmentsGetArchivedAssessments,
-		strconv.Itoa(podsParam.BatchIndex),
-		podsParam.KeyId,
-		*podsParam.BlockId,
+		strconv.Itoa(assessmentsParam.BatchIndex),
+		assessmentsParam.KeyId,
+		*assessmentsParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

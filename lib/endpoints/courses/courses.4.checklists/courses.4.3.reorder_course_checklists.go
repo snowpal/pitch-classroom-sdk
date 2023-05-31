@@ -27,7 +27,7 @@ func ReorderCourseChecklists(
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(
 		lib.RouteCoursesReorderCourseChecklists,
-		*checklistParam.BlockId,
+		*checklistParam.CourseId,
 		checklistParam.KeyId,
 	)
 	if err != nil {

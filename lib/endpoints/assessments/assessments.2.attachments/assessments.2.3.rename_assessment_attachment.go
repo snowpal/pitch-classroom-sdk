@@ -25,8 +25,8 @@ func RenameAssessmentAttachment(
 		lib.RouteAssessmentsRenameAssessmentAttachment,
 		*attachmentParam.AttachmentId,
 		attachmentParam.KeyId,
-		*attachmentParam.BlockId,
-		*attachmentParam.PodId,
+		*attachmentParam.CourseId,
+		*attachmentParam.AssessmentId,
 	)
 	if err != nil {
 		fmt.Println(err)
