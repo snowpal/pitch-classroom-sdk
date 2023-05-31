@@ -11,8 +11,8 @@ import (
 )
 
 const (
-	FavKeyName   = "FavoriteKey"
-	FavBlockName = "FavoriteBlock"
+	FavKeyName    = "FavoriteKey"
+	FavCourseName = "FavoriteCourse"
 )
 
 func AddFavorite() {
@@ -33,13 +33,13 @@ func AddFavorite() {
 	if err != nil {
 		return
 	}
-	log.Info(".Block added as favorite")
+	log.Info(".Course added as favorite")
 
 	err = removeFavorite(user, favorite)
 	if err != nil {
 		return
 	}
-	log.Info(".Block removed from favorite")
+	log.Info(".Course removed from favorite")
 }
 
 func removeFavorite(user response.User, favorite response.AddFavorite) error {
@@ -52,11 +52,11 @@ func removeFavorite(user response.User, favorite response.AddFavorite) error {
 
 func addFavorite(user response.User) (response.AddFavorite, error) {
 	var favorite response.AddFavorite
-	key, err := recipes.AddCustomKey(user, FavKeyName)
+	key, err := recipes.AddTeacherKey(user, FavKeyName)
 	if err != nil {
 		return favorite, err
 	}
-	block, err := recipes.AddBlock(user, FavBlockName, key)
+	block, err := recipes.AddCourse(user, FavCourseName, key)
 	if err != nil {
 		return favorite, err
 	}

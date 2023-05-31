@@ -26,7 +26,7 @@ func relatePodToPod(jwtToken string, route string) error {
 	return nil
 }
 
-func RelateAssessmentToAssessment(jwtToken string, relationParam request.BlockPodToBlockPodRelationParam) error {
+func RelateAssessmentToAssessment(jwtToken string, relationParam request.AssessmentToAssessmentRelationParam) error {
 	route, err := helpers.GetRoute(
 		lib.RouteRelationsRelateAssessmentToAssessment,
 		relationParam.PodId,

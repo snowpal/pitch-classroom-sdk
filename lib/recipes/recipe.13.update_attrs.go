@@ -39,7 +39,7 @@ func UpdateAttributes() {
 
 	log.Info("Update key attributes")
 	recipes.SleepBefore()
-	key, err := recipes.AddCustomKey(user, AttrsKeyName)
+	key, err := recipes.AddTeacherKey(user, AttrsKeyName)
 	if err != nil {
 		return
 	}
@@ -59,7 +59,7 @@ func UpdateAttributes() {
 
 	log.Info("Update block attributes")
 	recipes.SleepBefore()
-	block, err := recipes.AddBlock(user, AttrsBlockName, key)
+	block, err := recipes.AddCourse(user, AttrsBlockName, key)
 	if err != nil {
 		return
 	}

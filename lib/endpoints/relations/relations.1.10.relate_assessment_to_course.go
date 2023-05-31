@@ -26,7 +26,7 @@ func relateBlockToPod(jwtToken string, route string) error {
 	return nil
 }
 
-func RelateCourseToAssessment(jwtToken string, relationParam request.BlockToBlockPodRelationParam) error {
+func RelateCourseToAssessment(jwtToken string, relationParam request.CourseToAssessmentRelationParam) error {
 	route, err := helpers.GetRoute(
 		lib.RouteRelationsRelateAssessmentToCourse,
 		relationParam.BlockId,

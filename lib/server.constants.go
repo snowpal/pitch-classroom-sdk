@@ -98,12 +98,12 @@ const (
 	RouteAssessmentsGetAssessment                                 = "assessments/%s?keyId=%s&courseId=%s"
 	RouteAssessmentsUpdateAssessment                              = "assessments/%s?keyId=%s&courseId=%s"
 	RouteAssessmentsUpdateAssessmentCompletionStatus              = "assessments/%s/by-completion-status?keyId=%s&courseId=%s"
-	RouteAssessmentsAddAssessmentTypeToAssessment                 = "assessments/%s/pod-types/%s?keyId=%s&courseId=%s"
-	RouteAssessmentsDeleteAssessmentTypeFromAssessment            = "assessments/%s/pod-types?keyId=%s&courseId=%s"
+	RouteAssessmentsAddAssessmentTypeToAssessment                 = "assessments/%s/assessment-types/%s?keyId=%s&courseId=%s"
+	RouteAssessmentsDeleteAssessmentTypeFromAssessment            = "assessments/%s/assessment-types?keyId=%s&courseId=%s"
 	RouteAssessmentsAddScaleToAssessment                          = "assessments/%s/scales/%s?keyId=%s&courseId=%s"
 	RouteAssessmentsDeleteScaleFromAssessment                     = "assessments/%s/scales?keyId=%s&courseId=%s"
 	RouteAssessmentsUpdateAssessmentScaleValue                    = "assessments/%s/scale-value?keyId=%s&courseId=%s"
-	RouteAssessmentsArchiveAssessment                             = "assessments/%s/archive?keyId=%s&block=%s"
+	RouteAssessmentsArchiveAssessment                             = "assessments/%s/archive?keyId=%s&courseId=%s"
 	RouteAssessmentsGetArchivedAssessments                        = "assessments/archived?batchIndex=%s&keyId=%s&courseId=%s"
 	RouteAssessmentsGetAssessmentsAvailableToBeLinkedToThisCourse = "courses/%s/assessments/available-to-link?keyId=%s"
 	RouteAssessmentsUnarchiveAssessment                           = "assessments/%s/unarchive?keyId=%s&courseId=%s"
@@ -221,7 +221,7 @@ const (
 const (
 	RouteKeysGetKeys                   = "keys?batchIndex=%s"
 	RouteKeysAddKey                    = "keys"
-	RouteKeysAddKeyBasedOnTemplate     = "keys/by-template?templateId=%s&excludeBlocks=%s&excludePods=%s&excludeTasks=%s"
+	RouteKeysAddKeyBasedOnTemplate     = "keys/by-template?templateId=%s&excludeCourses=%s&excludeAssessments=%s&excludeTasks=%s"
 	RouteKeysGetKey                    = "keys/%s"
 	RouteKeysUpdateKey                 = "keys/%s"
 	RouteKeysGetArchivedKeys           = "keys/archived"
@@ -303,8 +303,6 @@ const (
 	RouteRegistrationActivateUser           = "app/user-verified/%s"
 )
 
-// TODO(Anish,3,03/23/23): As the endpoint is same for key pod & block pod. We need to create these constants to
-// support both with the same endpoint with different query string params.
 const (
 	RouteRelationsGetRelationsForKeyMatchingSearchToken        = "search/relations?token=%s&currentKeyId=%s"
 	RouteRelationsGetRelationsForCourseMatchingSearchToken     = "search/relations?token=%s&currentCourseId=%s"
@@ -331,13 +329,13 @@ const (
 )
 
 const (
-	RouteScalesGetScales           = "scales?includeCounts=%s&excludeEmpty=%s"
-	RouteScalesAddScale            = "scales"
-	RouteScalesGetScale            = "scales/%s"
-	RouteScalesUpdateScale         = "scales/%s"
-	RouteScalesDeleteScale         = "scales/%s"
-	RouteScalesGetBlocksUsingScale = "scales/%s/blocks"
-	RouteScalesGetPodsUsingScale   = "scales/%s/pods"
+	RouteScalesGetScales                = "scales?includeCounts=%s&excludeEmpty=%s"
+	RouteScalesAddScale                 = "scales"
+	RouteScalesGetScale                 = "scales/%s"
+	RouteScalesUpdateScale              = "scales/%s"
+	RouteScalesDeleteScale              = "scales/%s"
+	RouteScalesGetCoursesUsingScale     = "scales/%s/courses"
+	RouteScalesGetAssessmentsUsingScale = "scales/%s/assessments"
 )
 
 const (
@@ -350,36 +348,36 @@ const (
 )
 
 const (
-	RouteSearchSearchKeyBlockOrPodByToken = "search?token=%s"
-	RouteSearchSearchUserByToken          = "search/users?token=%s"
+	RouteSearchSearchKeyCourseOrAssessmentByToken = "search?token=%s"
+	RouteSearchSearchUserByToken                  = "search/users?token=%s"
 )
 
 const (
-	RouteTeacherKeysGetAttachmentSubmissionsAsStudent = "classroom-pods/%s/submissions/attachments/as-student?keyId=%s&blockId=%s"
-	RouteTeacherKeysGetCommentSubmissionsAsStudent    = "classroom-pods/%s/submissions/comments/as-student?keyId=%s&blockId=%s"
-	RouteTeacherKeysGetStudentsInABlock               = "classroom-blocks/%s/students?keyId=%s"
+	RouteTeacherKeysGetAttachmentSubmissionsAsStudent = "assessments/%s/submissions/attachments/as-student?keyId=%s&courseId=%s"
+	RouteTeacherKeysGetCommentSubmissionsAsStudent    = "assessments/%s/submissions/comments/as-student?keyId=%s&courseId=%s"
+	RouteTeacherKeysGetStudentsInACourse              = "courses/%s/students?keyId=%s"
 )
 
 const (
-	RouteTeacherKeysGetStudentAttachmentSubmissionsAsTeacher  = "classroom-pods/%s/submissions/attachments/as-teacher?studentId=%s&keyId=%s&blockId=%s"
-	RouteTeacherKeysGetStudentCommentSubmissionsAsTeacher     = "classroom-pods/%s/submissions/comments/as-teacher?studentId=%s&keyId=%s&blockId=%s"
-	RouteTeacherKeysAddAttachmentToTeacherPodAsTeacher        = "classroom-pods/%s/attachments/as-teacher?keyId=%s&blockId=%s"
-	RouteTeacherKeysAddCommentToTeacherPodAsTeacher           = "classroom-pods/%s/comments/as-teacher?keyId=%s&blockId=%s"
-	RouteTeacherKeysGetBlockAndPodsGradesForAStudentAsTeacher = "classroom-blocks/%s/student-grades/as-teacher?studentUserId=%s&keyId=%s"
-	RouteTeacherKeysPublishStudentGradesForABlock             = "classroom-blocks/%s/student-grades/publish?keyId=%s"
-	RouteTeacherKeysBulkPublishPodGradesForAStudent           = "classroom-pods/students/%s/grades/publish?keyId=%s&blockId=%s"
-	RouteTeacherKeysBulkPublishPodGradesForStudents           = "classroom-pods/%s/students/grades/publish?keyId=%s&blockId=%s"
-	RouteTeacherKeysGetBlockGradesForStudents                 = "classroom-blocks/%s/students/grades?keyId=%s"
-	RouteTeacherKeysGetPodGradesForStudents                   = "classroom-pods/%s/students/grades?keyId=%s&blockId=%s"
-	RouteTeacherKeysAssignGradeToStudent                      = "classroom-blocks/%s/student/grade?studentUserId=%s&keyId=%s"
-	RouteTeacherKeysAssignPodGradeForAStudentAsTeacher        = "classroom-pods/%s/student/grade?studentUserId=%s&keyId=%s&blockId=%s"
-	RouteTeacherKeysGetStudentProfile                         = "classroom/students/%s/profile?keyId=%s&blockId=%s"
+	RouteTeacherKeysGetStudentAttachmentSubmissionsAsTeacher          = "assessments/%s/submissions/attachments/as-teacher?studentId=%s&keyId=%s&courseId=%s"
+	RouteTeacherKeysGetStudentCommentSubmissionsAsTeacher             = "assessments/%s/submissions/comments/as-teacher?studentId=%s&keyId=%s&courseId=%s"
+	RouteTeacherKeysAddAttachmentToTeacherAssessmentAsTeacher         = "assessments/%s/attachments/as-teacher?keyId=%s&courseId=%s"
+	RouteTeacherKeysAddCommentToTeacherAssessmentAsTeacher            = "assessments/%s/comments/as-teacher?keyId=%s&courseId=%s"
+	RouteTeacherKeysGetCourseAndAssessmentsGradesForAStudentAsTeacher = "courses/%s/student-grades/as-teacher?studentUserId=%s&keyId=%s"
+	RouteTeacherKeysPublishStudentGradesForACourse                    = "courses/%s/student-grades/publish?keyId=%s"
+	RouteTeacherKeysBulkPublishAssessmentGradesForAStudent            = "assessments/students/%s/grades/publish?keyId=%s&courseId=%s"
+	RouteTeacherKeysBulkPublishAssessmentGradesForStudents            = "assessments/%s/students/grades/publish?keyId=%s&courseId=%s"
+	RouteTeacherKeysGetCourseGradesForStudents                        = "courses/%s/students/grades?keyId=%s"
+	RouteTeacherKeysGetAssessmentGradesForStudents                    = "assessments/%s/students/grades?keyId=%s&courseId=%s"
+	RouteTeacherKeysAssignGradeToStudent                              = "courses/%s/student/grade?studentUserId=%s&keyId=%s"
+	RouteTeacherKeysAssignAssessmentGradeForAStudentAsTeacher         = "assessments/%s/student/grade?studentUserId=%s&keyId=%s&courseId=%s"
+	RouteTeacherKeysGetStudentProfile                                 = "students/%s/profile?keyId=%s&courseId=%s"
 )
 
 const (
-	RouteTemplatesGetKeyTemplates   = "templates/keys"
-	RouteTemplatesGetBlockTemplates = "templates/blocks"
-	RouteTemplatesGetPodTemplates   = "templates/pods"
+	RouteTemplatesGetKeyTemplates        = "templates/keys"
+	RouteTemplatesGetCourseTemplates     = "templates/courses"
+	RouteTemplatesGetAssessmentTemplates = "templates/assessments"
 )
 
 const (

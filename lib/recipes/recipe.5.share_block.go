@@ -18,9 +18,9 @@ import (
 )
 
 const (
-	KeyName          = "Diwali Festival"
-	BlockName        = "Diwali Function"
-	UpdatedBlockName = "Diwali Celebration"
+	KeyName           = "Diwali Festival"
+	CourseName        = "Diwali Function"
+	UpdatedCourseName = "Diwali Celebration"
 )
 
 func ShareBlock() {
@@ -37,7 +37,7 @@ func ShareBlock() {
 
 	log.Info("Share a block")
 	recipes.SleepBefore()
-	var block response.Block
+	var block response.Course
 	block, err = shareBlock(user)
 	if err != nil {
 		return
@@ -60,7 +60,7 @@ func ShareBlock() {
 
 	log.Printf("Update block name as a write user")
 	recipes.SleepBefore()
-	var resBlock response.Block
+	var resBlock response.Course
 	resBlock, err = updateBlockAsWriteUser(writeUser, block)
 	if err != nil {
 		return
@@ -76,7 +76,7 @@ func ShareBlock() {
 	log.Printf(".Admin access has been granted successfully")
 }
 
-func getWriteUser(user response.User, block response.Block) (response.User, error) {
+func getWriteUser(user response.User, block response.Course) (response.User, error) {
 	var writeUser response.User
 	resBlock, err := collaboration.GetCourseCollaborators(
 		user.JwtToken,
@@ -107,13 +107,13 @@ func getWriteUser(user response.User, block response.Block) (response.User, erro
 	return writeUser, nil
 }
 
-func shareBlock(user response.User) (response.Block, error) {
-	var block response.Block
-	key, err := recipes.AddCustomKey(user, KeyName)
+func shareBlock(user response.User) (response.Course, error) {
+	var block response.Course
+	key, err := recipes.AddTeacherKey(user, KeyName)
 	if err != nil {
 		return block, err
 	}
-	block, err = recipes.AddBlock(user, BlockName, key)
+	block, err = recipes.AddCourse(user, CourseName, key)
 	if err != nil {
 		return block, err
 	}
@@ -142,7 +142,7 @@ func showNotificationsAsWriteUser(writeUser response.User) error {
 	return nil
 }
 
-func updateBlockAsWriteUser(writeUser response.User, block response.Block) (response.Block, error) {
+func updateBlockAsWriteUser(writeUser response.User, block response.Course) (response.Course, error) {
 	const (
 		SystemKeyType       = "system"
 		customSystemKeyType = "SharedCustomKey"
@@ -155,10 +155,10 @@ func updateBlockAsWriteUser(writeUser response.User, block response.Block) (resp
 			break
 		}
 	}
-	updatedBlockName := UpdatedBlockName
+	updatedCourseName := UpdatedCourseName
 	resBlock, err := courses.UpdateCourse(
 		writeUser.JwtToken,
-		courses.UpdateBlockReqBody{Name: &updatedBlockName},
+		courses.UpdateCourseReqBody{Name: &updatedCourseName},
 		common.ResourceIdParam{
 			BlockId: block.ID,
 			KeyId:   customSystemKey.ID,
@@ -169,7 +169,7 @@ func updateBlockAsWriteUser(writeUser response.User, block response.Block) (resp
 	return resBlock, nil
 }
 
-func makeReadUserAsAdmin(user response.User, block response.Block) error {
+func makeReadUserAsAdmin(user response.User, block response.Course) error {
 	resBlock, err := collaboration.GetCourseCollaborators(
 		user.JwtToken,
 		common.ResourceIdParam{
@@ -190,7 +190,7 @@ func makeReadUserAsAdmin(user response.User, block response.Block) error {
 
 	_, err = collaboration.UpdateCourseAcl(
 		user.JwtToken,
-		request.BlockAclReqBody{Acl: lib.AdminAcl},
+		request.CourseAclReqBody{Acl: lib.AdminAcl},
 		common.AclParam{
 			UserId: readUser.ID,
 			ResourceIds: common.ResourceIdParam{

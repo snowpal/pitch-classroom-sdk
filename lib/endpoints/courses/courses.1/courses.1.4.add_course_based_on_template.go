@@ -23,10 +23,10 @@ type BlockByTemplateParam struct {
 
 func AddCourseBasedOnTemplate(
 	jwtToken string,
-	reqBody request.AddBlockReqBody,
+	reqBody request.AddCourseReqBody,
 	blockParam BlockByTemplateParam,
-) (response.Block, error) {
-	resBlock := response.Block{}
+) (response.Course, error) {
+	resBlock := response.Course{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)

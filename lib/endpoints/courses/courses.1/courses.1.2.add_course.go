@@ -13,8 +13,8 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func AddCourse(jwtToken string, reqBody request.AddBlockReqBody, keyId string) (response.Block, error) {
-	resBlock := response.Block{}
+func AddCourse(jwtToken string, reqBody request.AddCourseReqBody, keyId string) (response.Course, error) {
+	resBlock := response.Course{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)

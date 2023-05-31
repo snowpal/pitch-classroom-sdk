@@ -1,4 +1,4 @@
-package search
+package scales
 
 import (
 	"encoding/json"
@@ -11,19 +11,19 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func SrchKeyBlockOrPodByToken(jwtToken string, searchToken string) ([]response.SearchResource, error) {
-	resSearchResources := response.SearchResources{}
-	route, err := helpers2.GetRoute(lib.RouteSearchSearchKeyBlockOrPodByToken, searchToken)
+func GetCoursesUsingScale(jwtToken string, scaleId string) ([]response.Course, error) {
+	resBlocks := response.Courses{}
+	route, err := helpers2.GetRoute(lib.RouteScalesGetCoursesUsingScale, scaleId)
 	if err != nil {
 		fmt.Println(err)
-		return resSearchResources.Results, err
+		return resBlocks.Courses, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resSearchResources.Results, err
+		return resBlocks.Courses, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -32,7 +32,7 @@ func SrchKeyBlockOrPodByToken(jwtToken string, searchToken string) ([]response.S
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resSearchResources.Results, err
+		return resBlocks.Courses, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -41,13 +41,13 @@ func SrchKeyBlockOrPodByToken(jwtToken string, searchToken string) ([]response.S
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resSearchResources.Results, err
+		return resBlocks.Courses, err
 	}
 
-	err = json.Unmarshal(body, &resSearchResources)
+	err = json.Unmarshal(body, &resBlocks)
 	if err != nil {
 		fmt.Println(err)
-		return resSearchResources.Results, err
+		return resBlocks.Courses, err
 	}
-	return resSearchResources.Results, nil
+	return resBlocks.Courses, nil
 }

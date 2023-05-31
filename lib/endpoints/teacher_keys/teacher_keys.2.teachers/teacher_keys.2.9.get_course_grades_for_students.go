@@ -8,30 +8,29 @@ import (
 
 	"github.com/snowpal/pitch-classroom-sdk/lib"
 	helpers2 "github.com/snowpal/pitch-classroom-sdk/lib/helpers"
-	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetBlockAndPodsGradesForAStudentAsTeacher(
+func GetCourseGradesForStudents(
 	jwtToken string,
-	classroomParam request.ClassroomIdParam,
-) (response.StudentGradeForBlockAndPod, error) {
-	resStudentGrades := response.StudentGradeForBlockAndPod{}
+	blockParam common.ResourceIdParam,
+) (response.StudentGradeForCourseAndAssessment, error) {
+	resStudentGradesForBlock := response.StudentGradeForCourseAndAssessment{}
 	route, err := helpers2.GetRoute(
-		lib.RouteTeacherKeysGetBlockAndPodsGradesForAStudentAsTeacher,
-		classroomParam.ResourceIds.BlockId,
-		classroomParam.StudentId,
-		classroomParam.ResourceIds.KeyId,
+		lib.RouteTeacherKeysGetCourseGradesForStudents,
+		blockParam.BlockId,
+		blockParam.KeyId,
 	)
 	if err != nil {
 		fmt.Println(err)
-		return resStudentGrades, err
+		return resStudentGradesForBlock, err
 	}
 
 	req, err := http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resStudentGrades, err
+		return resStudentGradesForBlock, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -39,7 +38,7 @@ func GetBlockAndPodsGradesForAStudentAsTeacher(
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resStudentGrades, err
+		return resStudentGradesForBlock, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -47,13 +46,13 @@ func GetBlockAndPodsGradesForAStudentAsTeacher(
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resStudentGrades, err
+		return resStudentGradesForBlock, err
 	}
 
-	err = json.Unmarshal(body, &resStudentGrades)
+	err = json.Unmarshal(body, &resStudentGradesForBlock)
 	if err != nil {
 		fmt.Println(err)
-		return resStudentGrades, err
+		return resStudentGradesForBlock, err
 	}
-	return resStudentGrades, nil
+	return resStudentGradesForBlock, nil
 }

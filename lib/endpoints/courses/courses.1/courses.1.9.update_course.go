@@ -13,8 +13,8 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-type UpdateBlockReqBody struct {
-	Name              *string `json:"blockName"`
+type UpdateCourseReqBody struct {
+	Name              *string `json:"courseName"`
 	BlockId           *string `json:"blockId"`
 	SimpleDescription *string `json:"simpleDescription"`
 	DueDate           *string `json:"blockDueDate"`
@@ -26,8 +26,8 @@ type UpdateBlockReqBody struct {
 	Completed         bool    `json:"blockCompleted"`
 }
 
-func UpdateCourse(jwtToken string, reqBody UpdateBlockReqBody, blockParam common.ResourceIdParam) (response.Block, error) {
-	resBlock := response.Block{}
+func UpdateCourse(jwtToken string, reqBody UpdateCourseReqBody, blockParam common.ResourceIdParam) (response.Course, error) {
+	resBlock := response.Course{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)

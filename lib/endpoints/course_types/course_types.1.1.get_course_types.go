@@ -12,17 +12,17 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetCourseTypes(jwtToken string, includeCounts bool) ([]response.BlockType, error) {
-	resBlockTypes := response.BlockTypes{}
+func GetCourseTypes(jwtToken string, includeCounts bool) ([]response.CourseType, error) {
+	resBlockTypes := response.CourseTypes{}
 	route, err := helpers2.GetRoute(lib.RouteCourseTypesGetCourseTypes, strconv.FormatBool(includeCounts))
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTypes.BlockTypes, err
+		return resBlockTypes.CourseTypes, err
 	}
 	req, err := http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTypes.BlockTypes, err
+		return resBlockTypes.CourseTypes, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -30,7 +30,7 @@ func GetCourseTypes(jwtToken string, includeCounts bool) ([]response.BlockType, 
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTypes.BlockTypes, err
+		return resBlockTypes.CourseTypes, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -38,13 +38,13 @@ func GetCourseTypes(jwtToken string, includeCounts bool) ([]response.BlockType, 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTypes.BlockTypes, err
+		return resBlockTypes.CourseTypes, err
 	}
 
 	err = json.Unmarshal(body, &resBlockTypes)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTypes.BlockTypes, err
+		return resBlockTypes.CourseTypes, err
 	}
-	return resBlockTypes.BlockTypes, nil
+	return resBlockTypes.CourseTypes, nil
 }

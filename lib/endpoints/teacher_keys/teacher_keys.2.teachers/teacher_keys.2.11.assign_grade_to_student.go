@@ -13,7 +13,7 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func AssignBlockGradeToStudent(
+func AssignCourseGradeToStudent(
 	jwtToken string,
 	reqBody request.UpdateScaleValueReqBody,
 	classroomParam request.ClassroomIdParam,

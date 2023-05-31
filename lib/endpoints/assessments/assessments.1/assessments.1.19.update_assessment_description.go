@@ -16,7 +16,7 @@ import (
 
 func UpdateAssessmentDescription(
 	jwtToken string,
-	reqBody request.UpdatePodDescReqBody,
+	reqBody request.UpdateAssessmentDescReqBody,
 	podParam common.ResourceIdParam,
 ) (response.Pod, error) {
 	resPod := response.Pod{}

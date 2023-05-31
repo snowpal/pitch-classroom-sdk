@@ -12,13 +12,13 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetPodGradesForStudents(
+func GetAssessmentGradesForStudents(
 	jwtToken string,
 	podParam common.ResourceIdParam,
-) (response.StudentGradeForBlockAndPod, error) {
-	resStudentGradesForPod := response.StudentGradeForBlockAndPod{}
+) (response.StudentGradeForCourseAndAssessment, error) {
+	resStudentGradesForPod := response.StudentGradeForCourseAndAssessment{}
 	route, err := helpers2.GetRoute(
-		lib.RouteTeacherKeysGetPodGradesForStudents,
+		lib.RouteTeacherKeysGetAssessmentGradesForStudents,
 		podParam.PodId,
 		podParam.KeyId,
 		podParam.BlockId,

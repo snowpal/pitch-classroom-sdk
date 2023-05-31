@@ -5,19 +5,12 @@ type KeyToKeyRelationParam struct {
 	TargetKeyId string
 }
 
-type KeyToBlockRelationParam struct {
+type KeyToCourseRelationParam struct {
 	KeyId         string
 	TargetBlockId string
 }
 
-type KeyToPodRelationParam struct {
-	KeyId string
-
-	TargetPodId string
-	TargetKeyId string
-}
-
-type KeyToBlockPodRelationParam struct {
+type KeyToAssessmentRelationParam struct {
 	KeyId string
 
 	TargetPodId   string
@@ -25,19 +18,12 @@ type KeyToBlockPodRelationParam struct {
 	TargetBlockId string
 }
 
-type BlockToBlockRelationParam struct {
+type CourseToCourseRelationParam struct {
 	BlockId       string
 	TargetBlockId string
 }
 
-type BlockToPodRelationParam struct {
-	BlockId string
-
-	TargetPodId string
-	TargetKeyId string
-}
-
-type BlockToBlockPodRelationParam struct {
+type CourseToAssessmentRelationParam struct {
 	BlockId string
 
 	TargetPodId   string
@@ -45,24 +31,7 @@ type BlockToBlockPodRelationParam struct {
 	TargetBlockId string
 }
 
-type PodToPodRelationParam struct {
-	PodId       string
-	SourceKeyId string
-
-	TargetPodId string
-	TargetKeyId string
-}
-
-type PodToBlockPodRelationParam struct {
-	PodId       string
-	SourceKeyId string
-
-	TargetPodId   string
-	TargetKeyId   string
-	TargetBlockId string
-}
-
-type BlockPodToBlockPodRelationParam struct {
+type AssessmentToAssessmentRelationParam struct {
 	PodId         string
 	SourceKeyId   string
 	SourceBlockId string

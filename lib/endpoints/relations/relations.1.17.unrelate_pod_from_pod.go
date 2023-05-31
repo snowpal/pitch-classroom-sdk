@@ -26,7 +26,7 @@ func unrelateAssessmentFromAssessment(jwtToken string, route string) error {
 	return nil
 }
 
-func UnrelateAssessmentFromAssessment(jwtToken string, relationParam request.BlockPodToBlockPodRelationParam) error {
+func UnrelateAssessmentFromAssessment(jwtToken string, relationParam request.AssessmentToAssessmentRelationParam) error {
 	route, err := helpers.GetRoute(
 		lib.RouteRelationsUnrelateAssessmentFromAssessment,
 		relationParam.PodId,

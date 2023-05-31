@@ -14,12 +14,12 @@ import (
 )
 
 const (
-	Key1Name         = "Taxes"
-	AnotherKeyName   = "State Taxes"
-	Block1Name       = "Form 1040"
-	AnotherBlockName = "Form 1120S"
-	Pod1Name         = "Income"
-	BlockPod1Name    = "Expenses"
+	Key1Name          = "Taxes"
+	AnotherKeyName    = "State Taxes"
+	Block1Name        = "Form 1040"
+	AnotherCourseName = "Form 1120S"
+	Pod1Name          = "Income"
+	BlockPod1Name     = "Expenses"
 )
 
 // AddAndLinkResources Add block, pod & block pod to a key and link them into another key
@@ -36,9 +36,9 @@ func AddAndLinkResources() {
 	}
 
 	var newKey response.Key
-	log.Info("Add a new custom key")
+	log.Info("Add a new teacher key")
 	recipes.SleepBefore()
-	newKey, err = recipes.AddCustomKey(user, Key1Name)
+	newKey, err = recipes.AddTeacherKey(user, Key1Name)
 	if err != nil {
 		return
 	}
@@ -46,7 +46,7 @@ func AddAndLinkResources() {
 	recipes.SleepAfter()
 
 	var (
-		newBlock    response.Block
+		newBlock    response.Course
 		newBlockPod response.Pod
 	)
 	newBlock, newBlockPod, err = addBlocksAndPods(user, newKey)
@@ -57,19 +57,19 @@ func AddAndLinkResources() {
 	log.Info("Add another key")
 	recipes.SleepBefore()
 	var anotherKey response.Key
-	anotherKey, err = recipes.AddCustomKey(user, AnotherKeyName)
+	anotherKey, err = recipes.AddStudentKey(user, AnotherKeyName)
 	if err != nil {
 		return
 	}
 
-	log.Info("Add block")
+	log.Info("Add course")
 	recipes.SleepBefore()
-	var anotherBlock response.Block
-	anotherBlock, err = recipes.AddBlock(user, AnotherBlockName, newKey)
+	var anotherBlock response.Course
+	anotherBlock, err = recipes.AddCourse(user, AnotherCourseName, newKey)
 	if err != nil {
 		return
 	}
-	log.Printf(".Block, %s is created successfully.", newBlock.Name)
+	log.Printf(".Course, %s is created successfully.", newBlock.Name)
 	recipes.SleepAfter()
 
 	err = linkResources(user, anotherKey, anotherBlock, newBlock, newBlockPod)
@@ -81,11 +81,11 @@ func AddAndLinkResources() {
 func linkResources(
 	user response.User,
 	anotherKey response.Key,
-	anotherBlock response.Block,
-	newBlock response.Block,
+	anotherBlock response.Course,
+	newBlock response.Course,
 	newBlockPod response.Pod,
 ) error {
-	log.Info("Link block into the other key")
+	log.Info("Link course into the other key")
 	recipes.SleepBefore()
 	err := courses.LinkCourseToKey(user.JwtToken,
 		common.ResourceIdParam{
@@ -95,30 +95,30 @@ func linkResources(
 	if err != nil {
 		return err
 	}
-	log.Printf(".Block, %s is linked successfully to %s Key.", newBlock.Name, anotherKey.Name)
+	log.Printf(".Course, %s is linked successfully to %s Key.", newBlock.Name, anotherKey.Name)
 	recipes.SleepAfter()
 	return nil
 }
 
-func addBlocksAndPods(user response.User, newKey response.Key) (response.Block, response.Pod, error) {
+func addBlocksAndPods(user response.User, newKey response.Key) (response.Course, response.Pod, error) {
 	var (
 		pod   response.Pod
-		block response.Block
+		block response.Course
 	)
 	log.Info("Add a new block")
 	recipes.SleepBefore()
-	newBlock, err := recipes.AddBlock(user, Block1Name, newKey)
+	newBlock, err := recipes.AddCourse(user, Block1Name, newKey)
 	if err != nil {
 		return block, pod, err
 	}
-	log.Printf(".Block, %s is created successfully.", newBlock.Name)
+	log.Printf(".Course, %s is created successfully.", newBlock.Name)
 	recipes.SleepAfter()
 
 	log.Info("Add a new block pod in this block")
 	recipes.SleepBefore()
 	var newBlockPod response.Pod
 	newBlockPod, err = assessments.AddAssessment(user.JwtToken,
-		request.AddPodReqBody{
+		request.AddAssessmentReqBody{
 			Name: BlockPod1Name,
 		},
 		common.ResourceIdParam{
@@ -128,7 +128,7 @@ func addBlocksAndPods(user response.User, newKey response.Key) (response.Block, 
 	if err != nil {
 		return block, pod, err
 	}
-	log.Printf(".Block Pod, %s is created successfully in %s Block.", newBlockPod.Name, newBlock.Name)
+	log.Printf(".Assessment, %s is created successfully in %s Course.", newBlockPod.Name, newBlock.Name)
 	recipes.SleepAfter()
 	return newBlock, newBlockPod, nil
 }

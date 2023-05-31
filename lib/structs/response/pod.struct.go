@@ -4,25 +4,25 @@ import (
 	common2 "github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 )
 
-type Pods struct {
-	Pods []Pod `json:"pods"`
+type Assessments struct {
+	Assessments []Pod `json:"pods"`
 }
 
 type Pod struct {
 	ID                string  `json:"id"`
-	Name              string  `json:"podName"`
-	Description       string  `json:"podDescription"`
+	Name              string  `json:"assessmentName"`
+	Description       string  `json:"assessmentDescription"`
 	SimpleDescription string  `json:"simpleDescription"`
 	Color             string  `json:"color"`
 	Tags              string  `json:"tags"`
 	ScaleValue        *string `json:"scaleValue"`
 
-	Attributes  []common2.DisplayAttribute `json:"attributes"`
-	PodType     *PodType                   `json:"podType"`
-	Scale       *Scale                     `json:"scale"`
-	TaggedUsers []TaggedUser               `json:"taggedUsers"`
-	Key         *common2.SlimKey           `json:"key"`
-	Block       *common2.SlimBlock         `json:"block"`
+	Attributes     []common2.DisplayAttribute `json:"attributes"`
+	AssessmentType *AssessmentType            `json:"podType"`
+	Scale          *Scale                     `json:"scale"`
+	TaggedUsers    []TaggedUser               `json:"taggedUsers"`
+	Key            *common2.SlimKey           `json:"key"`
+	Course         *common2.SlimCourse        `json:"course"`
 
 	// Boolean Attributes
 	Completed    *bool `json:"completed"`
@@ -64,6 +64,6 @@ type UpdatePodScaleValue struct {
 	ScaleValue   string `json:"scaleValue"`
 	NumericScale int    `json:"numericScale"`
 
-	Key   common2.SlimKey    `json:"key"`
-	Block *common2.SlimBlock `json:"block"`
+	Key    common2.SlimKey     `json:"key"`
+	Course *common2.SlimCourse `json:"course"`
 }

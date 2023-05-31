@@ -52,8 +52,8 @@ func addKey(user response.User, keyName string, keyType string) (response.Key, e
 	return newKey, nil
 }
 
-func AddCustomKey(user response.User, keyName string) (response.Key, error) {
-	newKey, err := addKey(user, keyName, lib.CustomKeyType)
+func AddStudentKey(user response.User, keyName string) (response.Key, error) {
+	newKey, err := addKey(user, keyName, lib.StudentKeyType)
 	if err != nil {
 		return newKey, err
 	}
@@ -68,10 +68,10 @@ func AddTeacherKey(user response.User, keyName string) (response.Key, error) {
 	return newKey, nil
 }
 
-func AddBlock(user response.User, blockName string, key response.Key) (response.Block, error) {
+func AddCourse(user response.User, blockName string, key response.Key) (response.Course, error) {
 	newBlock, err := courses.AddCourse(
 		user.JwtToken,
-		request.AddBlockReqBody{Name: blockName},
+		request.AddCourseReqBody{Name: blockName},
 		key.ID)
 	if err != nil {
 		return newBlock, err
@@ -79,10 +79,10 @@ func AddBlock(user response.User, blockName string, key response.Key) (response.
 	return newBlock, nil
 }
 
-func AddPodToBlock(user response.User, podName string, block response.Block) (response.Pod, error) {
+func AddPodToBlock(user response.User, podName string, block response.Course) (response.Pod, error) {
 	newPod, err := assessments.AddAssessment(
 		user.JwtToken,
-		request.AddPodReqBody{Name: podName},
+		request.AddAssessmentReqBody{Name: podName},
 		common.ResourceIdParam{BlockId: block.ID, KeyId: block.Key.ID})
 	if err != nil {
 		return newPod, err
@@ -90,7 +90,7 @@ func AddPodToBlock(user response.User, podName string, block response.Block) (re
 	return newPod, nil
 }
 
-func SearchUserAndShareBlock(user response.User, block response.Block, searchToken string, acl string) error {
+func SearchUserAndShareBlock(user response.User, block response.Course, searchToken string, acl string) error {
 	blockIdParam := common.ResourceIdParam{
 		BlockId: block.ID,
 		KeyId:   block.Key.ID,
@@ -110,7 +110,7 @@ func SearchUserAndShareBlock(user response.User, block response.Block, searchTok
 	// the first one.
 	_, err = collaboration.ShareCourseWithCollaborator(
 		user.JwtToken,
-		request.BlockAclReqBody{Acl: acl},
+		request.CourseAclReqBody{Acl: acl},
 		common.AclParam{
 			UserId:      searchedUsers[0].ID,
 			ResourceIds: blockIdParam,

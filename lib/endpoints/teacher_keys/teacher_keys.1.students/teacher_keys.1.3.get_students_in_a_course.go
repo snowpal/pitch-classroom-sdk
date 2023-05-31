@@ -12,9 +12,9 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetStudentsInABlock(jwtToken string, blockParam common.ResourceIdParam) ([]response.Student, error) {
+func GetStudentsInACourse(jwtToken string, blockParam common.ResourceIdParam) ([]response.Student, error) {
 	resStudents := response.Students{}
-	route, err := helpers2.GetRoute(lib.RouteTeacherKeysGetStudentsInABlock, blockParam.BlockId, blockParam.KeyId)
+	route, err := helpers2.GetRoute(lib.RouteTeacherKeysGetStudentsInACourse, blockParam.BlockId, blockParam.KeyId)
 	if err != nil {
 		fmt.Println(err)
 		return resStudents.Students, err

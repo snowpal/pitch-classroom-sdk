@@ -26,7 +26,7 @@ type FavoriteKey struct {
 
 type FavoriteBlock struct {
 	ID       string                  `json:"id"`
-	Name     string                  `json:"blockName"`
+	Name     string                  `json:"courseName"`
 	Modifier common.ResourceModifier `json:"modifier"`
 }
 
@@ -34,9 +34,9 @@ type FavoriteResource struct {
 	ID           string                  `json:"id"`
 	ResourceType string                  `json:"resourceType"`
 	KeyName      *string                 `json:"keyName"`
-	BlockName    *string                 `json:"blockName"`
-	PodName      *string                 `json:"podName"`
+	Coursename   *string                 `json:"courseName"`
+	PodName      *string                 `json:"assessmentName"`
 	Key          *FavoriteKey            `json:"key"`
-	Block        *FavoriteBlock          `json:"block"`
+	Course       *FavoriteBlock          `json:"course"`
 	Modifier     common.ResourceModifier `json:"modifier"`
 }
