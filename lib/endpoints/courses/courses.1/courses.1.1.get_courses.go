@@ -14,7 +14,7 @@ import (
 )
 
 func GetCourses(jwtToken string, courseParam request.GetCoursesParam) ([]response.Course, error) {
-	resBlocks := response.Courses{}
+	resCourses := response.Courses{}
 	route, err := helpers2.GetRoute(
 		lib.RouteCoursesGetCourses,
 		courseParam.KeyId,
@@ -24,14 +24,14 @@ func GetCourses(jwtToken string, courseParam request.GetCoursesParam) ([]respons
 	)
 	if err != nil {
 		fmt.Println(err)
-		return resBlocks.Courses, err
+		return resCourses.Courses, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resBlocks.Courses, err
+		return resCourses.Courses, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -40,7 +40,7 @@ func GetCourses(jwtToken string, courseParam request.GetCoursesParam) ([]respons
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resBlocks.Courses, err
+		return resCourses.Courses, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -49,13 +49,13 @@ func GetCourses(jwtToken string, courseParam request.GetCoursesParam) ([]respons
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resBlocks.Courses, err
+		return resCourses.Courses, err
 	}
 
-	err = json.Unmarshal(body, &resBlocks)
+	err = json.Unmarshal(body, &resCourses)
 	if err != nil {
 		fmt.Println(err)
-		return resBlocks.Courses, err
+		return resCourses.Courses, err
 	}
-	return resBlocks.Courses, nil
+	return resCourses.Courses, nil
 }

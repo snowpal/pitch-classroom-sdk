@@ -11,14 +11,14 @@ import (
 )
 
 const (
-	AttrsKeyName   = "Birds"
-	AttrsBlockName = "Parrot"
+	AttrsKeyName    = "Birds"
+	AttrsCourseName = "Parrot"
 )
 
-// UpdateAttributes sign in, update key attributes, update block attributes, update pod attributes, update block pod attributes,
+// UpdateAttributes sign in, update key attributes, update course attributes, update assessment attributes, update course assessment attributes,
 // get resource attributes
 func UpdateAttributes() {
-	log.Info("Objective: Update show/hide of key, block, pod & block pod attributes")
+	log.Info("Objective: Update show/hide of key, course, assessment & course assessment attributes")
 	_, err := recipes.ValidateDependencies()
 	if err != nil {
 		return
@@ -57,17 +57,17 @@ func UpdateAttributes() {
 	log.Printf(".Attributes for Key %s updated successfully", key.Name)
 	recipes.SleepAfter()
 
-	log.Info("Update block attributes")
+	log.Info("Update course attributes")
 	recipes.SleepBefore()
-	block, err := recipes.AddCourse(user, AttrsBlockName, key)
+	course, err := recipes.AddCourse(user, AttrsCourseName, key)
 	if err != nil {
 		return
 	}
 	err = attributes.UpdateCourseDisplayAttributes(
 		user.JwtToken,
 		common.ResourceIdParam{
-			CourseId: block.ID,
-			KeyId:    block.Key.ID,
+			CourseId: course.ID,
+			KeyId:    course.Key.ID,
 		},
 		request.ResourceAttributeReqBody{
 			AttributeNames: "tags,rendering_mode",
@@ -77,6 +77,6 @@ func UpdateAttributes() {
 	if err != nil {
 		return
 	}
-	log.Printf(".Attributes for block %s updated successfully", key.Name)
+	log.Printf(".Attributes for course %s updated successfully", key.Name)
 	recipes.SleepAfter()
 }

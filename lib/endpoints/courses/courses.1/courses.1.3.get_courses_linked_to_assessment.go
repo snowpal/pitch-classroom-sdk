@@ -13,7 +13,7 @@ import (
 )
 
 func GetCoursesLinkedToAssessment(jwtToken string, courseParam common.ResourceIdParam) ([]response.Course, error) {
-	resBlocks := response.Courses{}
+	resCourses := response.Courses{}
 	route, err := helpers2.GetRoute(
 		lib.RouteCoursesGetCoursesLinkedToAssessment,
 		courseParam.AssessmentId,
@@ -21,20 +21,20 @@ func GetCoursesLinkedToAssessment(jwtToken string, courseParam common.ResourceId
 	)
 	if err != nil {
 		fmt.Println(err)
-		return resBlocks.Courses, err
+		return resCourses.Courses, err
 	}
 
 	req, _ := http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resBlocks.Courses, err
+		return resCourses.Courses, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resBlocks.Courses, err
+		return resCourses.Courses, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -42,13 +42,13 @@ func GetCoursesLinkedToAssessment(jwtToken string, courseParam common.ResourceId
 	body, _ := io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resBlocks.Courses, err
+		return resCourses.Courses, err
 	}
 
-	err = json.Unmarshal(body, &resBlocks)
+	err = json.Unmarshal(body, &resCourses)
 	if err != nil {
 		fmt.Println(err)
-		return resBlocks.Courses, err
+		return resCourses.Courses, err
 	}
-	return resBlocks.Courses, nil
+	return resCourses.Courses, nil
 }

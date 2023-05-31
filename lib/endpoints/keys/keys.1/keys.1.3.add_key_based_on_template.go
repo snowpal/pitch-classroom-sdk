@@ -15,10 +15,10 @@ import (
 )
 
 type KeyByTemplateParam struct {
-	TemplateId    string
-	ExcludeBlocks bool
-	ExcludePods   bool
-	ExcludeTasks  bool
+	TemplateId         string
+	ExcludeCourses     bool
+	ExcludeAssessments bool
+	ExcludeTasks       bool
 }
 
 func AddKeyBasedOnTemplate(
@@ -36,8 +36,8 @@ func AddKeyBasedOnTemplate(
 	route, err := helpers2.GetRoute(
 		lib.RouteKeysAddKeyBasedOnTemplate,
 		keyParam.TemplateId,
-		strconv.FormatBool(keyParam.ExcludeBlocks),
-		strconv.FormatBool(keyParam.ExcludePods),
+		strconv.FormatBool(keyParam.ExcludeCourses),
+		strconv.FormatBool(keyParam.ExcludeAssessments),
 		strconv.FormatBool(keyParam.ExcludeTasks),
 	)
 	if err != nil {

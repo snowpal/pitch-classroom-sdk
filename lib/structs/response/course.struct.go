@@ -11,7 +11,7 @@ type Courses struct {
 type Course struct {
 	ID                string  `json:"id"`
 	Name              string  `json:"courseName"`
-	BlockId           string  `json:"courseId"`
+	CourseId          string  `json:"courseId"`
 	Description       string  `json:"courseDescription"`
 	SimpleDescription string  `json:"simpleDescription"`
 	Color             string  `json:"color"`
@@ -47,7 +47,7 @@ type Course struct {
 
 	// Count Attributes
 	KeysCount        *int `json:"keysCount"`
-	PodsCount        *int `json:"podsCount"`
+	AssessmentsCount *int `json:"assessmentsCount"`
 	TasksCount       *int `json:"tasksCount"`
 	ChecklistsCount  *int `json:"checklistsCount"`
 	AttachmentsCount *int `json:"attachmentsCount"`
@@ -59,7 +59,7 @@ type Course struct {
 	LastModified string                   `json:"lastModified"`
 }
 
-type UpdateBlockScaleValue struct {
+type UpdateCourseScaleValue struct {
 	ID           string `json:"id"`
 	Name         string `json:"name"`
 	ScaleValue   string `json:"scaleValue"`

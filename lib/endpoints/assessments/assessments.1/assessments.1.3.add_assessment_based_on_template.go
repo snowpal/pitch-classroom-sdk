@@ -19,11 +19,11 @@ func AddAssessmentBasedOnTemplate(
 	reqBody request.AddAssessmentReqBody,
 	assessmentParam request.AssessmentByTemplateParam,
 ) (response.Assessment, error) {
-	resPod := response.Assessment{}
+	resAssessment := response.Assessment{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)
-		return resPod, err
+		return resAssessment, err
 	}
 	payload := strings.NewReader(requestBody)
 
@@ -37,14 +37,14 @@ func AddAssessmentBasedOnTemplate(
 	)
 	if err != nil {
 		fmt.Println(err)
-		return resPod, err
+		return resAssessment, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodPost, route, payload)
 	if err != nil {
 		fmt.Println(err)
-		return resPod, err
+		return resAssessment, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -53,7 +53,7 @@ func AddAssessmentBasedOnTemplate(
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resPod, err
+		return resAssessment, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -62,13 +62,13 @@ func AddAssessmentBasedOnTemplate(
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resPod, err
+		return resAssessment, err
 	}
 
-	err = json.Unmarshal(body, &resPod)
+	err = json.Unmarshal(body, &resAssessment)
 	if err != nil {
 		fmt.Println(err)
-		return resPod, err
+		return resAssessment, err
 	}
-	return resPod, err
+	return resAssessment, err
 }

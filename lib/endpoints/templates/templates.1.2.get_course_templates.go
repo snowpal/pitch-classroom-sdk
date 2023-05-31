@@ -12,18 +12,18 @@ import (
 )
 
 func GetCourseTemplates(jwtToken string) ([]response.CourseTemplate, error) {
-	resBlockTemplates := response.CourseTemplates{}
+	resCourseTemplates := response.CourseTemplates{}
 	route, err := helpers2.GetRoute(lib.RouteTemplatesGetCourseTemplates)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTemplates.Templates, err
+		return resCourseTemplates.Templates, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTemplates.Templates, err
+		return resCourseTemplates.Templates, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -32,7 +32,7 @@ func GetCourseTemplates(jwtToken string) ([]response.CourseTemplate, error) {
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTemplates.Templates, err
+		return resCourseTemplates.Templates, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -41,13 +41,13 @@ func GetCourseTemplates(jwtToken string) ([]response.CourseTemplate, error) {
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTemplates.Templates, err
+		return resCourseTemplates.Templates, err
 	}
 
-	err = json.Unmarshal(body, &resBlockTemplates)
+	err = json.Unmarshal(body, &resCourseTemplates)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTemplates.Templates, err
+		return resCourseTemplates.Templates, err
 	}
-	return resBlockTemplates.Templates, nil
+	return resCourseTemplates.Templates, nil
 }

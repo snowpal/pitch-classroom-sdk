@@ -1,4 +1,4 @@
-package block_types
+package course_types
 
 import (
 	"fmt"
@@ -8,8 +8,8 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/helpers"
 )
 
-func DeleteCourseType(jwtToken string, blockTypeId string) error {
-	route, err := helpers.GetRoute(lib.RouteCourseTypesDeleteCourseType, blockTypeId)
+func DeleteCourseType(jwtToken string, courseTypeId string) error {
+	route, err := helpers.GetRoute(lib.RouteCourseTypesDeleteCourseType, courseTypeId)
 	if err != nil {
 		fmt.Println(err)
 		return err

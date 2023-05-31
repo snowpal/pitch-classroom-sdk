@@ -16,23 +16,17 @@ type SearchKeyRelationParam struct {
 	CurrentKeyId string
 }
 
-type SearchBlockRelationParam struct {
-	Token          string
-	CurrentBlockId string
-	KeyId          string
+type SearchCourseRelationParam struct {
+	Token           string
+	CurrentCourseId string
+	KeyId           string
 }
 
-type SearchPodRelationParam struct {
-	Token        string
-	CurrentPodId string
-	KeyId        string
-}
-
-type SearchBlockPodRelationParam struct {
-	Token        string
-	CurrentPodId string
-	KeyId        string
-	CourseId     string
+type SearchAssessmentRelationParam struct {
+	Token               string
+	CurrentAssessmentId string
+	KeyId               string
+	CourseId            string
 }
 
 func searchRelationsMatchingSearchToken(jwtToken string, route string) ([]response.SearchResource, error) {
@@ -93,13 +87,13 @@ func SearchRelationsForKeyMatchingSearchToken(
 
 func SearchRelationsForCourseMatchingSearchToken(
 	jwtToken string,
-	relationParam SearchBlockRelationParam,
+	relationParam SearchCourseRelationParam,
 ) ([]response.SearchResource, error) {
 	var searchResults []response.SearchResource
 	route, err := helpers2.GetRoute(
 		lib.RouteRelationsGetRelationsForCourseMatchingSearchToken,
 		relationParam.Token,
-		relationParam.CurrentBlockId,
+		relationParam.CurrentCourseId,
 		relationParam.KeyId,
 	)
 	if err != nil {
@@ -116,13 +110,13 @@ func SearchRelationsForCourseMatchingSearchToken(
 
 func SearchRelationsForAssessmentMatchingSearchToken(
 	jwtToken string,
-	relationParam SearchBlockPodRelationParam,
+	relationParam SearchAssessmentRelationParam,
 ) ([]response.SearchResource, error) {
 	var searchResults []response.SearchResource
 	route, err := helpers2.GetRoute(
 		lib.RouteRelationsGetRelationsForAssessmentMatchingSearchToken,
 		relationParam.Token,
-		relationParam.CurrentPodId,
+		relationParam.CurrentAssessmentId,
 		relationParam.KeyId,
 		relationParam.CourseId,
 	)

@@ -16,7 +16,7 @@ func GetCourseGradesForStudents(
 	jwtToken string,
 	courseParam common.ResourceIdParam,
 ) (response.StudentGradeForCourseAndAssessment, error) {
-	resStudentGradesForBlock := response.StudentGradeForCourseAndAssessment{}
+	resStudentGradesForCourse := response.StudentGradeForCourseAndAssessment{}
 	route, err := helpers2.GetRoute(
 		lib.RouteTeacherKeysGetCourseGradesForStudents,
 		courseParam.CourseId,
@@ -24,13 +24,13 @@ func GetCourseGradesForStudents(
 	)
 	if err != nil {
 		fmt.Println(err)
-		return resStudentGradesForBlock, err
+		return resStudentGradesForCourse, err
 	}
 
 	req, err := http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resStudentGradesForBlock, err
+		return resStudentGradesForCourse, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -38,7 +38,7 @@ func GetCourseGradesForStudents(
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resStudentGradesForBlock, err
+		return resStudentGradesForCourse, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -46,13 +46,13 @@ func GetCourseGradesForStudents(
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resStudentGradesForBlock, err
+		return resStudentGradesForCourse, err
 	}
 
-	err = json.Unmarshal(body, &resStudentGradesForBlock)
+	err = json.Unmarshal(body, &resStudentGradesForCourse)
 	if err != nil {
 		fmt.Println(err)
-		return resStudentGradesForBlock, err
+		return resStudentGradesForCourse, err
 	}
-	return resStudentGradesForBlock, nil
+	return resStudentGradesForCourse, nil
 }

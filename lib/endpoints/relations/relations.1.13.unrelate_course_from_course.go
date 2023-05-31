@@ -13,7 +13,7 @@ func UnrelateCourseFromCourse(jwtToken string, relationParam request.CourseToCou
 	route, err := helpers.GetRoute(
 		lib.RouteRelationsUnrelateCourseFromCourse,
 		relationParam.CourseId,
-		relationParam.TargetBlockId,
+		relationParam.TargetCourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

@@ -23,8 +23,8 @@ const (
 	UpdatedCourseName = "Diwali Celebration"
 )
 
-func ShareBlock() {
-	log.Info("Objective: Create block, share users as read & write, make 1 of them as admin.")
+func ShareCourse() {
+	log.Info("Objective: Create course, share users as read & write, make 1 of them as admin.")
 	_, err := recipes.ValidateDependencies()
 	if err != nil {
 		return
@@ -35,15 +35,15 @@ func ShareBlock() {
 		return
 	}
 
-	log.Info("Share a block")
+	log.Info("Share a course")
 	recipes.SleepBefore()
-	var block response.Course
-	block, err = shareBlock(user)
+	var course response.Course
+	course, err = shareCourse(user)
 	if err != nil {
 		return
 	}
 
-	writeUser, err := getWriteUser(user, block)
+	writeUser, err := getWriteUser(user, course)
 	fmt.Println(user.JwtToken)
 	if err != nil {
 		return
@@ -58,37 +58,37 @@ func ShareBlock() {
 	log.Printf(".Notifications for the recent share displayed successfully")
 	recipes.SleepAfter()
 
-	log.Printf("Update block name as a write user")
+	log.Printf("Update course name as a write user")
 	recipes.SleepBefore()
-	var resBlock response.Course
-	resBlock, err = updateBlockAsWriteUser(writeUser, block)
+	var resCourse response.Course
+	resCourse, err = updateCourseAsWriteUser(writeUser, course)
 	if err != nil {
 		return
 	}
-	log.Printf(".Write user updated block name to %s successfully", resBlock.Name)
+	log.Printf(".Write user updated course name to %s successfully", resCourse.Name)
 	recipes.SleepAfter()
 
 	log.Printf("Grant admin access to a user with read access")
-	err = makeReadUserAsAdmin(user, block)
+	err = makeReadUserAsAdmin(user, course)
 	if err != nil {
 		return
 	}
 	log.Printf(".Admin access has been granted successfully")
 }
 
-func getWriteUser(user response.User, block response.Course) (response.User, error) {
+func getWriteUser(user response.User, course response.Course) (response.User, error) {
 	var writeUser response.User
-	resBlock, err := collaboration.GetCourseCollaborators(
+	resCourse, err := collaboration.GetCourseCollaborators(
 		user.JwtToken,
 		common.ResourceIdParam{
-			CourseId: block.ID,
-			KeyId:    block.Key.ID,
+			CourseId: course.ID,
+			KeyId:    course.Key.ID,
 		})
 	if err != nil {
 		return writeUser, err
 	}
 	allUsers, err := user2.GetUsers(user.JwtToken)
-	for _, sharedUser := range *resBlock.SharedUsers {
+	for _, sharedUser := range *resCourse.SharedUsers {
 		for _, userInAll := range allUsers {
 			if sharedUser.ID == userInAll.ID {
 				writeUser = userInAll
@@ -107,25 +107,25 @@ func getWriteUser(user response.User, block response.Course) (response.User, err
 	return writeUser, nil
 }
 
-func shareBlock(user response.User) (response.Course, error) {
-	var block response.Course
+func shareCourse(user response.User) (response.Course, error) {
+	var course response.Course
 	key, err := recipes.AddTeacherKey(user, KeyName)
 	if err != nil {
-		return block, err
+		return course, err
 	}
-	block, err = recipes.AddCourse(user, CourseName, key)
+	course, err = recipes.AddCourse(user, CourseName, key)
 	if err != nil {
-		return block, err
+		return course, err
 	}
-	err = recipes.SearchUserAndShareBlock(user, block, "api_read_user", lib.ReadAcl)
+	err = recipes.SearchUserAndShareCourse(user, course, "api_read_user", lib.ReadAcl)
 	if err != nil {
-		return block, err
+		return course, err
 	}
-	err = recipes.SearchUserAndShareBlock(user, block, "api_write_user", lib.WriteAcl)
+	err = recipes.SearchUserAndShareCourse(user, course, "api_write_user", lib.WriteAcl)
 	if err != nil {
-		return block, err
+		return course, err
 	}
-	return block, nil
+	return course, nil
 }
 
 func showNotificationsAsWriteUser(writeUser response.User) error {
@@ -142,7 +142,7 @@ func showNotificationsAsWriteUser(writeUser response.User) error {
 	return nil
 }
 
-func updateBlockAsWriteUser(writeUser response.User, block response.Course) (response.Course, error) {
+func updateCourseAsWriteUser(writeUser response.User, course response.Course) (response.Course, error) {
 	const (
 		SystemKeyType       = "system"
 		customSystemKeyType = "SharedCustomKey"
@@ -156,32 +156,32 @@ func updateBlockAsWriteUser(writeUser response.User, block response.Course) (res
 		}
 	}
 	updatedCourseName := UpdatedCourseName
-	resBlock, err := courses.UpdateCourse(
+	resCourse, err := courses.UpdateCourse(
 		writeUser.JwtToken,
 		courses.UpdateCourseReqBody{Name: &updatedCourseName},
 		common.ResourceIdParam{
-			CourseId: block.ID,
+			CourseId: course.ID,
 			KeyId:    customSystemKey.ID,
 		})
 	if err != nil {
-		return resBlock, err
+		return resCourse, err
 	}
-	return resBlock, nil
+	return resCourse, nil
 }
 
-func makeReadUserAsAdmin(user response.User, block response.Course) error {
-	resBlock, err := collaboration.GetCourseCollaborators(
+func makeReadUserAsAdmin(user response.User, course response.Course) error {
+	resCourse, err := collaboration.GetCourseCollaborators(
 		user.JwtToken,
 		common.ResourceIdParam{
-			CourseId: block.ID,
-			KeyId:    block.Key.ID,
+			CourseId: course.ID,
+			KeyId:    course.Key.ID,
 		})
 	if err != nil {
 		return err
 	}
 
 	var readUser response.SharedUser
-	for _, sharedUser := range *resBlock.SharedUsers {
+	for _, sharedUser := range *resCourse.SharedUsers {
 		if sharedUser.Acl == lib.ReadAcl {
 			readUser = sharedUser
 			break
@@ -194,8 +194,8 @@ func makeReadUserAsAdmin(user response.User, block response.Course) error {
 		common.AclParam{
 			UserId: readUser.ID,
 			ResourceIds: common.ResourceIdParam{
-				CourseId: block.ID,
-				KeyId:    block.Key.ID,
+				CourseId: course.ID,
+				KeyId:    course.Key.ID,
 			},
 		})
 	if err != nil {

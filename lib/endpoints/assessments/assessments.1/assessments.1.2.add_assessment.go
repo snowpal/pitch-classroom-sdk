@@ -15,11 +15,11 @@ import (
 )
 
 func AddAssessment(jwtToken string, reqBody request.AddAssessmentReqBody, assessmentParam common.ResourceIdParam) (response.Assessment, error) {
-	resPod := response.Assessment{}
+	resAssessment := response.Assessment{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)
-		return resPod, err
+		return resAssessment, err
 	}
 	payload := strings.NewReader(requestBody)
 
@@ -27,14 +27,14 @@ func AddAssessment(jwtToken string, reqBody request.AddAssessmentReqBody, assess
 	route, err = helpers2.GetRoute(lib.RouteAssessmentsAddAssessment, assessmentParam.CourseId, assessmentParam.KeyId)
 	if err != nil {
 		fmt.Println(err)
-		return resPod, err
+		return resAssessment, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodPost, route, payload)
 	if err != nil {
 		fmt.Println(err)
-		return resPod, err
+		return resAssessment, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -43,7 +43,7 @@ func AddAssessment(jwtToken string, reqBody request.AddAssessmentReqBody, assess
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resPod, err
+		return resAssessment, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -52,13 +52,13 @@ func AddAssessment(jwtToken string, reqBody request.AddAssessmentReqBody, assess
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resPod, err
+		return resAssessment, err
 	}
 
-	err = json.Unmarshal(body, &resPod)
+	err = json.Unmarshal(body, &resAssessment)
 	if err != nil {
 		fmt.Println(err)
-		return resPod, err
+		return resAssessment, err
 	}
-	return resPod, nil
+	return resAssessment, nil
 }

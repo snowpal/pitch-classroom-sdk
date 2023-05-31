@@ -9,7 +9,7 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 )
 
-func relatePodToPod(jwtToken string, route string) error {
+func relateAssessmentToAssessment(jwtToken string, route string) error {
 	req, err := http.NewRequest(http.MethodPatch, route, nil)
 	if err != nil {
 		fmt.Println(err)
@@ -31,16 +31,16 @@ func RelateAssessmentToAssessment(jwtToken string, relationParam request.Assessm
 		lib.RouteRelationsRelateAssessmentToAssessment,
 		relationParam.AssessmentId,
 		relationParam.SourceKeyId,
-		relationParam.SourceBlockId,
-		relationParam.TargetPodId,
+		relationParam.SourceCourseId,
+		relationParam.TargetAssessmentId,
 		relationParam.TargetKeyId,
-		relationParam.TargetBlockId,
+		relationParam.TargetCourseId,
 	)
 	if err != nil {
 		fmt.Println(err)
 		return err
 	}
-	err = relatePodToPod(jwtToken, route)
+	err = relateAssessmentToAssessment(jwtToken, route)
 	if err != nil {
 		fmt.Println(err)
 		return err

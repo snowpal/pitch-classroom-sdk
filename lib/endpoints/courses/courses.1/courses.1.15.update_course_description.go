@@ -13,21 +13,21 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-type UpdateBlockDescReqBody struct {
-	Description   string  `json:"blockDescription"`
+type UpdateCourseDescReqBody struct {
+	Description   string  `json:"courseDescription"`
 	TaggedUserIds *string `json:"taggedUserIds"`
 }
 
 func UpdateCourseDescription(
 	jwtToken string,
-	reqBody UpdateBlockDescReqBody,
+	reqBody UpdateCourseDescReqBody,
 	assessmentParam common.ResourceIdParam,
 ) (response.Course, error) {
-	resBlock := response.Course{}
+	resCourse := response.Course{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 	payload := strings.NewReader(requestBody)
 
@@ -39,14 +39,14 @@ func UpdateCourseDescription(
 	)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -55,7 +55,7 @@ func UpdateCourseDescription(
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -63,13 +63,13 @@ func UpdateCourseDescription(
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 
-	err = json.Unmarshal(body, &resBlock)
+	err = json.Unmarshal(body, &resCourse)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
-	return resBlock, nil
+	return resCourse, nil
 }

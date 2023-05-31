@@ -11,7 +11,7 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetFilteredUserKeysBlocksAndPodsForGivenKey(jwtToken string, keyId string) (response.FilteredKey, error) {
+func GetFilteredUserKeysCoursesAndAssessmentsForGivenKey(jwtToken string, keyId string) (response.FilteredKey, error) {
 	resFilteredUserKey := response.FilteredKey{}
 	route, err := helpers2.GetRoute(lib.RouteKeysGetFilteredUserKeysCoursesAndAssessmentsForGivenKey, keyId)
 	if err != nil {

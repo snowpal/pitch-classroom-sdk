@@ -12,18 +12,18 @@ import (
 )
 
 func GetCoursesUsingScale(jwtToken string, scaleId string) ([]response.Course, error) {
-	resBlocks := response.Courses{}
+	resCourses := response.Courses{}
 	route, err := helpers2.GetRoute(lib.RouteScalesGetCoursesUsingScale, scaleId)
 	if err != nil {
 		fmt.Println(err)
-		return resBlocks.Courses, err
+		return resCourses.Courses, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resBlocks.Courses, err
+		return resCourses.Courses, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -32,7 +32,7 @@ func GetCoursesUsingScale(jwtToken string, scaleId string) ([]response.Course, e
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resBlocks.Courses, err
+		return resCourses.Courses, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -41,13 +41,13 @@ func GetCoursesUsingScale(jwtToken string, scaleId string) ([]response.Course, e
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resBlocks.Courses, err
+		return resCourses.Courses, err
 	}
 
-	err = json.Unmarshal(body, &resBlocks)
+	err = json.Unmarshal(body, &resCourses)
 	if err != nil {
 		fmt.Println(err)
-		return resBlocks.Courses, err
+		return resCourses.Courses, err
 	}
-	return resBlocks.Courses, nil
+	return resCourses.Courses, nil
 }

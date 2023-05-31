@@ -22,7 +22,7 @@ func main() {
 		break
 	case 4:
 		log.Info("Run Recipe4")
-		recipes.ShareBlock()
+		recipes.ShareCourse()
 		break
 	case 5:
 		log.Info("Run Recipe5")
@@ -46,7 +46,7 @@ func main() {
 		break
 	case 10:
 		log.Info("Run Recipe10")
-		recipes.GrantAclOnCustomBlock()
+		recipes.GrantAclOnCustomCourse()
 		break
 	case 11:
 		log.Info("Run Recipe11")

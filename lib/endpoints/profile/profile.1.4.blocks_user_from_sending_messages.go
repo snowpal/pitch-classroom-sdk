@@ -8,8 +8,8 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/helpers"
 )
 
-func BlocksUserFromSendingMessages(jwtToken string, userId string) error {
-	route, err := helpers.GetRoute(lib.RouteProfileBlocksUserFromSendingMessages, userId)
+func BlockUserFromSendingMessages(jwtToken string, userId string) error {
+	route, err := helpers.GetRoute(lib.RouteProfileBlockUserFromSendingMessages, userId)
 	if err != nil {
 		fmt.Println(err)
 		return err

@@ -14,10 +14,10 @@ import (
 )
 
 const (
-	SchedulerKeyName   = "Tuition Class"
-	SchedulerBlockName = "Final Exam"
-	SchedulerPodName   = "Math Quiz"
-	DueDate            = "2023-03-10T14:19:04.027Z"
+	SchedulerKeyName        = "Tuition Class"
+	SchedulerCourseName     = "Final Exam"
+	SchedulerAssessmentName = "Math Quiz"
+	DueDate                 = "2023-03-10T14:19:04.027Z"
 )
 
 func FetchScheduler() {
@@ -34,15 +34,15 @@ func FetchScheduler() {
 
 	var key response.Key
 	key, _ = recipes.AddTeacherKey(user, SchedulerKeyName)
-	log.Info("Set due date for block")
-	block, err := setBlockDueDate(user, key)
+	log.Info("Set due date for course")
+	course, err := setCourseDueDate(user, key)
 	if err != nil {
 		return
 	}
 	log.Info(".Course due date set successfully")
 
-	log.Info("Set due date for pod")
-	err = setPodDueDate(user, block)
+	log.Info("Set due date for assessment")
+	err = setAssessmentDueDate(user, course)
 	if err != nil {
 		return
 	}
@@ -53,27 +53,27 @@ func FetchScheduler() {
 	if err != nil {
 		return
 	}
-	log.Info(".Displayed block & pod due date events")
+	log.Info(".Displayed course & assessment due date events")
 }
 
-func setBlockDueDate(user response.User, key response.Key) (response.Course, error) {
-	block, err := recipes.AddCourse(user, SchedulerBlockName, key)
+func setCourseDueDate(user response.User, key response.Key) (response.Course, error) {
+	course, err := recipes.AddCourse(user, SchedulerCourseName, key)
 	if err != nil {
-		return block, err
+		return course, err
 	}
 	dueDate := DueDate
-	block, err = courses.UpdateCourse(
+	course, err = courses.UpdateCourse(
 		user.JwtToken,
 		courses.UpdateCourseReqBody{DueDate: &dueDate},
-		common.ResourceIdParam{CourseId: block.ID, KeyId: block.Key.ID})
+		common.ResourceIdParam{CourseId: course.ID, KeyId: course.Key.ID})
 	if err != nil {
-		return block, err
+		return course, err
 	}
-	return block, nil
+	return course, nil
 }
 
-func setPodDueDate(user response.User, block response.Course) error {
-	pod, err := recipes.AddPodToBlock(user, SchedulerPodName, block)
+func setAssessmentDueDate(user response.User, course response.Course) error {
+	assessment, err := recipes.AddAssessmentToCourse(user, SchedulerAssessmentName, course)
 	if err != nil {
 		return err
 	}
@@ -81,7 +81,7 @@ func setPodDueDate(user response.User, block response.Course) error {
 	_, err = assessments.UpdateAssessment(
 		user.JwtToken,
 		request.UpdateAssessmentReqBody{DueDate: &dueDate},
-		common.ResourceIdParam{AssessmentId: pod.ID, KeyId: pod.Key.ID})
+		common.ResourceIdParam{AssessmentId: assessment.ID, KeyId: assessment.Key.ID})
 	if err != nil {
 		return err
 	}
@@ -93,11 +93,11 @@ func fetchSchedulerEvents(user response.User) error {
 	if err != nil {
 		return err
 	}
-	for _, blockEvent := range allEvents.DueDateEvent.Courses {
-		log.Printf(".Course %s is due on %s", blockEvent.Name, *blockEvent.DueDate)
+	for _, courseEvent := range allEvents.DueDateEvent.Courses {
+		log.Printf(".Course %s is due on %s", courseEvent.Name, *courseEvent.DueDate)
 	}
-	for _, podEvent := range allEvents.DueDateEvent.Assessments {
-		log.Printf(".Assessment %s is due on %s", podEvent.Name, podEvent.DueDate)
+	for _, assessmentEvent := range allEvents.DueDateEvent.Assessments {
+		log.Printf(".Assessment %s is due on %s", assessmentEvent.Name, assessmentEvent.DueDate)
 	}
 	return nil
 }

@@ -1,4 +1,4 @@
-package podTypes
+package assessmentTypes
 
 import (
 	"fmt"
@@ -8,8 +8,8 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/helpers"
 )
 
-func DeleteAssessmentType(jwtToken string, podTypeId string) error {
-	route, err := helpers.GetRoute(lib.RouteAssessmentTypesDeleteAssessmentType, podTypeId)
+func DeleteAssessmentType(jwtToken string, assessmentTypeId string) error {
+	route, err := helpers.GetRoute(lib.RouteAssessmentTypesDeleteAssessmentType, assessmentTypeId)
 	if err != nil {
 		fmt.Println(err)
 		return err

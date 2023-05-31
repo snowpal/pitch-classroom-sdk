@@ -12,18 +12,18 @@ import (
 )
 
 func GetCoursesBasedOnCourseTypes(jwtToken string) ([]response.CourseTypesKey, error) {
-	resBlockTypesKeys := response.CourseTypesKeys{}
+	resCourseTypesKeys := response.CourseTypesKeys{}
 	route, err := helpers2.GetRoute(lib.RouteDashboardGetCoursesBasedOnCourseTypes)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTypesKeys.Keys, err
+		return resCourseTypesKeys.Keys, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTypesKeys.Keys, err
+		return resCourseTypesKeys.Keys, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -32,7 +32,7 @@ func GetCoursesBasedOnCourseTypes(jwtToken string) ([]response.CourseTypesKey, e
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTypesKeys.Keys, err
+		return resCourseTypesKeys.Keys, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -41,13 +41,13 @@ func GetCoursesBasedOnCourseTypes(jwtToken string) ([]response.CourseTypesKey, e
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTypesKeys.Keys, err
+		return resCourseTypesKeys.Keys, err
 	}
 
-	err = json.Unmarshal(body, &resBlockTypesKeys)
+	err = json.Unmarshal(body, &resCourseTypesKeys)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockTypesKeys.Keys, err
+		return resCourseTypesKeys.Keys, err
 	}
-	return resBlockTypesKeys.Keys, nil
+	return resCourseTypesKeys.Keys, nil
 }

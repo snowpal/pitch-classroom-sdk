@@ -14,14 +14,14 @@ import (
 
 func GetUsersThisCourseCanBeSharedWith(
 	jwtToken string,
-	blockAclParam common.SearchUsersParam,
+	courseAclParam common.SearchUsersParam,
 ) ([]response.SearchUser, error) {
 	resUsers := response.SearchUsers{}
 	route, err := helpers2.GetRoute(
 		lib.RouteCollaborationGetUsersThisCourseCanBeSharedWith,
-		blockAclParam.ResourceIds.CourseId,
-		blockAclParam.ResourceIds.KeyId,
-		blockAclParam.SearchToken,
+		courseAclParam.ResourceIds.CourseId,
+		courseAclParam.ResourceIds.KeyId,
+		courseAclParam.SearchToken,
 	)
 	if err != nil {
 		fmt.Println(err)

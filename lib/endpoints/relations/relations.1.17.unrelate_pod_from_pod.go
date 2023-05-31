@@ -31,10 +31,10 @@ func UnrelateAssessmentFromAssessment(jwtToken string, relationParam request.Ass
 		lib.RouteRelationsUnrelateAssessmentFromAssessment,
 		relationParam.AssessmentId,
 		relationParam.SourceKeyId,
-		relationParam.SourceBlockId,
-		relationParam.TargetPodId,
+		relationParam.SourceCourseId,
+		relationParam.TargetAssessmentId,
 		relationParam.TargetKeyId,
-		relationParam.TargetBlockId,
+		relationParam.TargetCourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

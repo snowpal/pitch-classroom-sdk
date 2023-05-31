@@ -15,7 +15,7 @@ import (
 )
 
 func CopyCourse(jwtToken string, courseParam request.CopyMoveCourseParam) (response.Course, error) {
-	var resBlock response.Course
+	var resCourse response.Course
 	route, err := helpers2.GetRoute(
 		lib.RouteCoursesCopyCourse,
 		courseParam.CourseId,
@@ -28,14 +28,14 @@ func CopyCourse(jwtToken string, courseParam request.CopyMoveCourseParam) (respo
 	)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodPost, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -43,7 +43,7 @@ func CopyCourse(jwtToken string, courseParam request.CopyMoveCourseParam) (respo
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -51,13 +51,13 @@ func CopyCourse(jwtToken string, courseParam request.CopyMoveCourseParam) (respo
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
 
-	err = json.Unmarshal(body, &resBlock)
+	err = json.Unmarshal(body, &resCourse)
 	if err != nil {
 		fmt.Println(err)
-		return resBlock, err
+		return resCourse, err
 	}
-	return resBlock, nil
+	return resCourse, nil
 }

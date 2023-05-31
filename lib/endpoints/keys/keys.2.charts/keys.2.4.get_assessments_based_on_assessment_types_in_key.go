@@ -11,19 +11,19 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetAssessmentsBasedOnAssessmentTypesInKey(jwtToken string, keyId string) (response.PodTypesKey, error) {
-	resPodTypesKey := response.PodTypesKey{}
+func GetAssessmentsBasedOnAssessmentTypesInKey(jwtToken string, keyId string) (response.AssessmentTypesKey, error) {
+	resAssessmentTypesKey := response.AssessmentTypesKey{}
 	route, err := helpers2.GetRoute(lib.RouteKeysGetAssessmentsBasedOnAssessmentTypesInKey, keyId)
 	if err != nil {
 		fmt.Println(err)
-		return resPodTypesKey, err
+		return resAssessmentTypesKey, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resPodTypesKey, err
+		return resAssessmentTypesKey, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -32,7 +32,7 @@ func GetAssessmentsBasedOnAssessmentTypesInKey(jwtToken string, keyId string) (r
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resPodTypesKey, err
+		return resAssessmentTypesKey, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -41,13 +41,13 @@ func GetAssessmentsBasedOnAssessmentTypesInKey(jwtToken string, keyId string) (r
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resPodTypesKey, err
+		return resAssessmentTypesKey, err
 	}
 
-	err = json.Unmarshal(body, &resPodTypesKey)
+	err = json.Unmarshal(body, &resAssessmentTypesKey)
 	if err != nil {
 		fmt.Println(err)
-		return resPodTypesKey, err
+		return resAssessmentTypesKey, err
 	}
-	return resPodTypesKey, nil
+	return resAssessmentTypesKey, nil
 }
