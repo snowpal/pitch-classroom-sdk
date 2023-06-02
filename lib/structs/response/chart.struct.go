@@ -1,7 +1,7 @@
 package response
 
 import (
-	common2 "github.com/snowpal/pitch-building-blocks-sdk/lib/structs/common"
+	common2 "github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 )
 
 type UserKeys struct {
@@ -9,90 +9,74 @@ type UserKeys struct {
 }
 
 type UserKey struct {
-	ID           string            `json:"id"`
-	Name         string            `json:"keyName"`
-	Type         string            `json:"keyType"`
-	Blocks       []UserBlock       `json:"blocks"`
-	Pods         []common2.SlimPod `json:"pods"`
-	LastModified string            `json:"lastModified"`
+	ID           string                   `json:"id"`
+	Name         string                   `json:"keyName"`
+	Type         string                   `json:"keyType"`
+	Courses      []UserCourse             `json:"courses"`
+	Assessments  []common2.SlimAssessment `json:"assessments"`
+	LastModified string                   `json:"lastModified"`
 }
 
-type UserBlock struct {
-	ID           string            `json:"id"`
-	Name         string            `json:"keyName"`
-	Pods         []common2.SlimPod `json:"pods"`
-	LastModified string            `json:"lastModified"`
+type UserCourse struct {
+	ID           string                   `json:"id"`
+	Name         string                   `json:"keyName"`
+	Assessments  []common2.SlimAssessment `json:"assessments"`
+	LastModified string                   `json:"lastModified"`
 }
 
 type FilteredKeys struct {
 	Keys []FilteredKey `json:"keys"`
 }
 
-type BlocksAndPods struct {
-	Blocks []common2.SlimBlock `json:"blocks"`
-	Pods   []common2.SlimPod   `json:"pods"`
+type CoursesAndAssessments struct {
+	Courses     []common2.SlimCourse     `json:"courses"`
+	Assessments []common2.SlimAssessment `json:"assessments"`
 }
 
 type FilteredKey struct {
-	ID               string        `json:"id"`
-	Name             string        `json:"keyName"`
-	Type             string        `json:"keyType"`
-	CreatedByMe      BlocksAndPods `json:"createdByMe"`
-	SharedWithMe     BlocksAndPods `json:"sharedWithMe"`
-	SharedWithOthers BlocksAndPods `json:"sharedWithOthers"`
+	ID               string                `json:"id"`
+	Name             string                `json:"keyName"`
+	Type             string                `json:"keyType"`
+	CreatedByMe      CoursesAndAssessments `json:"createdByMe"`
+	SharedWithMe     CoursesAndAssessments `json:"sharedWithMe"`
+	SharedWithOthers CoursesAndAssessments `json:"sharedWithOthers"`
 }
 
-type BlockTypesKeys struct {
-	Keys []BlockTypesKey `json:"keys"`
+type CourseTypesKeys struct {
+	Keys []CourseTypesKey `json:"keys"`
 }
 
-type BlockTypesKey struct {
-	ID           string      `json:"id"`
-	Name         string      `json:"keyName"`
-	Type         string      `json:"keyType"`
-	BlockTypes   []BlockType `json:"blockTypes"`
-	LastModified string      `json:"lastModified"`
+type CourseTypesKey struct {
+	ID           string       `json:"id"`
+	Name         string       `json:"keyName"`
+	Type         string       `json:"keyType"`
+	CourseTypes  []CourseType `json:"courseTypes"`
+	LastModified string       `json:"lastModified"`
 }
 
-type PodTypesKeysKeyPod struct {
-	KeyPod PodTypesKeys `json:"keyPod"`
+type AssessmentTypesKeysAssessment struct {
+	Assessment AssessmentTypesKeys `json:"assessment"`
 }
 
-type PodTypesKeysBlockPod struct {
-	BlockPod PodTypesKeys `json:"blockPod"`
+type AssessmentTypesKeys struct {
+	Keys *[]AssessmentTypesKey `json:"keys"`
+	Key  *AssessmentTypesKey   `json:"key"`
 }
 
-type PodTypesKeysOtherPod struct {
-	OtherPod PodTypesKeys `json:"otherPod"`
+type AssessmentTypesKey struct {
+	ID              string            `json:"id"`
+	Name            string            `json:"keyName"`
+	Type            string            `json:"keyType"`
+	AssessmentTypes *[]AssessmentType `json:"assessmentTypes"`
+	LastModified    string            `json:"lastModified"`
 }
 
-type PodTypesKeys struct {
-	Keys *[]PodTypesKey `json:"keys"`
-	Key  *PodTypesKey   `json:"key"`
+type ScalesKeysCourse struct {
+	Course ScalesKeys `json:"course"`
 }
 
-type PodTypesKey struct {
-	ID           string     `json:"id"`
-	Name         string     `json:"keyName"`
-	Type         string     `json:"keyType"`
-	PodTypes     *[]PodType `json:"podTypes"`
-	LastModified string     `json:"lastModified"`
-}
-
-type ScalesKeysBlock struct {
-	Block ScalesKeys `json:"block"`
-}
-
-type ScalesKeysKeyPod struct {
-	KeyPod ScalesKeys `json:"keyPod"`
-}
-
-type ScalesKeysBlockPod struct {
-	BlockPod ScalesKeys `json:"blockPod"`
-}
-
-type ScalesKeysOtherPod struct {
-	OtherPod ScalesKeys `json:"otherPod"`
+type ScalesKeysAssessment struct {
+	Assessment ScalesKeys `json:"assessment"`
 }
 
 type ScalesKeys struct {
@@ -124,9 +108,9 @@ type TasksStatusKey struct {
 	LastModified string     `json:"lastModified"`
 }
 
-type TasksStatusBlock struct {
+type TasksStatusCourse struct {
 	ID           string          `json:"id"`
-	Name         string          `json:"blockName"`
+	Name         string          `json:"courseName"`
 	TaskStatus   TaskStatus      `json:"taskStatus"`
 	Key          common2.SlimKey `json:"key"`
 	LastModified string          `json:"lastModified"`
@@ -140,42 +124,42 @@ type LinkedResources struct {
 	CurrentKey LinkedResourcesKey `json:"currentKey"`
 	SharedKey  LinkedResourcesKey `json:"sharedKey"`
 	Keys       *[]UserKey         `json:"keys"`
-	Blocks     []UserBlock        `json:"blocks"`
+	Courses    []UserCourse       `json:"courses"`
 }
 
-type BlockScaleValue struct {
+type CourseScaleValue struct {
 	ID           string `json:"id"`
-	Name         string `json:"blockName"`
+	Name         string `json:"courseName"`
 	ScaleValue   string `json:"scaleValue"`
 	NumericScale int    `json:"numericScale"`
 }
 
-type PodScaleValue struct {
+type AssessmentScaleValue struct {
 	ID           string `json:"id"`
-	Name         string `json:"podName"`
+	Name         string `json:"assessmentName"`
 	ScaleValue   string `json:"scaleValue"`
 	NumericScale int    `json:"numericScale"`
 }
 
 type ScaleValues struct {
-	Scale  Scale              `json:"scale"`
-	Key    common2.SlimKey    `json:"key"`
-	Block  *common2.SlimBlock `json:"block"`
-	Blocks *[]BlockScaleValue `json:"blocks"`
-	Pods   []PodScaleValue    `json:"pods"`
+	Scale       Scale                  `json:"scale"`
+	Key         common2.SlimKey        `json:"key"`
+	Course      *common2.SlimCourse    `json:"course"`
+	Courses     *[]CourseScaleValue    `json:"courses"`
+	Assessments []AssessmentScaleValue `json:"assessments"`
 }
 
-type BlockGrade struct {
+type CourseGrade struct {
 	ID       string          `json:"id"`
-	Name     string          `json:"blockName"`
+	Name     string          `json:"courseName"`
 	Key      common2.SlimKey `json:"key"`
 	Students []Student       `json:"students"`
 }
 
-type PodGrade struct {
-	ID       string            `json:"id"`
-	Name     string            `json:"podName"`
-	Key      common2.SlimKey   `json:"key"`
-	Block    common2.SlimBlock `json:"block"`
-	Students []Student         `json:"students"`
+type AssessmentGrade struct {
+	ID       string             `json:"id"`
+	Name     string             `json:"assessmentName"`
+	Key      common2.SlimKey    `json:"key"`
+	Course   common2.SlimCourse `json:"course"`
+	Students []Student          `json:"students"`
 }

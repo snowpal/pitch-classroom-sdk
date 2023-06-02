@@ -2,7 +2,7 @@ package main
 
 import (
 	log "github.com/sirupsen/logrus"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/recipes"
+	"github.com/snowpal/pitch-classroom-sdk/lib/recipes"
 )
 
 func main() {
@@ -18,46 +18,38 @@ func main() {
 		break
 	case 3:
 		log.Info("Run Recipe3")
-		recipes.CreatePrivateConversation()
+		recipes.AddAndLinkResources()
 		break
 	case 4:
 		log.Info("Run Recipe4")
-		recipes.AddAndLinkResources()
+		recipes.ShareCourse()
 		break
 	case 5:
 		log.Info("Run Recipe5")
-		recipes.ShareBlock()
+		recipes.GetAllKeys()
 		break
 	case 6:
 		log.Info("Run Recipe6")
-		recipes.GetAllKeys()
+		recipes.AddFavorite()
 		break
 	case 7:
 		log.Info("Run Recipe7")
-		recipes.AddFavorite()
+		recipes.FetchScheduler()
 		break
 	case 8:
 		log.Info("Run Recipe8")
-		recipes.FetchScheduler()
+		recipes.AddRelation()
 		break
 	case 9:
 		log.Info("Run Recipe9")
-		recipes.AddRelation()
+		recipes.PublishStudentGrade()
 		break
 	case 10:
 		log.Info("Run Recipe10")
-		recipes.PublishStudentGrade()
+		recipes.GrantAclOnCustomCourse()
 		break
 	case 11:
 		log.Info("Run Recipe11")
-		recipes.AddProjectList()
-		break
-	case 12:
-		log.Info("Run Recipe12")
-		recipes.GrantAclOnCustomBlock()
-		break
-	case 13:
-		log.Info("Run Recipe13")
 		recipes.UpdateAttributes()
 		break
 	default:

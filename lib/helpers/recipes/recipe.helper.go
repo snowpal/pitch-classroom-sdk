@@ -4,16 +4,14 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/snowpal/pitch-building-blocks-sdk/lib"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/blocks/blocks.1"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/collaboration/collaboration.1.blocks"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/keys/keys.1"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/common"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/request"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/response"
-
-	blockPods "github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/block_pods/block_pods.1"
-	keyPods "github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/key_pods/key_pods.1"
+	"github.com/snowpal/pitch-classroom-sdk/lib"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/assessments/assessments.1"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/collaboration/collaboration.1.courses"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/courses/courses.1"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/keys/keys.1"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
 func sleepWindow(sleepTime time.Duration) {
@@ -54,8 +52,8 @@ func addKey(user response.User, keyName string, keyType string) (response.Key, e
 	return newKey, nil
 }
 
-func AddCustomKey(user response.User, keyName string) (response.Key, error) {
-	newKey, err := addKey(user, keyName, lib.CustomKeyType)
+func AddStudentKey(user response.User, keyName string) (response.Key, error) {
+	newKey, err := addKey(user, keyName, lib.StudentKeyType)
 	if err != nil {
 		return newKey, err
 	}
@@ -70,58 +68,39 @@ func AddTeacherKey(user response.User, keyName string) (response.Key, error) {
 	return newKey, nil
 }
 
-func AddProjectKey(user response.User, keyName string) (response.Key, error) {
-	newKey, err := addKey(user, keyName, lib.ProjectKeyType)
-	if err != nil {
-		return newKey, err
-	}
-	return newKey, nil
-}
-
-func AddBlock(user response.User, blockName string, key response.Key) (response.Block, error) {
-	newBlock, err := blocks.AddBlock(
+func AddCourse(user response.User, coursesName string, key response.Key) (response.Course, error) {
+	newCourse, err := courses.AddCourse(
 		user.JwtToken,
-		request.AddBlockReqBody{Name: blockName},
+		request.AddCourseReqBody{Name: coursesName},
 		key.ID)
 	if err != nil {
-		return newBlock, err
+		return newCourse, err
 	}
-	return newBlock, nil
+	return newCourse, nil
 }
 
-func AddPod(user response.User, podName string, key response.Key) (response.Pod, error) {
-	newPod, err := keyPods.AddKeyPod(
+func AddAssessmentToCourse(user response.User, assessmentName string, course response.Course) (response.Assessment, error) {
+	newAssessment, err := assessments.AddAssessment(
 		user.JwtToken,
-		request.AddPodReqBody{Name: podName},
-		key.ID)
+		request.AddAssessmentReqBody{Name: assessmentName},
+		common.ResourceIdParam{CourseId: course.ID, KeyId: course.Key.ID})
 	if err != nil {
-		return newPod, err
+		return newAssessment, err
 	}
-	return newPod, nil
+	return newAssessment, nil
 }
 
-func AddPodToBlock(user response.User, podName string, block response.Block) (response.Pod, error) {
-	newPod, err := blockPods.AddBlockPod(
-		user.JwtToken,
-		request.AddPodReqBody{Name: podName},
-		common.ResourceIdParam{BlockId: block.ID, KeyId: block.Key.ID})
-	if err != nil {
-		return newPod, err
-	}
-	return newPod, nil
-}
-
-func SearchUserAndShareBlock(user response.User, block response.Block, searchToken string, acl string) error {
-	blockIdParam := common.ResourceIdParam{
-		BlockId: block.ID,
-		KeyId:   block.Key.ID,
+func SearchUserAndShareCourse(user response.User, course response.Course, searchToken string, acl string) error {
+	courseIdParam := common.ResourceIdParam{
+		CourseId: course.ID,
+		KeyId:    course.Key.ID,
 	}
 
-	searchedUsers, err := collaboration.GetUsersThisBlockCanBeSharedWith(
+	searchedUsers, err := collaboration.GetUsersThisCourseCanBeSharedWith(
 		user.JwtToken,
 		common.SearchUsersParam{
 			SearchToken: searchToken,
-			ResourceIds: blockIdParam,
+			ResourceIds: courseIdParam,
 		})
 	if err != nil {
 		return err
@@ -129,12 +108,12 @@ func SearchUserAndShareBlock(user response.User, block response.Block, searchTok
 
 	// For the purpose of this recipe, it does not matter which user from the list we end up picking, hence we go with
 	// the first one.
-	_, err = collaboration.ShareBlockWithCollaborator(
+	_, err = collaboration.ShareCourseWithCollaborator(
 		user.JwtToken,
-		request.BlockAclReqBody{Acl: acl},
+		request.CourseAclReqBody{Acl: acl},
 		common.AclParam{
 			UserId:      searchedUsers[0].ID,
-			ResourceIds: blockIdParam,
+			ResourceIds: courseIdParam,
 		})
 	if err != nil {
 		return err

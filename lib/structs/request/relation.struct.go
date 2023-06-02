@@ -5,69 +5,38 @@ type KeyToKeyRelationParam struct {
 	TargetKeyId string
 }
 
-type KeyToBlockRelationParam struct {
-	KeyId         string
-	TargetBlockId string
+type KeyToCourseRelationParam struct {
+	KeyId          string
+	TargetCourseId string
 }
 
-type KeyToPodRelationParam struct {
+type KeyToAssessmentRelationParam struct {
 	KeyId string
 
-	TargetPodId string
-	TargetKeyId string
+	TargetAssessmentId string
+	TargetKeyId        string
+	TargetCourseId     string
 }
 
-type KeyToBlockPodRelationParam struct {
-	KeyId string
-
-	TargetPodId   string
-	TargetKeyId   string
-	TargetBlockId string
+type CourseToCourseRelationParam struct {
+	CourseId       string
+	TargetCourseId string
 }
 
-type BlockToBlockRelationParam struct {
-	BlockId       string
-	TargetBlockId string
+type CourseToAssessmentRelationParam struct {
+	CourseId string
+
+	TargetAssessmentId string
+	TargetKeyId        string
+	TargetCourseId     string
 }
 
-type BlockToPodRelationParam struct {
-	BlockId string
+type AssessmentToAssessmentRelationParam struct {
+	AssessmentId   string
+	SourceKeyId    string
+	SourceCourseId string
 
-	TargetPodId string
-	TargetKeyId string
-}
-
-type BlockToBlockPodRelationParam struct {
-	BlockId string
-
-	TargetPodId   string
-	TargetKeyId   string
-	TargetBlockId string
-}
-
-type PodToPodRelationParam struct {
-	PodId       string
-	SourceKeyId string
-
-	TargetPodId string
-	TargetKeyId string
-}
-
-type PodToBlockPodRelationParam struct {
-	PodId       string
-	SourceKeyId string
-
-	TargetPodId   string
-	TargetKeyId   string
-	TargetBlockId string
-}
-
-type BlockPodToBlockPodRelationParam struct {
-	PodId         string
-	SourceKeyId   string
-	SourceBlockId string
-
-	TargetPodId   string
-	TargetKeyId   string
-	TargetBlockId string
+	TargetAssessmentId string
+	TargetKeyId        string
+	TargetCourseId     string
 }

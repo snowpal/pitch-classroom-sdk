@@ -6,10 +6,10 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/snowpal/pitch-building-blocks-sdk/lib"
-	helpers2 "github.com/snowpal/pitch-building-blocks-sdk/lib/helpers"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/request"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/response"
+	"github.com/snowpal/pitch-classroom-sdk/lib"
+	helpers2 "github.com/snowpal/pitch-classroom-sdk/lib/helpers"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
 func GetStudentProfile(jwtToken string, classroomParam request.ClassroomIdParam) (response.Student, error) {
@@ -17,7 +17,7 @@ func GetStudentProfile(jwtToken string, classroomParam request.ClassroomIdParam)
 	route, err := helpers2.GetRoute(
 		lib.RouteTeacherKeysGetStudentProfile,
 		classroomParam.StudentId,
-		classroomParam.ResourceIds.BlockId,
+		classroomParam.ResourceIds.CourseId,
 		classroomParam.ResourceIds.KeyId,
 	)
 	if err != nil {

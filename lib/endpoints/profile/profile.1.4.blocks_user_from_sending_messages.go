@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/snowpal/pitch-building-blocks-sdk/lib"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/helpers"
+	"github.com/snowpal/pitch-classroom-sdk/lib"
+	"github.com/snowpal/pitch-classroom-sdk/lib/helpers"
 )
 
-func BlocksUserFromSendingMessages(jwtToken string, userId string) error {
-	route, err := helpers.GetRoute(lib.RouteProfileBlocksUserFromSendingMessages, userId)
+func BlockUserFromSendingMessages(jwtToken string, userId string) error {
+	route, err := helpers.GetRoute(lib.RouteProfileBlockUserFromSendingMessages, userId)
 	if err != nil {
 		fmt.Println(err)
 		return err

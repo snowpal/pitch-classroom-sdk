@@ -1,27 +1,27 @@
 package recipes
 
 import (
-	"github.com/snowpal/pitch-building-blocks-sdk/lib"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/scales"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/helpers/recipes"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/common"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/request"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/response"
+	"github.com/snowpal/pitch-classroom-sdk/lib"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/assessments/assessments.1"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/scales"
+	"github.com/snowpal/pitch-classroom-sdk/lib/helpers/recipes"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 
-	blockPods "github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/block_pods/block_pods.1"
-	teacherKeys "github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/teacher_keys/teacher_keys.2.teachers"
+	teacherKeys "github.com/snowpal/pitch-classroom-sdk/lib/endpoints/teacher_keys/teacher_keys.2.teachers"
 
 	log "github.com/sirupsen/logrus"
 )
 
 const (
-	TeacherKeyName   = "School"
-	TeacherBlockName = "Math"
-	TeacherPodName   = "Final Exam"
+	TeacherKeyName        = "School"
+	TeacherCourseName     = "Math"
+	TeacherAssessmentName = "Final Exam"
 )
 
 func PublishStudentGrade() {
-	log.Info("Objective: Assign and Publish Pod Grades for a Student")
+	log.Info("Objective: Assign and Publish Assessment Grades for a Student")
 	_, err := recipes.ValidateDependencies()
 	if err != nil {
 		return
@@ -39,24 +39,24 @@ func PublishStudentGrade() {
 		return
 	}
 
-	var block response.Block
-	block, err = recipes.AddBlock(user, TeacherBlockName, key)
+	var course response.Course
+	course, err = recipes.AddCourse(user, TeacherCourseName, key)
 	if err != nil {
 		return
 	}
 
-	var pod response.Pod
-	pod, err = recipes.AddPodToBlock(user, TeacherPodName, block)
+	var assessment response.Assessment
+	assessment, err = recipes.AddAssessmentToCourse(user, TeacherAssessmentName, course)
 	if err != nil {
 		return
 	}
 
-	err = recipes.SearchUserAndShareBlock(user, block, "api_read_user", lib.ReadAcl)
+	err = recipes.SearchUserAndShareCourse(user, course, "api_read_user", lib.ReadAcl)
 	if err != nil {
 		return
 	}
 
-	err = publishPod(user, pod)
+	err = publishAssessment(user, assessment)
 	if err != nil {
 		return
 	}
@@ -67,9 +67,9 @@ func PublishStudentGrade() {
 		return
 	}
 
-	log.Printf("Assign grade to %s pod for %s", pod.Name, lib.ReadUser)
+	log.Printf("Assign grade to %s assessment for %s", assessment.Name, lib.ReadUser)
 	recipes.SleepBefore()
-	err = assignPodGrade(user, pod, readUser)
+	err = assignAssessmentGrade(user, assessment, readUser)
 	if err != nil {
 		return
 	}
@@ -78,7 +78,7 @@ func PublishStudentGrade() {
 
 	log.Printf("Publish grade for %s", readUser.Email)
 	recipes.SleepBefore()
-	err = publishPodGrade(user, pod, readUser)
+	err = publishAssessmentGrade(user, assessment, readUser)
 	if err != nil {
 		return
 	}
@@ -86,14 +86,14 @@ func PublishStudentGrade() {
 	recipes.SleepAfter()
 }
 
-func publishPod(user response.User, pod response.Pod) error {
-	_, err := blockPods.UpdateBlockPodCompletionStatus(
+func publishAssessment(user response.User, assessment response.Assessment) error {
+	_, err := assessments.UpdateAssessmentCompletionStatus(
 		user.JwtToken,
-		request.UpdatePodStatusReqBody{Completed: true},
+		request.UpdateAssessmentStatusReqBody{Completed: true},
 		common.ResourceIdParam{
-			PodId:   pod.ID,
-			BlockId: pod.Block.ID,
-			KeyId:   pod.Key.ID,
+			AssessmentId: assessment.ID,
+			CourseId:     assessment.Course.ID,
+			KeyId:        assessment.Key.ID,
 		},
 	)
 	if err != nil {
@@ -102,7 +102,7 @@ func publishPod(user response.User, pod response.Pod) error {
 	return nil
 }
 
-func assignPodGrade(user response.User, pod response.Pod, student response.User) error {
+func assignAssessmentGrade(user response.User, assessment response.Assessment, student response.User) error {
 	resScales, _ := scales.GetScales(user.JwtToken, scales.GetScalesParam{
 		IncludeCounts: false,
 		ExcludeEmpty:  true,
@@ -114,26 +114,26 @@ func assignPodGrade(user response.User, pod response.Pod, student response.User)
 			break
 		}
 	}
-	podId := pod.ID
-	blockId := pod.Block.ID
-	err := blockPods.AddScaleToBlockPod(user.JwtToken, request.ScaleIdParam{
-		ScaleId: alphabeticScale.ID,
-		PodId:   &podId,
-		BlockId: &blockId,
-		KeyId:   pod.Key.ID,
+	assessmentId := assessment.ID
+	courseId := assessment.Course.ID
+	err := assessments.AddScaleToAssessment(user.JwtToken, request.ScaleIdParam{
+		ScaleId:      alphabeticScale.ID,
+		AssessmentId: &assessmentId,
+		CourseId:     &courseId,
+		KeyId:        assessment.Key.ID,
 	})
 	if err != nil {
 		return err
 	}
-	_, err = teacherKeys.AssignPodGradeForAStudentAsTeacher(
+	_, err = teacherKeys.AssignAssessmentGradeForAStudentAsTeacher(
 		user.JwtToken,
 		request.UpdateScaleValueReqBody{ScaleValue: alphabeticScale.ScaleValues[0]},
 		request.ClassroomIdParam{
 			StudentId: student.ID,
 			ResourceIds: common.ResourceIdParam{
-				PodId:   podId,
-				BlockId: blockId,
-				KeyId:   pod.Key.ID,
+				AssessmentId: assessmentId,
+				CourseId:     courseId,
+				KeyId:        assessment.Key.ID,
 			},
 		},
 	)
@@ -143,15 +143,15 @@ func assignPodGrade(user response.User, pod response.Pod, student response.User)
 	return nil
 }
 
-func publishPodGrade(user response.User, pod response.Pod, student response.User) error {
-	err := teacherKeys.BulkPublishPodGradesForAStudent(
+func publishAssessmentGrade(user response.User, assessment response.Assessment, student response.User) error {
+	err := teacherKeys.BulkPublishAssessmentGradesForAStudent(
 		user.JwtToken,
-		teacherKeys.PublishStudentGradeReqBody{PodIds: pod.ID},
+		teacherKeys.PublishStudentGradeReqBody{AssessmentIds: assessment.ID},
 		request.ClassroomIdParam{
 			StudentId: student.ID,
 			ResourceIds: common.ResourceIdParam{
-				BlockId: pod.Block.ID,
-				KeyId:   pod.Key.ID,
+				CourseId: assessment.Course.ID,
+				KeyId:    assessment.Key.ID,
 			},
 		},
 	)

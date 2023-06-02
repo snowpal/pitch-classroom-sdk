@@ -6,9 +6,9 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/snowpal/pitch-building-blocks-sdk/lib"
-	helpers2 "github.com/snowpal/pitch-building-blocks-sdk/lib/helpers"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/response"
+	"github.com/snowpal/pitch-classroom-sdk/lib"
+	helpers2 "github.com/snowpal/pitch-classroom-sdk/lib/helpers"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
 type SearchKeyRelationParam struct {
@@ -16,23 +16,17 @@ type SearchKeyRelationParam struct {
 	CurrentKeyId string
 }
 
-type SearchBlockRelationParam struct {
-	Token          string
-	CurrentBlockId string
-	KeyId          string
+type SearchCourseRelationParam struct {
+	Token           string
+	CurrentCourseId string
+	KeyId           string
 }
 
-type SearchPodRelationParam struct {
-	Token        string
-	CurrentPodId string
-	KeyId        string
-}
-
-type SearchBlockPodRelationParam struct {
-	Token        string
-	CurrentPodId string
-	KeyId        string
-	BlockId      string
+type SearchAssessmentRelationParam struct {
+	Token               string
+	CurrentAssessmentId string
+	KeyId               string
+	CourseId            string
 }
 
 func searchRelationsMatchingSearchToken(jwtToken string, route string) ([]response.SearchResource, error) {
@@ -91,15 +85,15 @@ func SearchRelationsForKeyMatchingSearchToken(
 	return searchResults, nil
 }
 
-func SearchRelationsForBlockMatchingSearchToken(
+func SearchRelationsForCourseMatchingSearchToken(
 	jwtToken string,
-	relationParam SearchBlockRelationParam,
+	relationParam SearchCourseRelationParam,
 ) ([]response.SearchResource, error) {
 	var searchResults []response.SearchResource
 	route, err := helpers2.GetRoute(
-		lib.RouteRelationsGetRelationsForBlockMatchingSearchToken,
+		lib.RouteRelationsGetRelationsForCourseMatchingSearchToken,
 		relationParam.Token,
-		relationParam.CurrentBlockId,
+		relationParam.CurrentCourseId,
 		relationParam.KeyId,
 	)
 	if err != nil {
@@ -114,40 +108,17 @@ func SearchRelationsForBlockMatchingSearchToken(
 	return searchResults, nil
 }
 
-func SearchRelationsForPodMatchingSearchToken(
+func SearchRelationsForAssessmentMatchingSearchToken(
 	jwtToken string,
-	relationParam SearchPodRelationParam,
+	relationParam SearchAssessmentRelationParam,
 ) ([]response.SearchResource, error) {
 	var searchResults []response.SearchResource
 	route, err := helpers2.GetRoute(
-		lib.RouteRelationsGetRelationsForPodMatchingSearchToken,
+		lib.RouteRelationsGetRelationsForAssessmentMatchingSearchToken,
 		relationParam.Token,
-		relationParam.CurrentPodId,
+		relationParam.CurrentAssessmentId,
 		relationParam.KeyId,
-	)
-	if err != nil {
-		fmt.Println(err)
-		return searchResults, err
-	}
-	searchResults, err = searchRelationsMatchingSearchToken(jwtToken, route)
-	if err != nil {
-		fmt.Println(err)
-		return searchResults, err
-	}
-	return searchResults, nil
-}
-
-func SearchRelationsForBlockPodMatchingSearchToken(
-	jwtToken string,
-	relationParam SearchBlockPodRelationParam,
-) ([]response.SearchResource, error) {
-	var searchResults []response.SearchResource
-	route, err := helpers2.GetRoute(
-		lib.RouteRelationsGetRelationsForBlockPodMatchingSearchToken,
-		relationParam.Token,
-		relationParam.CurrentPodId,
-		relationParam.KeyId,
-		relationParam.BlockId,
+		relationParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)

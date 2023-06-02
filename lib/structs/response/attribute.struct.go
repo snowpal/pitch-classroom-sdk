@@ -6,7 +6,7 @@ type ResourceAttribute struct {
 }
 
 type ResourceAttributes struct {
-	KeyAttributes   []ResourceAttribute
-	BlockAttributes []ResourceAttribute
-	PodAttributes   []ResourceAttribute
+	KeyAttributes        []ResourceAttribute
+	CourseAttributes     []ResourceAttribute
+	AssessmentAttributes []ResourceAttribute
 }

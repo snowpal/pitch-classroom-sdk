@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/snowpal/pitch-building-blocks-sdk/lib"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/helpers"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/request"
+	"github.com/snowpal/pitch-classroom-sdk/lib"
+	"github.com/snowpal/pitch-classroom-sdk/lib/helpers"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 )
 
-func unrelatePodFromPod(jwtToken string, route string) error {
+func unrelateAssessmentFromAssessment(jwtToken string, route string) error {
 	req, err := http.NewRequest(http.MethodPatch, route, nil)
 	if err != nil {
 		fmt.Println(err)
@@ -26,62 +26,21 @@ func unrelatePodFromPod(jwtToken string, route string) error {
 	return nil
 }
 
-func UnrelateKeyPodFromKeyPod(jwtToken string, relationParam request.PodToPodRelationParam) error {
+func UnrelateAssessmentFromAssessment(jwtToken string, relationParam request.AssessmentToAssessmentRelationParam) error {
 	route, err := helpers.GetRoute(
-		lib.RouteRelationsUnrelatePodFromPod,
-		relationParam.PodId,
+		lib.RouteRelationsUnrelateAssessmentFromAssessment,
+		relationParam.AssessmentId,
 		relationParam.SourceKeyId,
-		relationParam.TargetPodId,
+		relationParam.SourceCourseId,
+		relationParam.TargetAssessmentId,
 		relationParam.TargetKeyId,
+		relationParam.TargetCourseId,
 	)
 	if err != nil {
 		fmt.Println(err)
 		return err
 	}
-	err = unrelatePodFromPod(jwtToken, route)
-	if err != nil {
-		fmt.Println(err)
-		return err
-	}
-	return nil
-}
-
-func UnrelateKeyPodFromBlockPod(jwtToken string, relationParam request.PodToBlockPodRelationParam) error {
-	route, err := helpers.GetRoute(
-		lib.RouteRelationsUnrelatePodFromBlockPod,
-		relationParam.PodId,
-		relationParam.SourceKeyId,
-		relationParam.TargetPodId,
-		relationParam.TargetKeyId,
-		relationParam.TargetBlockId,
-	)
-	if err != nil {
-		fmt.Println(err)
-		return err
-	}
-	err = unrelatePodFromPod(jwtToken, route)
-	if err != nil {
-		fmt.Println(err)
-		return err
-	}
-	return nil
-}
-
-func UnrelateBlockPodFromBlockPod(jwtToken string, relationParam request.BlockPodToBlockPodRelationParam) error {
-	route, err := helpers.GetRoute(
-		lib.RouteRelationsUnrelateBlockPodFromBlockPod,
-		relationParam.PodId,
-		relationParam.SourceKeyId,
-		relationParam.SourceBlockId,
-		relationParam.TargetPodId,
-		relationParam.TargetKeyId,
-		relationParam.TargetBlockId,
-	)
-	if err != nil {
-		fmt.Println(err)
-		return err
-	}
-	err = unrelatePodFromPod(jwtToken, route)
+	err = unrelateAssessmentFromAssessment(jwtToken, route)
 	if err != nil {
 		fmt.Println(err)
 		return err

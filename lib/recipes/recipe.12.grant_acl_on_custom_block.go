@@ -1,23 +1,23 @@
 package recipes
 
 import (
-	"github.com/snowpal/pitch-building-blocks-sdk/lib"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/blocks/blocks.1"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/request"
+	"github.com/snowpal/pitch-classroom-sdk/lib"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/courses/courses.1"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 
-	recipes "github.com/snowpal/pitch-building-blocks-sdk/lib/helpers/recipes"
-	response "github.com/snowpal/pitch-building-blocks-sdk/lib/structs/response"
+	recipes "github.com/snowpal/pitch-classroom-sdk/lib/helpers/recipes"
+	response "github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 
 	log "github.com/sirupsen/logrus"
 )
 
 const (
-	CopyKeyName   = "Insurance"
-	CopyBlockName = "Car Insurance"
+	CopyKeyName    = "Insurance"
+	CopyCourseName = "Car Insurance"
 )
 
-func GrantAclOnCustomBlock() {
-	log.Info("Objective: Add Custom Block, Share Block, Grant Read Access, Copy Block, Grant Admin Access")
+func GrantAclOnCustomCourse() {
+	log.Info("Objective: Add Custom Course, Share Course, Grant Read Access, Copy Course, Grant Admin Access")
 	_, err := recipes.ValidateDependencies()
 	if err != nil {
 		return
@@ -28,62 +28,62 @@ func GrantAclOnCustomBlock() {
 		return
 	}
 
-	key, err := recipes.AddCustomKey(user, CopyKeyName)
+	key, err := recipes.AddTeacherKey(user, CopyKeyName)
 	if err != nil {
 		return
 	}
 
-	log.Info("Add custom block")
+	log.Info("Add custom course")
 	recipes.SleepBefore()
-	block, err := recipes.AddBlock(user, CopyBlockName, key)
+	course, err := recipes.AddCourse(user, CopyCourseName, key)
 	if err != nil {
 		return
 	}
-	log.Printf(".Block %s added successfully", block.Name)
+	log.Printf(".Course %s added successfully", course.Name)
 	recipes.SleepAfter()
 
-	log.Info("Share block with read access")
+	log.Info("Share course with read access")
 	recipes.SleepBefore()
-	err = recipes.SearchUserAndShareBlock(user, block, "api_read_user", lib.ReadAcl)
+	err = recipes.SearchUserAndShareCourse(user, course, "api_read_user", lib.ReadAcl)
 	if err != nil {
 		return
 	}
-	log.Printf(".Block %s shared with %s with read access level", block.Name, lib.ReadUser)
+	log.Printf(".Course %s shared with %s with read access level", course.Name, lib.ReadUser)
 	recipes.SleepAfter()
 
-	log.Info("Copy block and see acl is not copied")
+	log.Info("Copy course and see acl is not copied")
 	recipes.SleepBefore()
-	anotherBlock, err := copyBlock(user, block)
+	anotherCourse, err := copyCourse(user, course)
 	if err != nil {
 		return
 	}
-	log.Printf(".Block %s copied but %s don't have access on copied block", block.Name, lib.ReadUser)
+	log.Printf(".Course %s copied but %s don't have access on copied course", course.Name, lib.ReadUser)
 	recipes.SleepAfter()
 
-	log.Info("Share block with admin access")
+	log.Info("Share course with admin access")
 	recipes.SleepBefore()
-	err = recipes.SearchUserAndShareBlock(user, anotherBlock, "api_admin_user", lib.AdminAcl)
+	err = recipes.SearchUserAndShareCourse(user, anotherCourse, "api_admin_user", lib.AdminAcl)
 	if err != nil {
 		return
 	}
-	log.Printf(".Block %s shared with %s with admin access", block.Name, lib.ReadUser)
+	log.Printf(".Course %s shared with %s with admin access", course.Name, lib.ReadUser)
 	recipes.SleepAfter()
 }
 
-func copyBlock(user response.User, block response.Block) (response.Block, error) {
-	resBlock, err := blocks.CopyBlock(
+func copyCourse(user response.User, course response.Course) (response.Course, error) {
+	resCourse, err := courses.CopyCourse(
 		user.JwtToken,
-		request.CopyMoveBlockParam{
-			BlockId:       block.ID,
-			KeyId:         block.Key.ID,
-			TargetKeyId:   block.Key.ID,
-			AllPods:       true,
-			AllTasks:      true,
-			AllChecklists: true,
+		request.CopyMoveCourseParam{
+			CourseId:       course.ID,
+			KeyId:          course.Key.ID,
+			TargetKeyId:    course.Key.ID,
+			AllAssessments: true,
+			AllTasks:       true,
+			AllChecklists:  true,
 		},
 	)
 	if err != nil {
-		return resBlock, err
+		return resCourse, err
 	}
-	return resBlock, nil
+	return resCourse, nil
 }

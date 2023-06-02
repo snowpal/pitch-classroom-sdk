@@ -7,40 +7,40 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/snowpal/pitch-building-blocks-sdk/lib"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/helpers"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/request"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/response"
+	"github.com/snowpal/pitch-classroom-sdk/lib"
+	"github.com/snowpal/pitch-classroom-sdk/lib/helpers"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func AssignBlockGradeToStudent(
+func AssignCourseGradeToStudent(
 	jwtToken string,
 	reqBody request.UpdateScaleValueReqBody,
 	classroomParam request.ClassroomIdParam,
-) (response.UpdateBlockScaleValue, error) {
-	resBlockScaleValue := response.UpdateBlockScaleValue{}
+) (response.UpdateCourseScaleValue, error) {
+	resCourseScaleValue := response.UpdateCourseScaleValue{}
 	requestBody, err := helpers.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockScaleValue, err
+		return resCourseScaleValue, err
 	}
 	payload := strings.NewReader(requestBody)
 	route, err := helpers.GetRoute(
 		lib.RouteTeacherKeysAssignGradeToStudent,
-		classroomParam.ResourceIds.BlockId,
+		classroomParam.ResourceIds.CourseId,
 		classroomParam.StudentId,
 		classroomParam.ResourceIds.KeyId,
 	)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockScaleValue, err
+		return resCourseScaleValue, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockScaleValue, err
+		return resCourseScaleValue, err
 	}
 
 	helpers.AddUserHeaders(jwtToken, req)
@@ -49,7 +49,7 @@ func AssignBlockGradeToStudent(
 	res, err = helpers.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockScaleValue, err
+		return resCourseScaleValue, err
 	}
 
 	defer helpers.CloseBody(res.Body)
@@ -58,13 +58,13 @@ func AssignBlockGradeToStudent(
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockScaleValue, err
+		return resCourseScaleValue, err
 	}
 
-	err = json.Unmarshal(body, &resBlockScaleValue)
+	err = json.Unmarshal(body, &resCourseScaleValue)
 	if err != nil {
 		fmt.Println(err)
-		return resBlockScaleValue, err
+		return resCourseScaleValue, err
 	}
-	return resBlockScaleValue, nil
+	return resCourseScaleValue, nil
 }

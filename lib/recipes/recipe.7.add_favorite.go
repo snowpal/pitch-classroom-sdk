@@ -1,18 +1,18 @@
 package recipes
 
 import (
-	"github.com/snowpal/pitch-building-blocks-sdk/lib"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/favorites"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/common"
+	"github.com/snowpal/pitch-classroom-sdk/lib"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/favorites"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 
 	log "github.com/sirupsen/logrus"
-	recipes "github.com/snowpal/pitch-building-blocks-sdk/lib/helpers/recipes"
-	response "github.com/snowpal/pitch-building-blocks-sdk/lib/structs/response"
+	recipes "github.com/snowpal/pitch-classroom-sdk/lib/helpers/recipes"
+	response "github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
 const (
-	FavKeyName   = "FavoriteKey"
-	FavBlockName = "FavoriteBlock"
+	FavKeyName    = "FavoriteKey"
+	FavCourseName = "FavoriteCourse"
 )
 
 func AddFavorite() {
@@ -27,19 +27,19 @@ func AddFavorite() {
 		return
 	}
 
-	log.Info("Create a key and a block into it. Then add that block as favorite")
+	log.Info("Create a key and a course into it. Then add that course as favorite")
 	var favorite response.AddFavorite
 	favorite, err = addFavorite(user)
 	if err != nil {
 		return
 	}
-	log.Info(".Block added as favorite")
+	log.Info(".course added as favorite")
 
 	err = removeFavorite(user, favorite)
 	if err != nil {
 		return
 	}
-	log.Info(".Block removed from favorite")
+	log.Info(".course removed from favorite")
 }
 
 func removeFavorite(user response.User, favorite response.AddFavorite) error {
@@ -52,17 +52,17 @@ func removeFavorite(user response.User, favorite response.AddFavorite) error {
 
 func addFavorite(user response.User) (response.AddFavorite, error) {
 	var favorite response.AddFavorite
-	key, err := recipes.AddCustomKey(user, FavKeyName)
+	key, err := recipes.AddTeacherKey(user, FavKeyName)
 	if err != nil {
 		return favorite, err
 	}
-	block, err := recipes.AddBlock(user, FavBlockName, key)
+	course, err := recipes.AddCourse(user, FavCourseName, key)
 	if err != nil {
 		return favorite, err
 	}
-	favorite, err = favorites.AddBlockAsFavorite(
+	favorite, err = favorites.AddCourseAsFavorite(
 		user.JwtToken,
-		common.ResourceIdParam{BlockId: block.ID, KeyId: key.ID})
+		common.ResourceIdParam{CourseId: course.ID, KeyId: key.ID})
 	if err != nil {
 		return favorite, err
 	}

@@ -1,19 +1,19 @@
 package recipes
 
 import (
-	"github.com/snowpal/pitch-building-blocks-sdk/lib"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/endpoints/relations"
-	"github.com/snowpal/pitch-building-blocks-sdk/lib/structs/request"
+	"github.com/snowpal/pitch-classroom-sdk/lib"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/relations"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 
 	log "github.com/sirupsen/logrus"
-	recipes "github.com/snowpal/pitch-building-blocks-sdk/lib/helpers/recipes"
-	response "github.com/snowpal/pitch-building-blocks-sdk/lib/structs/response"
+	recipes "github.com/snowpal/pitch-classroom-sdk/lib/helpers/recipes"
+	response "github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
 const (
-	RelationKeyName   = "Animals"
-	RelationBlockName = "Tiger"
-	RelationPodName   = "Cat"
+	RelationKeyName        = "Animals"
+	RelationCourseName     = "Tiger"
+	RelationAssessmentName = "Cat"
 )
 
 func AddRelation() {
@@ -23,34 +23,33 @@ func AddRelation() {
 		return
 	}
 
-	log.Info("Create a key and block & pod into that key")
+	log.Info("Create a key and course & assessment into that key")
 	user, err := recipes.SignIn(lib.ActiveUser, lib.Password)
 	if err != nil {
 		return
 	}
 
-	log.Info("Relate the block with key pod")
-	block, pod, err := addRelation(user)
+	log.Info("Relate the course with key assessment")
+	key, course, err := addRelation(user)
 	if err != nil {
 		return
 	}
-	log.Printf(".Block %s is related with pod %s successfully", block.Name, pod.Name)
+	log.Printf(".Course %s is related with assessment %s successfully", course.Name, key.Name)
 
-	log.Info("Unrelate the block from key pod")
-	err = removeRelation(user, block, pod)
+	log.Info("Unrelate the course from key assessment")
+	err = removeRelation(user, key, course)
 	if err != nil {
 		return
 	}
-	log.Printf(".Block %s is unrelated from pod %s successfully", block.Name, pod.Name)
+	log.Printf(".Course %s is unrelated from assessment %s successfully", course.Name, key.Name)
 }
 
-func removeRelation(user response.User, block response.Block, pod response.Pod) error {
-	err := relations.UnrelateBlockFromKeyPod(
+func removeRelation(user response.User, key response.Key, course response.Course) error {
+	err := relations.UnrelateCourseFromKey(
 		user.JwtToken,
-		request.BlockToPodRelationParam{
-			BlockId:     block.ID,
-			TargetPodId: pod.ID,
-			TargetKeyId: pod.Key.ID,
+		request.KeyToCourseRelationParam{
+			KeyId:          key.ID,
+			TargetCourseId: course.ID,
 		},
 	)
 	if err != nil {
@@ -59,34 +58,29 @@ func removeRelation(user response.User, block response.Block, pod response.Pod) 
 	return nil
 }
 
-func addRelation(user response.User) (response.Block, response.Pod, error) {
+func addRelation(user response.User) (response.Key, response.Course, error) {
 	var (
-		block response.Block
-		pod   response.Pod
+		key    response.Key
+		course response.Course
 	)
-	key, err := recipes.AddCustomKey(user, RelationKeyName)
+	key, err := recipes.AddTeacherKey(user, RelationKeyName)
 	if err != nil {
-		return block, pod, err
+		return key, course, err
 	}
-	block, err = recipes.AddBlock(user, RelationBlockName, key)
+	course, err = recipes.AddCourse(user, RelationCourseName, key)
 	if err != nil {
-		return block, pod, err
+		return key, course, err
 	}
-	pod, err = recipes.AddPod(user, RelationPodName, key)
-	if err != nil {
-		return block, pod, err
-	}
-	err = relations.RelateBlockToKeyPod(
+	err = relations.RelateCourseToKey(
 		user.JwtToken,
-		request.BlockToPodRelationParam{
-			BlockId:     block.ID,
-			TargetPodId: pod.ID,
-			TargetKeyId: pod.Key.ID,
+		request.KeyToCourseRelationParam{
+			KeyId:          key.ID,
+			TargetCourseId: course.ID,
 		},
 	)
 	if err != nil {
-		return block, pod, err
+		return key, course, err
 	}
-	return block, pod, nil
+	return key, course, nil
 
 }

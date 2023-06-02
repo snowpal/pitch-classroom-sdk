@@ -1,7 +1,7 @@
 package response
 
 import (
-	common2 "github.com/snowpal/pitch-building-blocks-sdk/lib/structs/common"
+	common2 "github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 )
 
 type Tasks struct {
@@ -15,7 +15,7 @@ type Task struct {
 	Completed bool                     `json:"isCompleted"`
 	Assignees []TaggedUser             `json:"assignees"`
 	Key       *common2.SlimKey         `json:"key"`
-	Block     *common2.SlimBlock       `json:"block"`
+	Course    *common2.SlimCourse      `json:"course"`
 	Creator   common2.ResourceCreator  `json:"creator"`
 	Modifier  common2.ResourceModifier `json:"modifier"`
 }
