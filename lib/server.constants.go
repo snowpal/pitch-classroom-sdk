@@ -1,9 +1,5 @@
 package lib
 
-const (
-	XApiKey      = "REPLACE_WITH_YOUR_KEY"
-	XProductCode = "REPLACE_WITH_PRODUCT_CODE"
-)
 
 const GatewayHost = "https://gateway.snowpal.com/"
 
@@ -182,6 +178,18 @@ const (
 
 const (
 	RouteCommentsGetRecentComments = "comments"
+)
+
+const (
+	RouteConversationsGetUnreadConversationsCount         = "conversations/unread-status"
+	RouteConversationsGetUserConversations                = "conversations"
+	RouteConversationsAddPrivateOrGroupConversation       = "conversations"
+	RouteConversationsGetConversationForGivenUsernames    = "conversations/by-usernames?userNames=%s"
+	RouteConversationsSendMessageToAnExistingConversation = "conversations/%s/messages"
+	RouteConversationsGetConversation                     = "conversations/%s"
+	RouteConversationsDeleteConversation                  = "conversations/%s"
+	RouteConversationsLeaveConversation                   = "conversations/%s/leave"
+	RouteConversationsArchiveConversation                 = "conversations/%s/archive"
 )
 
 const (

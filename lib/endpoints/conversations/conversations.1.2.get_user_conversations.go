@@ -1,4 +1,4 @@
-package user
+package conversations
 
 import (
 	"encoding/json"
@@ -12,19 +12,19 @@ import (
 	helpers2 "github.com/snowpal/pitch-classroom-sdk/lib/helpers"
 )
 
-func GetUsers(jwtToken string) ([]response.User, error) {
-	resUsers := response.Users{}
-	route, err := helpers2.GetRoute(lib.RouteUserGetUsers)
+func GetUserConversations(jwtToken string) ([]response.Conversation, error) {
+	resConversations := response.Conversations{}
+	route, err := helpers2.GetRoute(lib.RouteConversationsGetUserConversations)
 	if err != nil {
 		fmt.Println(err)
-		return resUsers.Users, err
+		return resConversations.Conversations, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resUsers.Users, err
+		return resConversations.Conversations, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -33,7 +33,7 @@ func GetUsers(jwtToken string) ([]response.User, error) {
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resUsers.Users, err
+		return resConversations.Conversations, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -42,13 +42,13 @@ func GetUsers(jwtToken string) ([]response.User, error) {
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resUsers.Users, err
+		return resConversations.Conversations, err
 	}
 
-	err = json.Unmarshal(body, &resUsers)
+	err = json.Unmarshal(body, &resConversations)
 	if err != nil {
 		fmt.Println(err)
-		return resUsers.Users, err
+		return resConversations.Conversations, err
 	}
-	return resUsers.Users, nil
+	return resConversations.Conversations, nil
 }

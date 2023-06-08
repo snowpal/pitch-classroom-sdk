@@ -18,17 +18,12 @@ func RegisterFewUsers() {
 		return
 	}
 
-	_, err = recipes.RegisterUser(lib.AdminUser)
+	_, err = recipes.RegisterUser(lib.Teacher)
 	if err != nil {
 		return
 	}
 
-	_, err = recipes.RegisterUser(lib.ReadUser)
-	if err != nil {
-		return
-	}
-
-	_, err = recipes.RegisterUser(lib.WriteUser)
+	_, err = recipes.RegisterUser(lib.Student)
 	if err != nil {
 		return
 	}

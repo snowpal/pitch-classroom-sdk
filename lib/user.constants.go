@@ -3,17 +3,15 @@ package lib
 const Password = "Welcome1!"
 
 const (
-	DefaultEmail = "api_default@gmail.com"
-	ActiveUser   = "api_active_user@gmail.com"
-	ReadUser     = "api_read_user@gmail.com"
-	WriteUser    = "api_write_user@yopmail.com"
-	AdminUser    = "api_admin_user@gmail.com"
+	DefaultEmail = "classroom_api_default2@gmail.com"
+	ActiveUser   = "classroom_api_active_user@gmail.com"
+	Student      = "classroom_api_student@gmail.com"
+	Teacher      = "classroom_api_teacher@gmail.com"
 )
 
 const (
-	ReadAcl  = "read"
-	WriteAcl = "write"
-	AdminAcl = "admin"
+	StudentAcl = "read"
+	TeacherAcl = "admin"
 )
 
 const (

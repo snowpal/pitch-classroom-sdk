@@ -51,7 +51,7 @@ func PublishStudentGrade() {
 		return
 	}
 
-	err = recipes.SearchUserAndShareCourse(user, course, "api_read_user", lib.ReadAcl)
+	err = recipes.SearchUserAndShareCourse(user, course, "classroom_api_st", lib.StudentAcl)
 	if err != nil {
 		return
 	}
@@ -61,28 +61,28 @@ func PublishStudentGrade() {
 		return
 	}
 
-	var readUser response.User
-	readUser, err = recipes.SignIn(lib.ReadUser, lib.Password)
+	var Student response.User
+	Student, err = recipes.SignIn(lib.Student, lib.Password)
 	if err != nil {
 		return
 	}
 
-	log.Printf("Assign grade to %s assessment for %s", assessment.Name, lib.ReadUser)
+	log.Printf("Assign grade to %s assessment for %s", assessment.Name, lib.Student)
 	recipes.SleepBefore()
-	err = assignAssessmentGrade(user, assessment, readUser)
+	err = assignAssessmentGrade(user, assessment, Student)
 	if err != nil {
 		return
 	}
-	log.Printf(".Grade assigned successfully to %s", lib.ReadUser)
+	log.Printf(".Grade assigned successfully to %s", lib.Student)
 	recipes.SleepAfter()
 
-	log.Printf("Publish grade for %s", readUser.Email)
+	log.Printf("Publish grade for %s", Student.Email)
 	recipes.SleepBefore()
-	err = publishAssessmentGrade(user, assessment, readUser)
+	err = publishAssessmentGrade(user, assessment, Student)
 	if err != nil {
 		return
 	}
-	log.Printf(".Grade published successfully for %s", lib.ReadUser)
+	log.Printf(".Grade published successfully for %s", lib.Student)
 	recipes.SleepAfter()
 }
 
@@ -105,8 +105,9 @@ func publishAssessment(user response.User, assessment response.Assessment) error
 func assignAssessmentGrade(user response.User, assessment response.Assessment, student response.User) error {
 	resScales, _ := scales.GetScales(user.JwtToken, scales.GetScalesParam{
 		IncludeCounts: false,
-		ExcludeEmpty:  true,
+		ExcludeEmpty:  false,
 	})
+
 	var alphabeticScale response.Scale
 	for _, scale := range resScales {
 		if *scale.Type == lib.AlphabeticScaleType {
@@ -114,6 +115,7 @@ func assignAssessmentGrade(user response.User, assessment response.Assessment, s
 			break
 		}
 	}
+
 	assessmentId := assessment.ID
 	courseId := assessment.Course.ID
 	err := assessments.AddScaleToAssessment(user.JwtToken, request.ScaleIdParam{
@@ -125,6 +127,7 @@ func assignAssessmentGrade(user response.User, assessment response.Assessment, s
 	if err != nil {
 		return err
 	}
+
 	_, err = teacherKeys.AssignAssessmentGradeForAStudentAsTeacher(
 		user.JwtToken,
 		request.UpdateScaleValueReqBody{ScaleValue: alphabeticScale.ScaleValues[0]},
