@@ -1,12 +1,32 @@
 package main
 
 import (
+	"os"
+	"strconv"
+
 	log "github.com/sirupsen/logrus"
+	"github.com/snowpal/pitch-classroom-sdk/lib/config"
 	"github.com/snowpal/pitch-classroom-sdk/lib/recipes"
 )
 
 func main() {
-	recipeID := 1
+	var err error
+	if config.Files, err = config.InitConfigFiles(); err != nil {
+		log.Fatal(err.Error())
+		return
+	}
+
+	var recipeID int
+	recipeIDInEnv := os.Getenv("RECIPE_ID")
+	if len(recipeIDInEnv) == 0 {
+		recipeID = 1
+	} else {
+		recipeID, err = strconv.Atoi(recipeIDInEnv)
+		if err != nil {
+			recipeID = 1
+		}
+	}
+
 	switch recipeID {
 	case 1:
 		log.Info("Run Recipe1")
@@ -18,23 +38,23 @@ func main() {
 		break
 	case 3:
 		log.Info("Run Recipe3")
-		recipes.AddAndLinkResources()
+		recipes.CreatePrivateConversation()
 		break
 	case 4:
 		log.Info("Run Recipe4")
-		recipes.ShareCourse()
+		recipes.AddAndLinkResources()
 		break
 	case 5:
 		log.Info("Run Recipe5")
-		recipes.GetAllKeys()
+		recipes.AddStudentAndTeacher()
 		break
 	case 6:
 		log.Info("Run Recipe6")
-		recipes.AddFavorite()
+		recipes.GetAllKeys()
 		break
 	case 7:
 		log.Info("Run Recipe7")
-		recipes.FetchScheduler()
+		recipes.AddFavorite()
 		break
 	case 8:
 		log.Info("Run Recipe8")
@@ -46,10 +66,6 @@ func main() {
 		break
 	case 10:
 		log.Info("Run Recipe10")
-		recipes.GrantAclOnCustomCourse()
-		break
-	case 11:
-		log.Info("Run Recipe11")
 		recipes.UpdateAttributes()
 		break
 	default:
