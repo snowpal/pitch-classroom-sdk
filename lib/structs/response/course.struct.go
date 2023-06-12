@@ -16,13 +16,13 @@ type Course struct {
 	SimpleDescription string  `json:"simpleDescription"`
 	Color             string  `json:"color"`
 	Tags              string  `json:"tags"`
-	ScaleValue        *string `json:"scaleValue"`
+	Grade             *string `json:"grade"`
 
-	Attributes  []common2.DisplayAttribute `json:"attributes"`
-	CourseType  *CourseType                `json:"courseType"`
-	Scale       *Scale                     `json:"scale"`
-	TaggedUsers []TaggedUser               `json:"taggedUsers"`
-	Key         *common2.SlimKey           `json:"key"`
+	Attributes    []common2.DisplayAttribute `json:"attributes"`
+	CourseType    *CourseType                `json:"courseType"`
+	GradingSystem *GradingSystem             `json:"gradingSystem"`
+	TaggedUsers   []TaggedUser               `json:"taggedUsers"`
+	Key           *common2.SlimKey           `json:"key"`
 
 	// Boolean Attributes
 	Completed  *bool `json:"completed"`
@@ -59,11 +59,11 @@ type Course struct {
 	LastModified string                   `json:"lastModified"`
 }
 
-type UpdateCourseScaleValue struct {
-	ID           string `json:"id"`
-	Name         string `json:"name"`
-	ScaleValue   string `json:"scaleValue"`
-	NumericScale int    `json:"numericScale"`
+type UpdateCourseGrade struct {
+	ID                   string `json:"id"`
+	Name                 string `json:"name"`
+	Grade                string `json:"grade"`
+	NumericGradingSystem int    `json:"numericGradingSystem"`
 
 	Key common2.SlimKey `json:"key"`
 }

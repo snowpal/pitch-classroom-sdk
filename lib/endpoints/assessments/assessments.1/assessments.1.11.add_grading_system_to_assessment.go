@@ -6,20 +6,22 @@ import (
 
 	"github.com/snowpal/pitch-classroom-sdk/lib"
 	"github.com/snowpal/pitch-classroom-sdk/lib/helpers"
-	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 )
 
-func DeleteScaleFromAssessment(jwtToken string, assessmentParam common.ResourceIdParam) error {
+func AddGradingSystemToAssessment(jwtToken string, assessmentParam request.GradingSystemIdParam) error {
 	route, err := helpers.GetRoute(
-		lib.RouteAssessmentsDeleteScaleFromAssessment,
-		assessmentParam.AssessmentId,
+		lib.RouteAssessmentsAddGradingSystemToAssessment,
+		*assessmentParam.AssessmentId,
+		assessmentParam.GradingSystemId,
 		assessmentParam.KeyId,
-		assessmentParam.CourseId,
+		*assessmentParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)
 		return err
 	}
+	println(route)
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodPatch, route, nil)

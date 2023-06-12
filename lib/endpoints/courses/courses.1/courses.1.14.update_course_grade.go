@@ -1,4 +1,4 @@
-package assessments
+package courses
 
 import (
 	"encoding/json"
@@ -14,34 +14,33 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func UpdateAssessmentScaleValue(
+func UpdateCourseGrade(
 	jwtToken string,
-	reqBody request.UpdateScaleValueReqBody,
-	assessmentParam common.ResourceIdParam,
-) (response.UpdateAssessmentScaleValue, error) {
-	resAssessmentscaleValue := response.UpdateAssessmentScaleValue{}
+	reqBody request.UpdateGradeReqBody,
+	courseParam common.ResourceIdParam,
+) (response.UpdateCourseGrade, error) {
+	resCourseGrade := response.UpdateCourseGrade{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)
-		return resAssessmentscaleValue, err
+		return resCourseGrade, err
 	}
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(
-		lib.RouteAssessmentsUpdateAssessmentScaleValue,
-		assessmentParam.AssessmentId,
-		assessmentParam.KeyId,
-		assessmentParam.CourseId,
+		lib.RouteCoursesUpdateCourseGrade,
+		courseParam.CourseId,
+		courseParam.KeyId,
 	)
 	if err != nil {
 		fmt.Println(err)
-		return resAssessmentscaleValue, err
+		return resCourseGrade, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {
 		fmt.Println(err)
-		return resAssessmentscaleValue, err
+		return resCourseGrade, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -50,7 +49,7 @@ func UpdateAssessmentScaleValue(
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resAssessmentscaleValue, err
+		return resCourseGrade, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -59,13 +58,13 @@ func UpdateAssessmentScaleValue(
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resAssessmentscaleValue, err
+		return resCourseGrade, err
 	}
 
-	err = json.Unmarshal(body, &resAssessmentscaleValue)
+	err = json.Unmarshal(body, &resCourseGrade)
 	if err != nil {
 		fmt.Println(err)
-		return resAssessmentscaleValue, err
+		return resCourseGrade, err
 	}
-	return resAssessmentscaleValue, nil
+	return resCourseGrade, nil
 }

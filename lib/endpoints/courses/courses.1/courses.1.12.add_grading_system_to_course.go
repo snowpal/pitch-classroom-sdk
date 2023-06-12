@@ -6,13 +6,14 @@ import (
 
 	"github.com/snowpal/pitch-classroom-sdk/lib"
 	"github.com/snowpal/pitch-classroom-sdk/lib/helpers"
-	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 )
 
-func DeleteScaleFromCourse(jwtToken string, courseParam common.ResourceIdParam) error {
+func AddGradingSystemToCourse(jwtToken string, courseParam request.GradingSystemIdParam) error {
 	route, err := helpers.GetRoute(
-		lib.RouteCoursesDeleteScaleFromCourse,
-		courseParam.CourseId,
+		lib.RouteCoursesAddGradingSystemToCourse,
+		*courseParam.CourseId,
+		courseParam.GradingSystemId,
 		courseParam.KeyId,
 	)
 	if err != nil {

@@ -18,8 +18,8 @@ func GetResourceAttributes() {
 		return
 	}
 
-	log.Info("Sign in user, email: ", lib.DefaultEmail)
-	user, err := recipes.SignIn(lib.DefaultEmail, lib.Password)
+	log.Info("Sign in user, email: ", lib.ApiUser1)
+	user, err := recipes.SignIn(lib.ApiUser1, lib.Password)
 
 	log.Info(".get resource attributes")
 	resourceAttrs, _ := attributes.GetResourceAttrs(user.JwtToken)

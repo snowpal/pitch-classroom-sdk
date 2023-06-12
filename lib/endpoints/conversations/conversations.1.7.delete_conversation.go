@@ -1,4 +1,4 @@
-package scales
+package conversations
 
 import (
 	"fmt"
@@ -8,8 +8,8 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/helpers"
 )
 
-func DeleteScale(jwtToken string, scaleId string) error {
-	route, err := helpers.GetRoute(lib.RouteScalesDeleteScale, scaleId)
+func DeleteConversation(jwtToken string, conversationId string) error {
+	route, err := helpers.GetRoute(lib.RouteConversationsDeleteConversation, conversationId)
 	if err != nil {
 		fmt.Println(err)
 		return err
