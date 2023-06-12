@@ -1,4 +1,4 @@
-package gradingSystems
+package grading_systems
 
 import (
 	"fmt"

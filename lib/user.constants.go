@@ -3,10 +3,10 @@ package lib
 const Password = "Welcome1!"
 
 const (
-	DefaultEmail = "api_default201@gmail.com"
-	ApiUser1     = "api_user1@gmail.com"
-	ApiUser2     = "api_user2@gmail.com"
-	ApiUser3     = "api_user3@gmail.com"
+	DefaultEmail = "api_default121@gmail.com"
+	ApiUser1     = "apiuser1@gmail.com"
+	ApiUser2     = "apiuser2@gmail.com"
+	ApiUser3     = "apiuser3@gmail.com"
 )
 
 const (

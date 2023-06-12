@@ -29,19 +29,19 @@ func AddRelation() {
 		return
 	}
 
-	log.Info("Relate the course with key assessment")
+	log.Info("Relate the course with key")
 	key, course, err := addRelation(user)
 	if err != nil {
 		return
 	}
-	log.Printf(".Course %s is related with assessment %s successfully", course.Name, key.Name)
+	log.Printf(".Course %s is related with key %s successfully", course.Name, key.Name)
 
-	log.Info("Unrelate the course from key assessment")
+	log.Info("Unrelate the course from key")
 	err = removeRelation(user, key, course)
 	if err != nil {
 		return
 	}
-	log.Printf(".Course %s is unrelated from assessment %s successfully", course.Name, key.Name)
+	log.Printf(".Course %s is unrelated from key %s successfully", course.Name, key.Name)
 }
 
 func removeRelation(user response.User, key response.Key, course response.Course) error {

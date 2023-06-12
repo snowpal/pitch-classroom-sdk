@@ -21,6 +21,7 @@ func AddGradingSystemToAssessment(jwtToken string, assessmentParam request.Gradi
 		fmt.Println(err)
 		return err
 	}
+	println(route)
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodPatch, route, nil)
