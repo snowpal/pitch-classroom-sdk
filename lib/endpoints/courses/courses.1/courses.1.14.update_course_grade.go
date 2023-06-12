@@ -14,33 +14,33 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func UpdateCourseScaleValue(
+func UpdateCourseGrade(
 	jwtToken string,
-	reqBody request.UpdateScaleValueReqBody,
+	reqBody request.UpdateGradeReqBody,
 	courseParam common.ResourceIdParam,
-) (response.UpdateCourseScaleValue, error) {
-	resCourseScaleValue := response.UpdateCourseScaleValue{}
+) (response.UpdateCourseGrade, error) {
+	resCourseGrade := response.UpdateCourseGrade{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)
-		return resCourseScaleValue, err
+		return resCourseGrade, err
 	}
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(
-		lib.RouteCoursesUpdateCourseScaleValue,
+		lib.RouteCoursesUpdateCourseGrade,
 		courseParam.CourseId,
 		courseParam.KeyId,
 	)
 	if err != nil {
 		fmt.Println(err)
-		return resCourseScaleValue, err
+		return resCourseGrade, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {
 		fmt.Println(err)
-		return resCourseScaleValue, err
+		return resCourseGrade, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -49,7 +49,7 @@ func UpdateCourseScaleValue(
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resCourseScaleValue, err
+		return resCourseGrade, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -58,13 +58,13 @@ func UpdateCourseScaleValue(
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resCourseScaleValue, err
+		return resCourseGrade, err
 	}
 
-	err = json.Unmarshal(body, &resCourseScaleValue)
+	err = json.Unmarshal(body, &resCourseGrade)
 	if err != nil {
 		fmt.Println(err)
-		return resCourseScaleValue, err
+		return resCourseGrade, err
 	}
-	return resCourseScaleValue, nil
+	return resCourseGrade, nil
 }

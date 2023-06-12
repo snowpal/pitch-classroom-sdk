@@ -9,11 +9,11 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 )
 
-func AddScaleToAssessment(jwtToken string, assessmentParam request.ScaleIdParam) error {
+func AddGradingSystemToAssessment(jwtToken string, assessmentParam request.GradingSystemIdParam) error {
 	route, err := helpers.GetRoute(
-		lib.RouteAssessmentsAddScaleToAssessment,
+		lib.RouteAssessmentsAddGradingSystemToAssessment,
 		*assessmentParam.AssessmentId,
-		assessmentParam.ScaleId,
+		assessmentParam.GradingSystemId,
 		assessmentParam.KeyId,
 		*assessmentParam.CourseId,
 	)

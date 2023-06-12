@@ -24,7 +24,7 @@ func AddRelation() {
 	}
 
 	log.Info("Create a key and course & assessment into that key")
-	user, err := recipes.SignIn(lib.ActiveUser, lib.Password)
+	user, err := recipes.SignIn(lib.ApiUser1, lib.Password)
 	if err != nil {
 		return
 	}

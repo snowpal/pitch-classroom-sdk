@@ -9,9 +9,9 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 )
 
-func DeleteScaleFromAssessment(jwtToken string, assessmentParam common.ResourceIdParam) error {
+func DeleteGradingSystemFromAssessment(jwtToken string, assessmentParam common.ResourceIdParam) error {
 	route, err := helpers.GetRoute(
-		lib.RouteAssessmentsDeleteScaleFromAssessment,
+		lib.RouteAssessmentsDeleteGradingSystemFromAssessment,
 		assessmentParam.AssessmentId,
 		assessmentParam.KeyId,
 		assessmentParam.CourseId,

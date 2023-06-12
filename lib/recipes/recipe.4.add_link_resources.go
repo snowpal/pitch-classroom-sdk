@@ -29,7 +29,7 @@ func AddAndLinkResources() {
 		return
 	}
 
-	user, err := recipes.SignIn(lib.ActiveUser, lib.Password)
+	user, err := recipes.SignIn(lib.ApiUser1, lib.Password)
 	if err != nil {
 		return
 	}

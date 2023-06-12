@@ -1,4 +1,4 @@
-package scales
+package keys
 
 import (
 	"encoding/json"
@@ -7,23 +7,29 @@ import (
 	"net/http"
 
 	"github.com/snowpal/pitch-classroom-sdk/lib"
-	helpers2 "github.com/snowpal/pitch-classroom-sdk/lib/helpers"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
+
+	helpers2 "github.com/snowpal/pitch-classroom-sdk/lib/helpers"
 )
 
-func GetAssessmentsUsingScale(jwtToken string, scaleId string) ([]response.Assessment, error) {
-	resAssessments := response.Assessments{}
-	route, err := helpers2.GetRoute(lib.RouteScalesGetAssessmentsUsingScale, scaleId)
+func GetCourseGrades(jwtToken string, gradingSystemParam request.GradingSystemIdParam) (response.Grades, error) {
+	resGrades := response.Grades{}
+	route, err := helpers2.GetRoute(
+		lib.RouteKeysGetCourseGrades,
+		gradingSystemParam.KeyId,
+		gradingSystemParam.GradingSystemId,
+	)
 	if err != nil {
 		fmt.Println(err)
-		return resAssessments.Assessments, err
+		return resGrades, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resAssessments.Assessments, err
+		return resGrades, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -32,7 +38,7 @@ func GetAssessmentsUsingScale(jwtToken string, scaleId string) ([]response.Asses
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resAssessments.Assessments, err
+		return resGrades, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -41,13 +47,13 @@ func GetAssessmentsUsingScale(jwtToken string, scaleId string) ([]response.Asses
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resAssessments.Assessments, err
+		return resGrades, err
 	}
 
-	err = json.Unmarshal(body, &resAssessments)
+	err = json.Unmarshal(body, &resGrades)
 	if err != nil {
 		fmt.Println(err)
-		return resAssessments.Assessments, err
+		return resGrades, err
 	}
-	return resAssessments.Assessments, nil
+	return resGrades, nil
 }

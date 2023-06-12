@@ -27,7 +27,7 @@ func AddStudentAndTeacher() {
 		return
 	}
 
-	user, err := recipes.SignIn(lib.ActiveUser, lib.Password)
+	user, err := recipes.SignIn(lib.ApiUser1, lib.Password)
 	if err != nil {
 		return
 	}
@@ -97,13 +97,11 @@ func addStudentAndTeacher(user response.User) (response.Course, error) {
 	if err != nil {
 		return course, err
 	}
-	println(".......before.........")
-	err = recipes.SearchUserAndShareCourse(user, course, "classroom_api_st", lib.StudentAcl)
+	err = recipes.SearchUserAndShareCourse(user, course, lib.ApiUser2, lib.StudentAcl)
 	if err != nil {
 		return course, err
 	}
-	println("share with student")
-	err = recipes.SearchUserAndShareCourse(user, course, "classroom_api_te", lib.TeacherAcl)
+	err = recipes.SearchUserAndShareCourse(user, course, lib.ApiUser3, lib.TeacherAcl)
 	if err != nil {
 		return course, err
 	}

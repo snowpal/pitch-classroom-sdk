@@ -13,17 +13,17 @@ func RegisterFewUsers() {
 		return
 	}
 
-	_, err = recipes.RegisterUser(lib.ActiveUser)
+	_, err = recipes.RegisterUser(lib.ApiUser1)
 	if err != nil {
 		return
 	}
 
-	_, err = recipes.RegisterUser(lib.Teacher)
+	_, err = recipes.RegisterUser(lib.ApiUser3)
 	if err != nil {
 		return
 	}
 
-	_, err = recipes.RegisterUser(lib.Student)
+	_, err = recipes.RegisterUser(lib.ApiUser2)
 	if err != nil {
 		return
 	}

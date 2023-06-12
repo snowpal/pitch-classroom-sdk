@@ -1,4 +1,4 @@
-package scales
+package gradingSystems
 
 import (
 	"fmt"
@@ -8,8 +8,8 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/helpers"
 )
 
-func DeleteScale(jwtToken string, scaleId string) error {
-	route, err := helpers.GetRoute(lib.RouteScalesDeleteScale, scaleId)
+func DeleteGradingSystem(jwtToken string, gradingSystemId string) error {
+	route, err := helpers.GetRoute(lib.RouteGradingSystemsDeleteGradingSystem, gradingSystemId)
 	if err != nil {
 		fmt.Println(err)
 		return err

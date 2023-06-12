@@ -1,4 +1,4 @@
-package scales
+package gradingSystems
 
 import (
 	"encoding/json"
@@ -8,24 +8,25 @@ import (
 	"strings"
 
 	"github.com/snowpal/pitch-classroom-sdk/lib"
-	helpers2 "github.com/snowpal/pitch-classroom-sdk/lib/helpers"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
+
+	helpers2 "github.com/snowpal/pitch-classroom-sdk/lib/helpers"
 )
 
-func UpdateScale(jwtToken string, reqBody request.ScaleReqBody, scaleId string) (response.Scale, error) {
-	resScale := response.Scale{}
+func UpdateGradingSystem(jwtToken string, reqBody request.GradingSystemReqBody, gradingSystemId string) (response.GradingSystem, error) {
+	resGradingSystem := response.GradingSystem{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)
-		return resScale, err
+		return resGradingSystem, err
 	}
 	payload := strings.NewReader(requestBody)
-	route, err := helpers2.GetRoute(lib.RouteScalesUpdateScale, scaleId)
+	route, err := helpers2.GetRoute(lib.RouteGradingSystemsUpdateGradingSystem, gradingSystemId)
 	req, err := http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {
 		fmt.Println(err)
-		return resScale, err
+		return resGradingSystem, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -33,7 +34,7 @@ func UpdateScale(jwtToken string, reqBody request.ScaleReqBody, scaleId string) 
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resScale, err
+		return resGradingSystem, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -41,13 +42,13 @@ func UpdateScale(jwtToken string, reqBody request.ScaleReqBody, scaleId string) 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resScale, err
+		return resGradingSystem, err
 	}
 
-	err = json.Unmarshal(body, &resScale)
+	err = json.Unmarshal(body, &resGradingSystem)
 	if err != nil {
 		fmt.Println(err)
-		return resScale, err
+		return resGradingSystem, err
 	}
-	return resScale, nil
+	return resGradingSystem, nil
 }

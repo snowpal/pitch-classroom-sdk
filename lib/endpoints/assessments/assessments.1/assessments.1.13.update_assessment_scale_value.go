@@ -14,34 +14,34 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func UpdateAssessmentScaleValue(
+func UpdateAssessmentGrade(
 	jwtToken string,
-	reqBody request.UpdateScaleValueReqBody,
+	reqBody request.UpdateGradeReqBody,
 	assessmentParam common.ResourceIdParam,
-) (response.UpdateAssessmentScaleValue, error) {
-	resAssessmentscaleValue := response.UpdateAssessmentScaleValue{}
+) (response.UpdateAssessmentGrade, error) {
+	resAssessmentGrade := response.UpdateAssessmentGrade{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)
-		return resAssessmentscaleValue, err
+		return resAssessmentGrade, err
 	}
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(
-		lib.RouteAssessmentsUpdateAssessmentScaleValue,
+		lib.RouteAssessmentsUpdateAssessmentGrade,
 		assessmentParam.AssessmentId,
 		assessmentParam.KeyId,
 		assessmentParam.CourseId,
 	)
 	if err != nil {
 		fmt.Println(err)
-		return resAssessmentscaleValue, err
+		return resAssessmentGrade, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {
 		fmt.Println(err)
-		return resAssessmentscaleValue, err
+		return resAssessmentGrade, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -50,7 +50,7 @@ func UpdateAssessmentScaleValue(
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resAssessmentscaleValue, err
+		return resAssessmentGrade, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -59,13 +59,13 @@ func UpdateAssessmentScaleValue(
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resAssessmentscaleValue, err
+		return resAssessmentGrade, err
 	}
 
-	err = json.Unmarshal(body, &resAssessmentscaleValue)
+	err = json.Unmarshal(body, &resAssessmentGrade)
 	if err != nil {
 		fmt.Println(err)
-		return resAssessmentscaleValue, err
+		return resAssessmentGrade, err
 	}
-	return resAssessmentscaleValue, nil
+	return resAssessmentGrade, nil
 }

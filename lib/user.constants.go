@@ -3,10 +3,10 @@ package lib
 const Password = "Welcome1!"
 
 const (
-	DefaultEmail = "classroom_api_default2@gmail.com"
-	ActiveUser   = "classroom_api_active_user@gmail.com"
-	Student      = "classroom_api_student@gmail.com"
-	Teacher      = "classroom_api_teacher@gmail.com"
+	DefaultEmail = "api_default201@gmail.com"
+	ApiUser1     = "api_user1@gmail.com"
+	ApiUser2     = "api_user2@gmail.com"
+	ApiUser3     = "api_user3@gmail.com"
 )
 
 const (
@@ -20,6 +20,6 @@ const (
 )
 
 const (
-	AlphabeticScaleType = "Alphabetic"
-	NumericScaleType    = "Numeric"
+	AlphabeticGradingSystemType = "Alphabetic"
+	NumericGradingSystemType    = "Numeric"
 )
