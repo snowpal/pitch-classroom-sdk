@@ -9,7 +9,7 @@ type StudentGradeForCourseAndAssessment struct {
 	Name         string                       `json:"courseName"`
 	Key          common2.SlimKey              `json:"key"`
 	Assessment   *common2.SlimAssessment      `json:"assessment"`
-	StudentGrade *StudentGrade                `json:"scaleValue"`
+	StudentGrade *StudentGrade                `json:"grade"`
 	Assessments  *[]StudentGradeForAssessment `json:"assessments"`
 	Students     *[]Student                   `json:"students"`
 }
@@ -17,14 +17,14 @@ type StudentGradeForCourseAndAssessment struct {
 type StudentGradeForAssessment struct {
 	ID           string        `json:"id"`
 	Name         string        `json:"assessmentName"`
-	StudentGrade *StudentGrade `json:"scaleValue"`
+	StudentGrade *StudentGrade `json:"grade"`
 }
 
 type StudentGrade struct {
-	ScaleValue   string `json:"scaleValue"`
-	NumericScale int    `json:"numericScale"`
-	Published    bool   `json:"published"`
-	PublishedOn  string `json:"publishedOn"`
+	Grade                string `json:"grade"`
+	NumericGradingSystem int    `json:"numericGradingSystem"`
+	Published            bool   `json:"published"`
+	PublishedOn          string `json:"publishedOn"`
 }
 
 type Students struct {
@@ -45,7 +45,7 @@ type Student struct {
 	AvatarName    string              `json:"avatarName"`
 	AvatarUrl     string              `json:"avatarUrl"`
 	Coursename    string              `json:"courseName"`
-	StudentGrade  *StudentGrade       `json:"scaleValue"`
+	StudentGrade  *StudentGrade       `json:"grade"`
 	Key           *common2.SlimKey    `json:"key"`
 	Course        *common2.SlimCourse `json:"course"`
 }

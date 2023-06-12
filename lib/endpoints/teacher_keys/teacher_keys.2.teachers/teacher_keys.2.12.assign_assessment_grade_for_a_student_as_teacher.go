@@ -15,14 +15,14 @@ import (
 
 func AssignAssessmentGradeForAStudentAsTeacher(
 	jwtToken string,
-	reqBody request.UpdateScaleValueReqBody,
+	reqBody request.UpdateGradeReqBody,
 	classroomParam request.ClassroomIdParam,
-) (response.UpdateAssessmentScaleValue, error) {
-	resAssessmentscaleValue := response.UpdateAssessmentScaleValue{}
+) (response.UpdateAssessmentGrade, error) {
+	resAssessmentGrade := response.UpdateAssessmentGrade{}
 	requestBody, err := helpers.GetRequestBody(reqBody)
 	if err != nil {
 		fmt.Println(err)
-		return resAssessmentscaleValue, err
+		return resAssessmentGrade, err
 	}
 	payload := strings.NewReader(requestBody)
 	route, err := helpers.GetRoute(
@@ -34,14 +34,14 @@ func AssignAssessmentGradeForAStudentAsTeacher(
 	)
 	if err != nil {
 		fmt.Println(err)
-		return resAssessmentscaleValue, err
+		return resAssessmentGrade, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {
 		fmt.Println(err)
-		return resAssessmentscaleValue, err
+		return resAssessmentGrade, err
 	}
 
 	helpers.AddUserHeaders(jwtToken, req)
@@ -50,7 +50,7 @@ func AssignAssessmentGradeForAStudentAsTeacher(
 	res, err = helpers.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resAssessmentscaleValue, err
+		return resAssessmentGrade, err
 	}
 
 	defer helpers.CloseBody(res.Body)
@@ -59,13 +59,13 @@ func AssignAssessmentGradeForAStudentAsTeacher(
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resAssessmentscaleValue, err
+		return resAssessmentGrade, err
 	}
 
-	err = json.Unmarshal(body, &resAssessmentscaleValue)
+	err = json.Unmarshal(body, &resAssessmentGrade)
 	if err != nil {
 		fmt.Println(err)
-		return resAssessmentscaleValue, err
+		return resAssessmentGrade, err
 	}
-	return resAssessmentscaleValue, nil
+	return resAssessmentGrade, nil
 }

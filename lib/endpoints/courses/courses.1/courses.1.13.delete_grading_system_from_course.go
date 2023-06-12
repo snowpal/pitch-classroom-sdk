@@ -1,4 +1,4 @@
-package assessments
+package courses
 
 import (
 	"fmt"
@@ -6,16 +6,14 @@ import (
 
 	"github.com/snowpal/pitch-classroom-sdk/lib"
 	"github.com/snowpal/pitch-classroom-sdk/lib/helpers"
-	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 )
 
-func AddScaleToAssessment(jwtToken string, assessmentParam request.ScaleIdParam) error {
+func DeleteGradingSystemFromCourse(jwtToken string, courseParam common.ResourceIdParam) error {
 	route, err := helpers.GetRoute(
-		lib.RouteAssessmentsAddScaleToAssessment,
-		*assessmentParam.AssessmentId,
-		assessmentParam.ScaleId,
-		assessmentParam.KeyId,
-		*assessmentParam.CourseId,
+		lib.RouteCoursesDeleteGradingSystemFromCourse,
+		courseParam.CourseId,
+		courseParam.KeyId,
 	)
 	if err != nil {
 		fmt.Println(err)

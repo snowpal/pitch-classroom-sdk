@@ -11,8 +11,8 @@ import (
 )
 
 const (
-	AttrsKeyName    = "Birds"
-	AttrsCourseName = "Parrot"
+	AttrsKeyName    = "Birds1"
+	AttrsCourseName = "Parrot1"
 )
 
 // UpdateAttributes sign in, update key attributes, update course attributes, update assessment attributes, update course assessment attributes,
@@ -24,7 +24,7 @@ func UpdateAttributes() {
 		return
 	}
 
-	user, err := recipes.SignIn(lib.ActiveUser, lib.Password)
+	user, err := recipes.SignIn(lib.ApiUser1, lib.Password)
 	if err != nil {
 		return
 	}

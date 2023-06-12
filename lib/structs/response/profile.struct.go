@@ -27,9 +27,9 @@ type BlockedUser struct {
 }
 
 type Preference struct {
-	SubscribeMail                 bool `json:"subscribeMail"`
-	SubscribeSms                  bool `json:"subscribeSms"`
-	ShowResourcesChart            bool `json:"showResourcesChart"`
-	ShowScalesChartForCourses     bool `json:"showScalesChartForCourses"`
-	ShowScalesChartForAssessments bool `json:"showScalesChartForAssessments"`
+	SubscribeMail                         bool `json:"subscribeMail"`
+	SubscribeSms                          bool `json:"subscribeSms"`
+	ShowResourcesChart                    bool `json:"showResourcesChart"`
+	ShowGradingSystemsChartForCourses     bool `json:"showGradingSystemsChartForCourses"`
+	ShowGradingSystemsChartForAssessments bool `json:"showGradingSystemsChartForAssessments"`
 }

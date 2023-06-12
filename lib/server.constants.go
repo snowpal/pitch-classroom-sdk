@@ -1,11 +1,6 @@
 package lib
 
-const (
-	XApiKey      = "REPLACE_WITH_YOUR_KEY"
-	XProductCode = "REPLACE_WITH_PRODUCT_CODE"
-)
-
-const GatewayHost = "https://gateway.snowpal.com/"
+const GatewayHost = "https://gateway-dev.snowpal.com/"
 
 const (
 	RouteAttributesGetDisplayableAttributes          = "app/resource/attributes"
@@ -26,9 +21,9 @@ const (
 	RouteCoursesUpdateCourse                           = "courses/%s?keyId=%s"
 	RouteCoursesAddCourseTypeToCourse                  = "courses/%s/course-types/%s?keyId=%s"
 	RouteCoursesDeleteCourseTypeFromCourse             = "courses/%s/course-types?keyId=%s"
-	RouteCoursesAddScaleToCourse                       = "courses/%s/scales/%s?keyId=%s"
-	RouteCoursesDeleteScaleFromCourse                  = "courses/%s/scales?keyId=%s"
-	RouteCoursesUpdateCourseScaleValue                 = "courses/%s/scale-value?keyId=%s"
+	RouteCoursesAddGradingSystemToCourse               = "courses/%s/grading-systems/%s?keyId=%s"
+	RouteCoursesDeleteGradingSystemFromCourse          = "courses/%s/grading-systems?keyId=%s"
+	RouteCoursesUpdateCourseGrade                      = "courses/%s/grade?keyId=%s"
 	RouteCoursesUpdateCourseDescription                = "courses/%s/description?keyId=%s"
 	RouteCoursesArchiveCourse                          = "courses/%s/archive?keyId=%s"
 	RouteCoursesUnarchiveCourse                        = "courses/%s/unarchive?keyId=%s"
@@ -48,7 +43,7 @@ const (
 
 const (
 	RouteCoursesGetLinkedAssessments       = "charts/keys/%s/courses/%s/linked-resources"
-	RouteCoursesGetScaleValuesForScale     = "charts/keys/%s/courses/%s/scales/%s/grades"
+	RouteCoursesGetGradesForGradingSystem  = "charts/keys/%s/courses/%s/grading-systems/%s/grades"
 	RouteCoursesGetTaskStatusForCourse     = "charts/keys/%s/courses/%s/task-status"
 	RouteCoursesGetCourseGradesForStudents = "courses/%s/students/all/grades?keyId=%s"
 )
@@ -100,9 +95,9 @@ const (
 	RouteAssessmentsUpdateAssessmentCompletionStatus              = "assessments/%s/by-completion-status?keyId=%s&courseId=%s"
 	RouteAssessmentsAddAssessmentTypeToAssessment                 = "assessments/%s/assessment-types/%s?keyId=%s&courseId=%s"
 	RouteAssessmentsDeleteAssessmentTypeFromAssessment            = "assessments/%s/assessment-types?keyId=%s&courseId=%s"
-	RouteAssessmentsAddScaleToAssessment                          = "assessments/%s/scales/%s?keyId=%s&courseId=%s"
-	RouteAssessmentsDeleteScaleFromAssessment                     = "assessments/%s/scales?keyId=%s&courseId=%s"
-	RouteAssessmentsUpdateAssessmentScaleValue                    = "assessments/%s/scale-value?keyId=%s&courseId=%s"
+	RouteAssessmentsAddGradingSystemToAssessment                  = "assessments/%s/grading-systems/%s?keyId=%s&courseId=%s"
+	RouteAssessmentsDeleteGradingSystemFromAssessment             = "assessments/%s/grading-systems?keyId=%s&courseId=%s"
+	RouteAssessmentsUpdateAssessmentGrade                         = "assessments/%s/grade?keyId=%s&courseId=%s"
 	RouteAssessmentsArchiveAssessment                             = "assessments/%s/archive?keyId=%s&courseId=%s"
 	RouteAssessmentsGetArchivedAssessments                        = "assessments/archived?batchIndex=%s&keyId=%s&courseId=%s"
 	RouteAssessmentsGetAssessmentsAvailableToBeLinkedToThisCourse = "courses/%s/assessments/available-to-link?keyId=%s"
@@ -185,6 +180,18 @@ const (
 )
 
 const (
+	RouteConversationsGetUnreadConversationsCount         = "conversations/unread-status"
+	RouteConversationsGetUserConversations                = "conversations"
+	RouteConversationsAddPrivateOrGroupConversation       = "conversations"
+	RouteConversationsGetConversationForGivenUsernames    = "conversations/by-usernames?userNames=%s"
+	RouteConversationsSendMessageToAnExistingConversation = "conversations/%s/messages"
+	RouteConversationsGetConversation                     = "conversations/%s"
+	RouteConversationsDeleteConversation                  = "conversations/%s"
+	RouteConversationsLeaveConversation                   = "conversations/%s/leave"
+	RouteConversationsArchiveConversation                 = "conversations/%s/archive"
+)
+
+const (
 	RouteDashboardGetDashboardDetails                      = "dashboard/combined-responses"
 	RouteDashboardGetRecentlyModifiedCoursesAndAssessments = "dashboard/recently-modified"
 	RouteDashboardGetUnreadCount                           = "dashboard/unread-count"
@@ -195,14 +202,14 @@ const (
 )
 
 const (
-	RouteDashboardGetUserKeysCoursesAndAssessments           = "charts/dashboard/keys-courses-assessments"
-	RouteDashboardGetSystemKeysCoursesAndAssessments         = "charts/dashboard/system-keys"
-	RouteDashboardGetFilteredUserKeysCoursesAndAssessments   = "charts/dashboard/keys/filters"
-	RouteDashboardGetFilteredSystemKeysCoursesAndAssessments = "charts/dashboard/system-keys/filters"
-	RouteDashboardGetCoursesBasedOnCourseTypes               = "charts/dashboard/course-types"
-	RouteDashboardGetAssessmentsBasedOnAssessmentTypes       = "charts/dashboard/assessment-types"
-	RouteDashboardGetCoursesAndAssessmentsBasedOnScales      = "charts/dashboard/scales"
-	RouteDashboardGetTasksByStatus                           = "charts/dashboard/task-status"
+	RouteDashboardGetUserKeysCoursesAndAssessments              = "charts/dashboard/keys-courses-assessments"
+	RouteDashboardGetSystemKeysCoursesAndAssessments            = "charts/dashboard/system-keys"
+	RouteDashboardGetFilteredUserKeysCoursesAndAssessments      = "charts/dashboard/keys/filters"
+	RouteDashboardGetFilteredSystemKeysCoursesAndAssessments    = "charts/dashboard/system-keys/filters"
+	RouteDashboardGetCoursesBasedOnCourseTypes                  = "charts/dashboard/course-types"
+	RouteDashboardGetAssessmentsBasedOnAssessmentTypes          = "charts/dashboard/assessment-types"
+	RouteDashboardGetCoursesAndAssessmentsBasedOnGradingSystems = "charts/dashboard/grading-systems"
+	RouteDashboardGetTasksByStatus                              = "charts/dashboard/task-status"
 )
 
 const (
@@ -235,14 +242,14 @@ const (
 )
 
 const (
-	RouteKeysGetCoursesAndAssessmentsAssociatedWithKey           = "charts/keys/%s/courses-assessments"
-	RouteKeysGetFilteredUserKeysCoursesAndAssessmentsForGivenKey = "charts/keys/%s/filters"
-	RouteKeysGetCourseTypesAndCoursesBasedOnThemInKey            = "charts/keys/%s/course-types"
-	RouteKeysGetAssessmentsBasedOnAssessmentTypesInKey           = "charts/keys/%s/assessment-types"
-	RouteKeysGetScalesAlongWithCoursesAndAssessmentsBasedOnThem  = "charts/keys/%s/scales"
-	RouteKeysGetLinkedResources                                  = "charts/keys/%s/linked-resources"
-	RouteKeysGetCourseScaleValues                                = "charts/keys/%s/scales/%s/scale-values"
-	RouteKeysGetTaskStatus                                       = "charts/keys/%s/task-status"
+	RouteKeysGetCoursesAndAssessmentsAssociatedWithKey                  = "charts/keys/%s/courses-assessments"
+	RouteKeysGetFilteredUserKeysCoursesAndAssessmentsForGivenKey        = "charts/keys/%s/filters"
+	RouteKeysGetCourseTypesAndCoursesBasedOnThemInKey                   = "charts/keys/%s/course-types"
+	RouteKeysGetAssessmentsBasedOnAssessmentTypesInKey                  = "charts/keys/%s/assessment-types"
+	RouteKeysGetGradingSystemsAlongWithCoursesAndAssessmentsBasedOnThem = "charts/keys/%s/grading-systems"
+	RouteKeysGetLinkedResources                                         = "charts/keys/%s/linked-resources"
+	RouteKeysGetCourseGrades                                            = "charts/keys/%s/grading-systems/%s/grades"
+	RouteKeysGetTaskStatus                                              = "charts/keys/%s/task-status"
 )
 
 const (
@@ -329,13 +336,13 @@ const (
 )
 
 const (
-	RouteScalesGetScales                = "scales?includeCounts=%s&excludeEmpty=%s"
-	RouteScalesAddScale                 = "scales"
-	RouteScalesGetScale                 = "scales/%s"
-	RouteScalesUpdateScale              = "scales/%s"
-	RouteScalesDeleteScale              = "scales/%s"
-	RouteScalesGetCoursesUsingScale     = "scales/%s/courses"
-	RouteScalesGetAssessmentsUsingScale = "scales/%s/assessments"
+	RouteGradingSystemsGetGradingSystems                = "grading-systems?includeCounts=%s&excludeEmpty=%s"
+	RouteGradingSystemsAddGradingSystem                 = "grading-systems"
+	RouteGradingSystemsGetGradingSystem                 = "grading-systems/%s"
+	RouteGradingSystemsUpdateGradingSystem              = "grading-systems/%s"
+	RouteGradingSystemsDeleteGradingSystem              = "grading-systems/%s"
+	RouteGradingSystemsGetCoursesUsingGradingSystem     = "grading-systems/%s/courses"
+	RouteGradingSystemsGetAssessmentsUsingGradingSystem = "grading-systems/%s/assessments"
 )
 
 const (

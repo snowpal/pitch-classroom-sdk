@@ -8,6 +8,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 	"github.com/snowpal/pitch-classroom-sdk/lib"
+	"github.com/snowpal/pitch-classroom-sdk/lib/config"
 	"golang.org/x/exp/slices"
 )
 
@@ -46,8 +47,8 @@ func GetRequestBody(obj interface{}) (string, error) {
 // Private Methods
 
 func addHeaders(req *http.Request) {
-	req.Header.Add("x-api-key", lib.XApiKey)
-	req.Header.Add("x-snowpal-product-code", lib.XProductCode)
+	req.Header.Add("x-api-key", config.GetValue("XApiKey"))
+	req.Header.Add("x-snowpal-product-code", config.GetValue("XProductCode"))
 	req.Header.Add("Content-Type", "application/json")
 }
 
