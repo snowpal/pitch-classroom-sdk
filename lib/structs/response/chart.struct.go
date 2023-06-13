@@ -71,25 +71,25 @@ type AssessmentTypesKey struct {
 	LastModified    string            `json:"lastModified"`
 }
 
-type ScalesKeysCourse struct {
-	Course ScalesKeys `json:"course"`
+type GradingSystemsKeysCourse struct {
+	Course GradingSystemsKeys `json:"course"`
 }
 
-type ScalesKeysAssessment struct {
-	Assessment ScalesKeys `json:"assessment"`
+type GradingSystemsKeysAssessment struct {
+	Assessment GradingSystemsKeys `json:"assessment"`
 }
 
-type ScalesKeys struct {
-	Keys *[]ScalesKey `json:"keys"`
-	Key  *ScalesKey   `json:"key"`
+type GradingSystemsKeys struct {
+	Keys *[]GradingSystemsKey `json:"keys"`
+	Key  *GradingSystemsKey   `json:"key"`
 }
 
-type ScalesKey struct {
-	ID           string   `json:"id"`
-	Name         string   `json:"keyName"`
-	Type         string   `json:"keyType"`
-	Scales       *[]Scale `json:"scales"`
-	LastModified string   `json:"lastModified"`
+type GradingSystemsKey struct {
+	ID             string           `json:"id"`
+	Name           string           `json:"keyName"`
+	Type           string           `json:"keyType"`
+	GradingSystems *[]GradingSystem `json:"gradingSystems"`
+	LastModified   string           `json:"lastModified"`
 }
 
 type TaskStatus struct {
@@ -127,39 +127,29 @@ type LinkedResources struct {
 	Courses    []UserCourse       `json:"courses"`
 }
 
-type CourseScaleValue struct {
-	ID           string `json:"id"`
-	Name         string `json:"courseName"`
-	ScaleValue   string `json:"scaleValue"`
-	NumericScale int    `json:"numericScale"`
-}
-
-type AssessmentScaleValue struct {
-	ID           string `json:"id"`
-	Name         string `json:"assessmentName"`
-	ScaleValue   string `json:"scaleValue"`
-	NumericScale int    `json:"numericScale"`
-}
-
-type ScaleValues struct {
-	Scale       Scale                  `json:"scale"`
-	Key         common2.SlimKey        `json:"key"`
-	Course      *common2.SlimCourse    `json:"course"`
-	Courses     *[]CourseScaleValue    `json:"courses"`
-	Assessments []AssessmentScaleValue `json:"assessments"`
-}
-
 type CourseGrade struct {
-	ID       string          `json:"id"`
-	Name     string          `json:"courseName"`
-	Key      common2.SlimKey `json:"key"`
-	Students []Student       `json:"students"`
+	ID                   string          `json:"id"`
+	Name                 string          `json:"courseName"`
+	Grade                string          `json:"grade"`
+	NumericGradingSystem int             `json:"numericGradingSystem"`
+	Key                  common2.SlimKey `json:"key"`
+	Students             []Student       `json:"students"`
 }
 
 type AssessmentGrade struct {
-	ID       string             `json:"id"`
-	Name     string             `json:"assessmentName"`
-	Key      common2.SlimKey    `json:"key"`
-	Course   common2.SlimCourse `json:"course"`
-	Students []Student          `json:"students"`
+	ID                   string             `json:"id"`
+	Name                 string             `json:"assessmentName"`
+	Grade                string             `json:"grade"`
+	NumericGradingSystem int                `json:"numericGradingSystem"`
+	Key                  common2.SlimKey    `json:"key"`
+	Course               common2.SlimCourse `json:"course"`
+	Students             []Student          `json:"students"`
+}
+
+type Grades struct {
+	GradingSystem GradingSystem       `json:"gradingSystem"`
+	Key           common2.SlimKey     `json:"key"`
+	Course        *common2.SlimCourse `json:"course"`
+	Courses       *[]CourseGrade      `json:"courses"`
+	Assessments   []AssessmentGrade   `json:"assessments"`
 }

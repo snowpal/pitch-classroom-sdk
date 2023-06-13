@@ -1,4 +1,4 @@
-package keys
+package dashboard
 
 import (
 	"encoding/json"
@@ -11,19 +11,19 @@ import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
 
-func GetScalesAlongWithCoursesAndAssessmentsBasedOnThem(jwtToken string, keyId string) (response.ScalesKey, error) {
-	resScalesKey := response.ScalesKey{}
-	route, err := helpers2.GetRoute(lib.RouteKeysGetScalesAlongWithCoursesAndAssessmentsBasedOnThem, keyId)
+func GetCoursesAndAssessmentsBasedOnGradingSystems(jwtToken string) ([]response.GradingSystemsKey, error) {
+	resGradingSystemsKeys := response.GradingSystemsKeys{}
+	route, err := helpers2.GetRoute(lib.RouteDashboardGetCoursesAndAssessmentsBasedOnGradingSystems)
 	if err != nil {
 		fmt.Println(err)
-		return resScalesKey, err
+		return *resGradingSystemsKeys.Keys, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resScalesKey, err
+		return *resGradingSystemsKeys.Keys, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -32,7 +32,7 @@ func GetScalesAlongWithCoursesAndAssessmentsBasedOnThem(jwtToken string, keyId s
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resScalesKey, err
+		return *resGradingSystemsKeys.Keys, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -41,13 +41,13 @@ func GetScalesAlongWithCoursesAndAssessmentsBasedOnThem(jwtToken string, keyId s
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resScalesKey, err
+		return *resGradingSystemsKeys.Keys, err
 	}
 
-	err = json.Unmarshal(body, &resScalesKey)
+	err = json.Unmarshal(body, &resGradingSystemsKeys)
 	if err != nil {
 		fmt.Println(err)
-		return resScalesKey, err
+		return *resGradingSystemsKeys.Keys, err
 	}
-	return resScalesKey, nil
+	return *resGradingSystemsKeys.Keys, nil
 }

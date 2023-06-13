@@ -1,4 +1,4 @@
-package courses
+package keys
 
 import (
 	"encoding/json"
@@ -7,29 +7,29 @@ import (
 	"net/http"
 
 	"github.com/snowpal/pitch-classroom-sdk/lib"
-	helpers2 "github.com/snowpal/pitch-classroom-sdk/lib/helpers"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
+
+	helpers2 "github.com/snowpal/pitch-classroom-sdk/lib/helpers"
 )
 
-func GetScaleValuesForScale(jwtToken string, scaleParam request.ScaleIdParam) (response.ScaleValues, error) {
-	resScaleValues := response.ScaleValues{}
+func GetCourseGrades(jwtToken string, gradingSystemParam request.GradingSystemIdParam) (response.Grades, error) {
+	resGrades := response.Grades{}
 	route, err := helpers2.GetRoute(
-		lib.RouteCoursesGetScaleValuesForScale,
-		scaleParam.KeyId,
-		*scaleParam.CourseId,
-		scaleParam.ScaleId,
+		lib.RouteKeysGetCourseGrades,
+		gradingSystemParam.KeyId,
+		gradingSystemParam.GradingSystemId,
 	)
 	if err != nil {
 		fmt.Println(err)
-		return resScaleValues, err
+		return resGrades, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
 		fmt.Println(err)
-		return resScaleValues, err
+		return resGrades, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
@@ -38,7 +38,7 @@ func GetScaleValuesForScale(jwtToken string, scaleParam request.ScaleIdParam) (r
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
-		return resScaleValues, err
+		return resGrades, err
 	}
 
 	defer helpers2.CloseBody(res.Body)
@@ -47,13 +47,13 @@ func GetScaleValuesForScale(jwtToken string, scaleParam request.ScaleIdParam) (r
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return resScaleValues, err
+		return resGrades, err
 	}
 
-	err = json.Unmarshal(body, &resScaleValues)
+	err = json.Unmarshal(body, &resGrades)
 	if err != nil {
 		fmt.Println(err)
-		return resScaleValues, err
+		return resGrades, err
 	}
-	return resScaleValues, nil
+	return resGrades, nil
 }

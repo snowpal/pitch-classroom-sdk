@@ -2,6 +2,7 @@ package recipes
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/snowpal/pitch-classroom-sdk/lib"
@@ -90,7 +91,7 @@ func AddAssessmentToCourse(user response.User, assessmentName string, course res
 	return newAssessment, nil
 }
 
-func SearchUserAndShareCourse(user response.User, course response.Course, searchToken string, acl string) error {
+func SearchUserAndShareCourse(user response.User, course response.Course, email string, acl string) error {
 	courseIdParam := common.ResourceIdParam{
 		CourseId: course.ID,
 		KeyId:    course.Key.ID,
@@ -99,7 +100,7 @@ func SearchUserAndShareCourse(user response.User, course response.Course, search
 	searchedUsers, err := collaboration.GetUsersThisCourseCanBeSharedWith(
 		user.JwtToken,
 		common.SearchUsersParam{
-			SearchToken: searchToken,
+			SearchToken: strings.Split(email, "@")[0],
 			ResourceIds: courseIdParam,
 		})
 	if err != nil {

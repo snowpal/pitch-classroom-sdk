@@ -1,4 +1,4 @@
-package scales
+package grading_systems
 
 import (
 	"encoding/json"
@@ -7,13 +7,14 @@ import (
 	"net/http"
 
 	"github.com/snowpal/pitch-classroom-sdk/lib"
-	helpers2 "github.com/snowpal/pitch-classroom-sdk/lib/helpers"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
+
+	helpers2 "github.com/snowpal/pitch-classroom-sdk/lib/helpers"
 )
 
-func GetAssessmentsUsingScale(jwtToken string, scaleId string) ([]response.Assessment, error) {
+func GetAssessmentsUsingGradingSystem(jwtToken string, gradingSystemId string) ([]response.Assessment, error) {
 	resAssessments := response.Assessments{}
-	route, err := helpers2.GetRoute(lib.RouteScalesGetAssessmentsUsingScale, scaleId)
+	route, err := helpers2.GetRoute(lib.RouteGradingSystemsGetAssessmentsUsingGradingSystem, gradingSystemId)
 	if err != nil {
 		fmt.Println(err)
 		return resAssessments.Assessments, err
