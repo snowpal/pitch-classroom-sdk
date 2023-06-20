@@ -37,7 +37,7 @@ func GetAssessments(jwtToken string, assessmentsParam request.GetAssessmentsPara
 	helpers2.AddUserHeaders(jwtToken, req)
 
 	var res *http.Response
-	_, err = helpers.MakeRequest(req)
+	res, err = helpers.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
 		return resAssessments.Assessments, err

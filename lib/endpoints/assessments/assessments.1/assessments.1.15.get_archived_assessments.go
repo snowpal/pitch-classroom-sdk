@@ -36,7 +36,7 @@ func GetArchivedAssessments(jwtToken string, assessmentsParam request.GetAssessm
 	helpers2.AddUserHeaders(jwtToken, req)
 
 	var res *http.Response
-	_, err = helpers2.MakeRequest(req)
+	res, err = helpers2.MakeRequest(req)
 	if err != nil {
 		fmt.Println(err)
 		return resAssessments.Assessments, err
