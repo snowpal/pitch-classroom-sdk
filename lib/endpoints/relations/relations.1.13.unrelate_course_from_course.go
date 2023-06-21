@@ -1,7 +1,6 @@
 package relations
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/snowpal/pitch-classroom-sdk/lib"
@@ -16,13 +15,11 @@ func UnrelateCourseFromCourse(jwtToken string, relationParam request.CourseToCou
 		relationParam.TargetCourseId,
 	)
 	if err != nil {
-		fmt.Println(err)
 		return err
 	}
 
 	req, err := http.NewRequest(http.MethodPatch, route, nil)
 	if err != nil {
-		fmt.Println(err)
 		return err
 	}
 
@@ -30,7 +27,6 @@ func UnrelateCourseFromCourse(jwtToken string, relationParam request.CourseToCou
 
 	_, err = helpers.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return err
 	}
 	return nil

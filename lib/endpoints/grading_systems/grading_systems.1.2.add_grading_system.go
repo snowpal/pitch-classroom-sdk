@@ -2,7 +2,6 @@ package grading_systems
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"strings"
@@ -18,19 +17,16 @@ func AddGradingSystem(jwtToken string, reqBody request.GradingSystemReqBody) (re
 	resGradingSystem := response.GradingSystem{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
-		fmt.Println(err)
 		return resGradingSystem, err
 	}
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(lib.RouteGradingSystemsAddGradingSystem)
 	if err != nil {
-		fmt.Println(err)
 		return resGradingSystem, err
 	}
 
 	req, err := http.NewRequest(http.MethodPost, route, payload)
 	if err != nil {
-		fmt.Println(err)
 		return resGradingSystem, err
 	}
 
@@ -38,7 +34,6 @@ func AddGradingSystem(jwtToken string, reqBody request.GradingSystemReqBody) (re
 
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resGradingSystem, err
 	}
 
@@ -46,13 +41,11 @@ func AddGradingSystem(jwtToken string, reqBody request.GradingSystemReqBody) (re
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resGradingSystem, err
 	}
 
 	err = json.Unmarshal(body, &resGradingSystem)
 	if err != nil {
-		fmt.Println(err)
 		return resGradingSystem, err
 	}
 	return resGradingSystem, nil

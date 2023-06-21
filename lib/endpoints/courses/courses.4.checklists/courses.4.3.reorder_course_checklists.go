@@ -2,7 +2,6 @@ package courses
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"strings"
@@ -21,7 +20,6 @@ func ReorderCourseChecklists(
 	resChecklists := response.Checklists{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
-		fmt.Println(err)
 		return resChecklists.Checklists, err
 	}
 	payload := strings.NewReader(requestBody)
@@ -31,13 +29,11 @@ func ReorderCourseChecklists(
 		checklistParam.KeyId,
 	)
 	if err != nil {
-		fmt.Println(err)
 		return resChecklists.Checklists, err
 	}
 
 	req, err := http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {
-		fmt.Println(err)
 		return resChecklists.Checklists, err
 	}
 
@@ -45,7 +41,6 @@ func ReorderCourseChecklists(
 
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resChecklists.Checklists, err
 	}
 
@@ -53,13 +48,11 @@ func ReorderCourseChecklists(
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resChecklists.Checklists, err
 	}
 
 	err = json.Unmarshal(body, &resChecklists)
 	if err != nil {
-		fmt.Println(err)
 		return resChecklists.Checklists, err
 	}
 	return resChecklists.Checklists, nil

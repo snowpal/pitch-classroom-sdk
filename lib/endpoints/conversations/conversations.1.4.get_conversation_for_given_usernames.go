@@ -2,7 +2,6 @@ package conversations
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"strings"
@@ -20,14 +19,12 @@ func GetConversationForGivenUsernames(jwtToken string, usernames []string) ([]re
 		strings.Join(usernames, ","),
 	)
 	if err != nil {
-		fmt.Println(err)
 		return resConversations.Conversations, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
-		fmt.Println(err)
 		return resConversations.Conversations, err
 	}
 
@@ -36,7 +33,6 @@ func GetConversationForGivenUsernames(jwtToken string, usernames []string) ([]re
 	var res *http.Response
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resConversations.Conversations, err
 	}
 
@@ -45,13 +41,11 @@ func GetConversationForGivenUsernames(jwtToken string, usernames []string) ([]re
 	var body []byte
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resConversations.Conversations, err
 	}
 
 	err = json.Unmarshal(body, &resConversations)
 	if err != nil {
-		fmt.Println(err)
 		return resConversations.Conversations, err
 	}
 	return resConversations.Conversations, nil

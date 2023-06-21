@@ -2,7 +2,6 @@ package conversations
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"strings"
@@ -21,19 +20,16 @@ func SendMessageToAnExistingConversation(jwtToken string, reqBody SendMessageReq
 	resConversation := response.Conversation{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
-		fmt.Println(err)
 		return resConversation, err
 	}
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(lib.RouteConversationsSendMessageToAnExistingConversation)
 	if err != nil {
-		fmt.Println(err)
 		return resConversation, err
 	}
 
 	req, err := http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {
-		fmt.Println(err)
 		return resConversation, err
 	}
 
@@ -41,7 +37,6 @@ func SendMessageToAnExistingConversation(jwtToken string, reqBody SendMessageReq
 
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resConversation, err
 	}
 
@@ -49,13 +44,11 @@ func SendMessageToAnExistingConversation(jwtToken string, reqBody SendMessageReq
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resConversation, err
 	}
 
 	err = json.Unmarshal(body, &resConversation)
 	if err != nil {
-		fmt.Println(err)
 		return resConversation, err
 	}
 	return resConversation, nil

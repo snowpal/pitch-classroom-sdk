@@ -1,7 +1,6 @@
 package courses
 
 import (
-	"fmt"
 	"net/http"
 	"strings"
 
@@ -16,7 +15,6 @@ type BulkArchiveCoursesReqBody struct {
 func BulkArchiveCourses(jwtToken string, reqBody BulkArchiveCoursesReqBody, keyId string) error {
 	requestBody, err := helpers.GetRequestBody(reqBody)
 	if err != nil {
-		fmt.Println(err)
 		return err
 	}
 	payload := strings.NewReader(requestBody)
@@ -24,14 +22,12 @@ func BulkArchiveCourses(jwtToken string, reqBody BulkArchiveCoursesReqBody, keyI
 	var route string
 	route, err = helpers.GetRoute(lib.RouteCoursesBulkArchiveCourses, keyId)
 	if err != nil {
-		fmt.Println(err)
 		return err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {
-		fmt.Println(err)
 		return err
 	}
 
@@ -39,7 +35,6 @@ func BulkArchiveCourses(jwtToken string, reqBody BulkArchiveCoursesReqBody, keyI
 
 	_, err = helpers.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return err
 	}
 	return nil

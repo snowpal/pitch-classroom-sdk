@@ -2,7 +2,6 @@ package assessments
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 
@@ -21,13 +20,11 @@ func GetAssessmentChecklists(jwtToken string, checklistParam request.ChecklistId
 		*checklistParam.CourseId,
 	)
 	if err != nil {
-		fmt.Println(err)
 		return resChecklists.Checklists, err
 	}
 
 	req, err := http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
-		fmt.Println(err)
 		return resChecklists.Checklists, err
 	}
 
@@ -35,7 +32,6 @@ func GetAssessmentChecklists(jwtToken string, checklistParam request.ChecklistId
 
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resChecklists.Checklists, err
 	}
 
@@ -43,13 +39,11 @@ func GetAssessmentChecklists(jwtToken string, checklistParam request.ChecklistId
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resChecklists.Checklists, err
 	}
 
 	err = json.Unmarshal(body, &resChecklists)
 	if err != nil {
-		fmt.Println(err)
 		return resChecklists.Checklists, err
 	}
 	return resChecklists.Checklists, nil

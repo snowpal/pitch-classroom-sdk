@@ -2,7 +2,6 @@ package courses
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 
@@ -25,14 +24,12 @@ func GetCourseGradesForStudents(jwtToken string, gradeParam common.ResourceIdPar
 		gradeParam.KeyId,
 	)
 	if err != nil {
-		fmt.Println(err)
 		return resCourseGrades, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
-		fmt.Println(err)
 		return resCourseGrades, err
 	}
 
@@ -41,7 +38,6 @@ func GetCourseGradesForStudents(jwtToken string, gradeParam common.ResourceIdPar
 	var res *http.Response
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resCourseGrades, err
 	}
 
@@ -50,13 +46,11 @@ func GetCourseGradesForStudents(jwtToken string, gradeParam common.ResourceIdPar
 	var body []byte
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resCourseGrades, err
 	}
 
 	err = json.Unmarshal(body, &resCourseGrades)
 	if err != nil {
-		fmt.Println(err)
 		return resCourseGrades, err
 	}
 	return resCourseGrades, nil

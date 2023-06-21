@@ -1,7 +1,6 @@
 package courses
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/snowpal/pitch-classroom-sdk/lib"
@@ -18,13 +17,11 @@ func DeleteCourseChecklistItem(jwtToken string, checklistParam request.Checklist
 		checklistParam.KeyId,
 	)
 	if err != nil {
-		fmt.Println(err)
 		return err
 	}
 
 	req, err := http.NewRequest(http.MethodDelete, route, nil)
 	if err != nil {
-		fmt.Println(err)
 		return err
 	}
 
@@ -32,7 +29,6 @@ func DeleteCourseChecklistItem(jwtToken string, checklistParam request.Checklist
 
 	_, err = helpers.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return err
 	}
 	return nil

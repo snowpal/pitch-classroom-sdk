@@ -2,7 +2,6 @@ package courses
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"strconv"
@@ -27,14 +26,12 @@ func CopyCourse(jwtToken string, courseParam request.CopyMoveCourseParam) (respo
 		courseParam.TargetKeyId,
 	)
 	if err != nil {
-		fmt.Println(err)
 		return resCourse, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodPost, route, nil)
 	if err != nil {
-		fmt.Println(err)
 		return resCourse, err
 	}
 
@@ -42,7 +39,6 @@ func CopyCourse(jwtToken string, courseParam request.CopyMoveCourseParam) (respo
 
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resCourse, err
 	}
 
@@ -50,13 +46,11 @@ func CopyCourse(jwtToken string, courseParam request.CopyMoveCourseParam) (respo
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resCourse, err
 	}
 
 	err = json.Unmarshal(body, &resCourse)
 	if err != nil {
-		fmt.Println(err)
 		return resCourse, err
 	}
 	return resCourse, nil
