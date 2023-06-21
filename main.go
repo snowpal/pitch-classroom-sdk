@@ -4,9 +4,11 @@ import (
 	"os"
 	"strconv"
 
-	log "github.com/sirupsen/logrus"
 	"github.com/snowpal/pitch-classroom-sdk/lib/config"
-	"github.com/snowpal/pitch-classroom-sdk/lib/recipes"
+
+	log "github.com/sirupsen/logrus"
+	recipes "github.com/snowpal/pitch-classroom-sdk/lib/recipes"
+	newRecipes "github.com/snowpal/pitch-classroom-sdk/lib/recipes/recipe.11.initialize_user"
 )
 
 func main() {
@@ -67,6 +69,10 @@ func main() {
 	case 10:
 		log.Info("Run Recipe10")
 		recipes.UpdateAttributes()
+		break
+	case 11:
+		log.Info("Run Recipe11")
+		newRecipes.InitializeNewUser()
 		break
 	default:
 		log.Info("pick a specific recipe to run")

@@ -2,7 +2,6 @@ package assessments
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"strconv"
@@ -23,23 +22,20 @@ func GetAssessments(jwtToken string, assessmentsParam request.GetAssessmentsPara
 		assessmentsParam.KeyId,
 	)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessments.Assessments, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessments.Assessments, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
 
 	var res *http.Response
-	_, err = helpers.MakeRequest(req)
+	res, err = helpers.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessments.Assessments, err
 	}
 
@@ -48,13 +44,11 @@ func GetAssessments(jwtToken string, assessmentsParam request.GetAssessmentsPara
 	var body []byte
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessments.Assessments, err
 	}
 
 	err = json.Unmarshal(body, &resAssessments)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessments.Assessments, err
 	}
 	return resAssessments.Assessments, nil

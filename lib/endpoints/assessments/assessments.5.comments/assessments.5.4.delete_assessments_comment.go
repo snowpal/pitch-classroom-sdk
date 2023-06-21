@@ -1,7 +1,6 @@
 package assessments
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/snowpal/pitch-classroom-sdk/lib"
@@ -19,7 +18,6 @@ func DeleteAssessmentComment(jwtToken string, commentParam request.CommentIdPara
 	)
 	req, err := http.NewRequest(http.MethodDelete, route, nil)
 	if err != nil {
-		fmt.Println(err)
 		return err
 	}
 
@@ -27,7 +25,6 @@ func DeleteAssessmentComment(jwtToken string, commentParam request.CommentIdPara
 
 	_, err = helpers.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return err
 	}
 	return nil

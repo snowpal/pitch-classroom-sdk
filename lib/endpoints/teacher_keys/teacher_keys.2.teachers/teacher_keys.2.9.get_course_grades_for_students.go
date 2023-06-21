@@ -2,7 +2,6 @@ package teacherKeys
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 
@@ -23,13 +22,11 @@ func GetCourseGradesForStudents(
 		courseParam.KeyId,
 	)
 	if err != nil {
-		fmt.Println(err)
 		return resStudentGradesForCourse, err
 	}
 
 	req, err := http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
-		fmt.Println(err)
 		return resStudentGradesForCourse, err
 	}
 
@@ -37,7 +34,6 @@ func GetCourseGradesForStudents(
 
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resStudentGradesForCourse, err
 	}
 
@@ -45,13 +41,11 @@ func GetCourseGradesForStudents(
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resStudentGradesForCourse, err
 	}
 
 	err = json.Unmarshal(body, &resStudentGradesForCourse)
 	if err != nil {
-		fmt.Println(err)
 		return resStudentGradesForCourse, err
 	}
 	return resStudentGradesForCourse, nil

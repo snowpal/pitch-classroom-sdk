@@ -2,7 +2,6 @@ package course_types
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"strconv"
@@ -16,12 +15,10 @@ func GetCourseTypes(jwtToken string, includeCounts bool) ([]response.CourseType,
 	resCourseTypes := response.CourseTypes{}
 	route, err := helpers2.GetRoute(lib.RouteCourseTypesGetCourseTypes, strconv.FormatBool(includeCounts))
 	if err != nil {
-		fmt.Println(err)
 		return resCourseTypes.CourseTypes, err
 	}
 	req, err := http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
-		fmt.Println(err)
 		return resCourseTypes.CourseTypes, err
 	}
 
@@ -29,7 +26,6 @@ func GetCourseTypes(jwtToken string, includeCounts bool) ([]response.CourseType,
 
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resCourseTypes.CourseTypes, err
 	}
 
@@ -37,13 +33,11 @@ func GetCourseTypes(jwtToken string, includeCounts bool) ([]response.CourseType,
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resCourseTypes.CourseTypes, err
 	}
 
 	err = json.Unmarshal(body, &resCourseTypes)
 	if err != nil {
-		fmt.Println(err)
 		return resCourseTypes.CourseTypes, err
 	}
 	return resCourseTypes.CourseTypes, nil

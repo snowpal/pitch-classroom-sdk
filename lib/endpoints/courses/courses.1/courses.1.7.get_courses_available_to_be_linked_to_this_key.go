@@ -2,7 +2,6 @@ package courses
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 
@@ -15,20 +14,17 @@ func GetCoursesAvailableToBeLinkedToThisKey(jwtToken string, keyId string) ([]re
 	resCourses := response.Courses{}
 	route, err := helpers2.GetRoute(lib.RouteCoursesGetCoursesAvailableToBeLinkedToThisKey, keyId)
 	if err != nil {
-		fmt.Println(err)
 		return resCourses.Courses, err
 	}
 
 	req, _ := http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
-		fmt.Println(err)
 		return resCourses.Courses, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resCourses.Courses, err
 	}
 
@@ -36,13 +32,11 @@ func GetCoursesAvailableToBeLinkedToThisKey(jwtToken string, keyId string) ([]re
 
 	body, _ := io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resCourses.Courses, err
 	}
 
 	err = json.Unmarshal(body, &resCourses)
 	if err != nil {
-		fmt.Println(err)
 		return resCourses.Courses, err
 	}
 	return resCourses.Courses, nil

@@ -1,6 +1,6 @@
 package lib
 
-const GatewayHost = "https://gateway-dev.snowpal.com/"
+const GatewayHost = "https://gateway.snowpal.com/"
 
 const (
 	RouteAttributesGetDisplayableAttributes          = "app/resource/attributes"

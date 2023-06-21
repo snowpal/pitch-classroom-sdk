@@ -2,7 +2,6 @@ package assessments
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"strings"
@@ -21,7 +20,6 @@ func ReorderAssessmentChecklistItems(
 	resChecklistItems := response.ChecklistItems{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
-		fmt.Println(err)
 		return resChecklistItems.ChecklistItems, err
 	}
 	payload := strings.NewReader(requestBody)
@@ -33,13 +31,11 @@ func ReorderAssessmentChecklistItems(
 		*checklistParam.CourseId,
 	)
 	if err != nil {
-		fmt.Println(err)
 		return resChecklistItems.ChecklistItems, err
 	}
 
 	req, err := http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {
-		fmt.Println(err)
 		return resChecklistItems.ChecklistItems, err
 	}
 
@@ -47,7 +43,6 @@ func ReorderAssessmentChecklistItems(
 
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resChecklistItems.ChecklistItems, err
 	}
 
@@ -55,13 +50,11 @@ func ReorderAssessmentChecklistItems(
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resChecklistItems.ChecklistItems, err
 	}
 
 	err = json.Unmarshal(body, &resChecklistItems)
 	if err != nil {
-		fmt.Println(err)
 		return resChecklistItems.ChecklistItems, err
 	}
 	return resChecklistItems.ChecklistItems, nil

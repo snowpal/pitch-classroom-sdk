@@ -2,7 +2,6 @@ package courses
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"strings"
@@ -26,7 +25,6 @@ func UpdateCourseDescription(
 	resCourse := response.Course{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
-		fmt.Println(err)
 		return resCourse, err
 	}
 	payload := strings.NewReader(requestBody)
@@ -38,14 +36,12 @@ func UpdateCourseDescription(
 		assessmentParam.KeyId,
 	)
 	if err != nil {
-		fmt.Println(err)
 		return resCourse, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {
-		fmt.Println(err)
 		return resCourse, err
 	}
 
@@ -54,7 +50,6 @@ func UpdateCourseDescription(
 	var res *http.Response
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resCourse, err
 	}
 
@@ -62,13 +57,11 @@ func UpdateCourseDescription(
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resCourse, err
 	}
 
 	err = json.Unmarshal(body, &resCourse)
 	if err != nil {
-		fmt.Println(err)
 		return resCourse, err
 	}
 	return resCourse, nil

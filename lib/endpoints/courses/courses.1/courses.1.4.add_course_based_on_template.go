@@ -2,7 +2,6 @@ package courses
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"strconv"
@@ -29,7 +28,6 @@ func AddCourseBasedOnTemplate(
 	resCourse := response.Course{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
-		fmt.Println(err)
 		return resCourse, err
 	}
 	payload := strings.NewReader(requestBody)
@@ -42,12 +40,10 @@ func AddCourseBasedOnTemplate(
 		strconv.FormatBool(courseParam.ExcludeTasks),
 	)
 	if err != nil {
-		fmt.Println(err)
 		return resCourse, err
 	}
 	req, err := http.NewRequest(http.MethodPost, route, payload)
 	if err != nil {
-		fmt.Println(err)
 		return resCourse, err
 	}
 
@@ -55,7 +51,6 @@ func AddCourseBasedOnTemplate(
 
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resCourse, err
 	}
 
@@ -63,13 +58,11 @@ func AddCourseBasedOnTemplate(
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resCourse, err
 	}
 
 	err = json.Unmarshal(body, &resCourse)
 	if err != nil {
-		fmt.Println(err)
 		return resCourse, err
 	}
 	return resCourse, nil
