@@ -1,12 +1,17 @@
 package recipes
 
 import (
+	"fmt"
+
 	"github.com/snowpal/pitch-classroom-sdk/lib"
 	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/attributes"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/courses/courses.1"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 
 	log "github.com/sirupsen/logrus"
+	keys "github.com/snowpal/pitch-classroom-sdk/lib/endpoints/keys/keys.1"
 	recipes "github.com/snowpal/pitch-classroom-sdk/lib/helpers/recipes"
 )
 
@@ -24,7 +29,8 @@ func UpdateAttributes() {
 		return
 	}
 
-	user, err := recipes.SignIn(lib.ApiUser1, lib.Password)
+	var user response.User
+	user, err = recipes.SignIn(lib.ApiUser1, lib.Password)
 	if err != nil {
 		return
 	}
@@ -39,7 +45,13 @@ func UpdateAttributes() {
 
 	log.Info("Update key attributes")
 	recipes.SleepBefore()
-	key, err := recipes.AddTeacherKey(user, AttrsKeyName)
+	var key response.Key
+	key, err = keys.AddKey(
+		user.JwtToken,
+		request.AddKeyReqBody{
+			Name: AttrsKeyName,
+			Type: lib.TeacherKeyType,
+		})
 	if err != nil {
 		return
 	}
@@ -54,12 +66,16 @@ func UpdateAttributes() {
 	if err != nil {
 		return
 	}
-	log.Printf(".Attributes for Key %s updated successfully", key.Name)
+	log.Info(fmt.Sprintf(".Attributes for Key %s updated successfully", key.Name))
 	recipes.SleepAfter()
 
 	log.Info("Update course attributes")
 	recipes.SleepBefore()
-	course, err := recipes.AddCourse(user, AttrsCourseName, key)
+	var course response.Course
+	course, err = courses.AddCourse(
+		user.JwtToken,
+		request.AddCourseReqBody{Name: AttrsCourseName},
+		key.ID)
 	if err != nil {
 		return
 	}
@@ -77,6 +93,6 @@ func UpdateAttributes() {
 	if err != nil {
 		return
 	}
-	log.Printf(".Attributes for course %s updated successfully", key.Name)
+	log.Info(fmt.Sprintf(".Attributes for course %s updated successfully", key.Name))
 	recipes.SleepAfter()
 }

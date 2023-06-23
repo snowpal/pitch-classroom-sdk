@@ -1,6 +1,8 @@
-package recipes
+package setupnewuser
 
 import (
+	"fmt"
+
 	"github.com/snowpal/pitch-classroom-sdk/lib"
 	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/assessments/assessments.1"
 	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/courses/courses.1"
@@ -18,7 +20,7 @@ func displayUser(email string) {
 	if err != nil {
 		return
 	}
-	log.Info("- ", email, " | ", user.JwtToken)
+	log.Info(fmt.Sprintf("- %s | %s", email, user.JwtToken))
 }
 
 func displayAllKeys(user response.User) {
@@ -32,7 +34,7 @@ func displayAllKeys(user response.User) {
 			continue
 		}
 
-		log.Info(kIndex+1, ". ", key.Name, " | ", key.Type)
+		log.Info(fmt.Sprintf("%d. %s | %s", kIndex+1, key.Name, key.Type))
 		courses, err := courses.GetCourses(user.JwtToken, request.GetCoursesParam{
 			KeyId: key.ID,
 		})
@@ -40,9 +42,9 @@ func displayAllKeys(user response.User) {
 			return
 		}
 
-		log.Info("List of Courses inside ", key.Name)
+		log.Info(fmt.Sprintf("List of Courses inside %s", key.Name))
 		for bIndex, course := range courses {
-			log.Info(bIndex+1, ". ", course.Name)
+			log.Info(fmt.Sprintf("%d. %s", bIndex+1, course.Name))
 
 			assessments, err := assessments.GetAssessments(user.JwtToken, request.GetAssessmentsParam{
 				KeyId:    key.ID,
@@ -52,31 +54,31 @@ func displayAllKeys(user response.User) {
 				return
 			}
 
-			log.Info("List of Assessments inside ", course.Name, " and ", key.Name)
+			log.Info(fmt.Sprintf("List of Assessments inside %s and %s", course.Name, key.Name))
 			for bpIndex, assessment := range assessments {
-				log.Info(bpIndex+1, ". ", assessment.Name)
+				log.Info(fmt.Sprintf("%d. %s", bpIndex+1, assessment.Name))
 			}
 		}
 	}
 }
 
 func displayAllNotifications(user response.User) {
-	notifications, err := notifications.GetNotifications(user.JwtToken)
+	allNotifications, err := notifications.GetNotifications(user.JwtToken)
 	if err != nil {
 		return
 	}
 
-	for index, notification := range notifications {
-		log.Info(index+1, ". ", notification.Text)
+	for index, notification := range allNotifications {
+		log.Info(fmt.Sprintf("%d. %s", index+1, notification.Text))
 	}
 }
 
-func DisplayContent(user response.User, anotherUserEmail string) {
+func DisplayData(user response.User, anotherUserEmail string) {
 	log.Info("## Registered Users")
 	displayUser(user.Email)
 	displayUser(anotherUserEmail)
 
-	log.Info("## Resources Created for user: ", user.Email)
+	log.Info(fmt.Sprintf("## Resources Created for user: %s", user.Email))
 	displayAllKeys(user)
 
 	anotherUser, err := recipes.SignIn(anotherUserEmail, lib.Password)
@@ -84,6 +86,6 @@ func DisplayContent(user response.User, anotherUserEmail string) {
 		return
 	}
 
-	log.Info("## Notifications for shared content as user: ", anotherUserEmail)
+	log.Info(fmt.Sprintf("## Notifications for shared data as user: %s", anotherUserEmail))
 	displayAllNotifications(anotherUser)
 }
