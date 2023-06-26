@@ -1,4 +1,4 @@
-package recipes
+package setupnewuser
 
 import (
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"

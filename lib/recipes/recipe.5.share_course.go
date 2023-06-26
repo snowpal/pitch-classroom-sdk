@@ -5,12 +5,15 @@ import (
 
 	"github.com/snowpal/pitch-classroom-sdk/lib"
 	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/collaboration/collaboration.1.courses"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/courses/courses.1"
 	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/notifications"
 	"github.com/snowpal/pitch-classroom-sdk/lib/helpers/recipes"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
+	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 
 	log "github.com/sirupsen/logrus"
+	keys "github.com/snowpal/pitch-classroom-sdk/lib/endpoints/keys/keys.1"
 	user2 "github.com/snowpal/pitch-classroom-sdk/lib/endpoints/user"
 )
 
@@ -27,7 +30,8 @@ func AddStudentAndTeacher() {
 		return
 	}
 
-	user, err := recipes.SignIn(lib.ApiUser1, lib.Password)
+	var user response.User
+	user, err = recipes.SignIn(lib.ApiUser1, lib.Password)
 	if err != nil {
 		return
 	}
@@ -40,8 +44,8 @@ func AddStudentAndTeacher() {
 		return
 	}
 
-	student, err := getStudent(user, course)
-	fmt.Println(user.JwtToken)
+	var student response.User
+	student, err = getStudent(user, course)
 	if err != nil {
 		return
 	}
@@ -52,7 +56,7 @@ func AddStudentAndTeacher() {
 	if err != nil {
 		return
 	}
-	log.Printf(".Notifications for the recent share displayed successfully")
+	log.Info(".Notifications for the recent share displayed successfully")
 	recipes.SleepAfter()
 }
 
@@ -89,11 +93,19 @@ func getStudent(user response.User, course response.Course) (response.User, erro
 
 func addStudentAndTeacher(user response.User) (response.Course, error) {
 	var course response.Course
-	key, err := recipes.AddTeacherKey(user, KeyName)
+	key, err := keys.AddKey(
+		user.JwtToken,
+		request.AddKeyReqBody{
+			Name: KeyName,
+			Type: lib.TeacherKeyType,
+		})
 	if err != nil {
 		return course, err
 	}
-	course, err = recipes.AddCourse(user, CourseName, key)
+	course, err = courses.AddCourse(
+		user.JwtToken,
+		request.AddCourseReqBody{Name: CourseName},
+		key.ID)
 	if err != nil {
 		return course, err
 	}
@@ -113,10 +125,9 @@ func showNotificationsAsStudent(student response.User) error {
 	if err != nil {
 		return err
 	}
-	fmt.Println(len(unreadNotifications))
 	for index, notification := range unreadNotifications {
 		if notification.Type == "acl" {
-			log.Printf(".Notification %d: %s", index, notification.Text)
+			log.Info(fmt.Sprintf(".Notification %d: %s", index, notification.Text))
 		}
 	}
 	return nil

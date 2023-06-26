@@ -1,11 +1,15 @@
 package recipes
 
 import (
+	"fmt"
+
 	"github.com/snowpal/pitch-classroom-sdk/lib"
+	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/courses/courses.1"
 	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/relations"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 
 	log "github.com/sirupsen/logrus"
+	keys "github.com/snowpal/pitch-classroom-sdk/lib/endpoints/keys/keys.1"
 	recipes "github.com/snowpal/pitch-classroom-sdk/lib/helpers/recipes"
 	response "github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
 )
@@ -34,14 +38,14 @@ func AddRelation() {
 	if err != nil {
 		return
 	}
-	log.Printf(".Course %s is related with key %s successfully", course.Name, key.Name)
+	log.Info(fmt.Sprintf(".Course %s is related with key %s successfully", course.Name, key.Name))
 
 	log.Info("Unrelate the course from key")
 	err = removeRelation(user, key, course)
 	if err != nil {
 		return
 	}
-	log.Printf(".Course %s is unrelated from key %s successfully", course.Name, key.Name)
+	log.Info(fmt.Sprintf(".Course %s is unrelated from key %s successfully", course.Name, key.Name))
 }
 
 func removeRelation(user response.User, key response.Key, course response.Course) error {
@@ -62,12 +66,21 @@ func addRelation(user response.User) (response.Key, response.Course, error) {
 	var (
 		key    response.Key
 		course response.Course
+		err    error
 	)
-	key, err := recipes.AddTeacherKey(user, RelationKeyName)
+	key, err = keys.AddKey(
+		user.JwtToken,
+		request.AddKeyReqBody{
+			Name: RelationKeyName,
+			Type: lib.TeacherKeyType,
+		})
 	if err != nil {
 		return key, course, err
 	}
-	course, err = recipes.AddCourse(user, RelationCourseName, key)
+	course, err = courses.AddCourse(
+		user.JwtToken,
+		request.AddCourseReqBody{Name: RelationCourseName},
+		key.ID)
 	if err != nil {
 		return key, course, err
 	}
