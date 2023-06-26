@@ -2,7 +2,6 @@ package assessments
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 
@@ -29,13 +28,11 @@ func GetAssessmentGradesForStudents(jwtToken string, assessmentParam common2.Res
 		assessmentParam.CourseId,
 	)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessmentGrades, err
 	}
 
 	req, err := http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessmentGrades, err
 	}
 
@@ -43,7 +40,6 @@ func GetAssessmentGradesForStudents(jwtToken string, assessmentParam common2.Res
 
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessmentGrades, err
 	}
 
@@ -51,13 +47,11 @@ func GetAssessmentGradesForStudents(jwtToken string, assessmentParam common2.Res
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessmentGrades, err
 	}
 
 	err = json.Unmarshal(body, &resAssessmentGrades)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessmentGrades, err
 	}
 	return resAssessmentGrades, nil

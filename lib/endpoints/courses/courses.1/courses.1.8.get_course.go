@@ -2,7 +2,6 @@ package courses
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 
@@ -16,13 +15,11 @@ func GetCourse(jwtToken string, courseParam common.ResourceIdParam) (response.Co
 	resCourse := response.Course{}
 	route, err := helpers2.GetRoute(lib.RouteCoursesGetCourse, courseParam.CourseId, courseParam.KeyId)
 	if err != nil {
-		fmt.Println(err)
 		return resCourse, err
 	}
 
 	req, err := http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
-		fmt.Println(err)
 		return resCourse, err
 	}
 
@@ -30,7 +27,6 @@ func GetCourse(jwtToken string, courseParam common.ResourceIdParam) (response.Co
 
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resCourse, err
 	}
 
@@ -38,13 +34,11 @@ func GetCourse(jwtToken string, courseParam common.ResourceIdParam) (response.Co
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resCourse, err
 	}
 
 	err = json.Unmarshal(body, &resCourse)
 	if err != nil {
-		fmt.Println(err)
 		return resCourse, err
 	}
 	return resCourse, nil

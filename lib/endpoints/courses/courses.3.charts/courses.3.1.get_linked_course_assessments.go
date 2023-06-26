@@ -2,7 +2,6 @@ package courses
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 
@@ -20,14 +19,12 @@ func GetLinkedAssessments(jwtToken string, courseParam common.ResourceIdParam) (
 		courseParam.CourseId,
 	)
 	if err != nil {
-		fmt.Println(err)
 		return resLinkedAssessments, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
-		fmt.Println(err)
 		return resLinkedAssessments, err
 	}
 
@@ -36,7 +33,6 @@ func GetLinkedAssessments(jwtToken string, courseParam common.ResourceIdParam) (
 	var res *http.Response
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resLinkedAssessments, err
 	}
 
@@ -45,13 +41,11 @@ func GetLinkedAssessments(jwtToken string, courseParam common.ResourceIdParam) (
 	var body []byte
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resLinkedAssessments, err
 	}
 
 	err = json.Unmarshal(body, &resLinkedAssessments)
 	if err != nil {
-		fmt.Println(err)
 		return resLinkedAssessments, err
 	}
 	return resLinkedAssessments, nil

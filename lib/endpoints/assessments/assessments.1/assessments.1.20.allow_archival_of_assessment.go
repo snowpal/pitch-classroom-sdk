@@ -2,7 +2,6 @@ package assessments
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"strings"
@@ -21,7 +20,6 @@ func AllowArchivalOfAssessment(
 	resAssessment := response.Assessment{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessment, err
 	}
 	payload := strings.NewReader(requestBody)
@@ -34,14 +32,12 @@ func AllowArchivalOfAssessment(
 		assessmentParam.CourseId,
 	)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessment, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessment, err
 	}
 
@@ -50,7 +46,6 @@ func AllowArchivalOfAssessment(
 	var res *http.Response
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessment, err
 	}
 
@@ -58,13 +53,11 @@ func AllowArchivalOfAssessment(
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessment, err
 	}
 
 	err = json.Unmarshal(body, &resAssessment)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessment, err
 	}
 	return resAssessment, nil

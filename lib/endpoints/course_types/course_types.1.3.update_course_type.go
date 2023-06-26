@@ -2,7 +2,6 @@ package course_types
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"strings"
@@ -17,19 +16,16 @@ func UpdateCourseType(jwtToken string, reqBody request.CourseTypeReqBody, course
 	resCourseType := response.CourseType{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
-		fmt.Println(err)
 		return resCourseType, err
 	}
 	payload := strings.NewReader(requestBody)
 	route, err := helpers2.GetRoute(lib.RouteCourseTypesUpdateCourseType, courseTypeId)
 	if err != nil {
-		fmt.Println(err)
 		return resCourseType, err
 	}
 
 	req, err := http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {
-		fmt.Println(err)
 		return resCourseType, err
 	}
 
@@ -37,7 +33,6 @@ func UpdateCourseType(jwtToken string, reqBody request.CourseTypeReqBody, course
 
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resCourseType, err
 	}
 
@@ -45,13 +40,11 @@ func UpdateCourseType(jwtToken string, reqBody request.CourseTypeReqBody, course
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resCourseType, err
 	}
 
 	err = json.Unmarshal(body, &resCourseType)
 	if err != nil {
-		fmt.Println(err)
 		return resCourseType, err
 	}
 	return resCourseType, nil

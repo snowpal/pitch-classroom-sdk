@@ -1,16 +1,18 @@
 package recipes
 
 import (
+	"fmt"
+
 	"github.com/snowpal/pitch-classroom-sdk/lib"
 	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/assessments/assessments.1"
 	"github.com/snowpal/pitch-classroom-sdk/lib/endpoints/courses/courses.1"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/common"
 	"github.com/snowpal/pitch-classroom-sdk/lib/structs/request"
 
+	log "github.com/sirupsen/logrus"
+	keys "github.com/snowpal/pitch-classroom-sdk/lib/endpoints/keys/keys.1"
 	recipes "github.com/snowpal/pitch-classroom-sdk/lib/helpers/recipes"
 	response "github.com/snowpal/pitch-classroom-sdk/lib/structs/response"
-
-	log "github.com/sirupsen/logrus"
 )
 
 const (
@@ -29,26 +31,32 @@ func AddAndLinkResources() {
 		return
 	}
 
-	user, err := recipes.SignIn(lib.ApiUser1, lib.Password)
+	var user response.User
+	user, err = recipes.SignIn(lib.ApiUser1, lib.Password)
 	if err != nil {
 		return
 	}
 
-	var newKey response.Key
+	var key response.Key
 	log.Info("Add a new teacher key")
 	recipes.SleepBefore()
-	newKey, err = recipes.AddTeacherKey(user, Key1Name)
+	key, err = keys.AddKey(
+		user.JwtToken,
+		request.AddKeyReqBody{
+			Name: Key1Name,
+			Type: lib.TeacherKeyType,
+		})
 	if err != nil {
 		return
 	}
-	log.Printf(".Key, %s is added successfully.", newKey.Name)
+	log.Info(fmt.Sprintf(".Key, %s is added successfully.", key.Name))
 	recipes.SleepAfter()
 
 	var (
 		newCourse     response.Course
 		newAssessment response.Assessment
 	)
-	newCourse, newAssessment, err = addCoursesAndAssessments(user, newKey)
+	newCourse, newAssessment, err = addCoursesAndAssessments(user, key)
 	if err != nil {
 		return
 	}
@@ -56,7 +64,12 @@ func AddAndLinkResources() {
 	log.Info("Add another key")
 	recipes.SleepBefore()
 	var anotherKey response.Key
-	anotherKey, err = recipes.AddStudentKey(user, AnotherKeyName)
+	anotherKey, err = keys.AddKey(
+		user.JwtToken,
+		request.AddKeyReqBody{
+			Name: AnotherKeyName,
+			Type: lib.TeacherKeyType,
+		})
 	if err != nil {
 		return
 	}
@@ -64,11 +77,14 @@ func AddAndLinkResources() {
 	log.Info("Add course")
 	recipes.SleepBefore()
 	var anotherCourse response.Course
-	anotherCourse, err = recipes.AddCourse(user, AnotherCourseName, newKey)
+	anotherCourse, err = courses.AddCourse(
+		user.JwtToken,
+		request.AddCourseReqBody{Name: AnotherCourseName},
+		key.ID)
 	if err != nil {
 		return
 	}
-	log.Printf(".Course, %s is created successfully.", newCourse.Name)
+	log.Info(fmt.Sprintf(".Course, %s is created successfully.", newCourse.Name))
 	recipes.SleepAfter()
 
 	err = linkResources(user, anotherKey, anotherCourse, newCourse, newAssessment)
@@ -94,40 +110,41 @@ func linkResources(
 	if err != nil {
 		return err
 	}
-	log.Printf(".Course, %s is linked successfully to %s Key.", newCourse.Name, anotherKey.Name)
+	log.Info(fmt.Sprintf(".Course, %s is linked successfully to %s Key.", newCourse.Name, anotherKey.Name))
 	recipes.SleepAfter()
 	return nil
 }
 
-func addCoursesAndAssessments(user response.User, newKey response.Key) (response.Course, response.Assessment, error) {
+func addCoursesAndAssessments(user response.User, key response.Key) (response.Course, response.Assessment, error) {
 	var (
 		assessment response.Assessment
 		course     response.Course
+		err        error
 	)
 	log.Info("Add a new course")
 	recipes.SleepBefore()
-	newCourse, err := recipes.AddCourse(user, Course1Name, newKey)
+	course, err = courses.AddCourse(
+		user.JwtToken,
+		request.AddCourseReqBody{Name: Course1Name},
+		key.ID)
 	if err != nil {
 		return course, assessment, err
 	}
-	log.Printf(".Course, %s is created successfully.", newCourse.Name)
+	log.Info(fmt.Sprintf(".Course, %s is created successfully.", course.Name))
 	recipes.SleepAfter()
 
 	log.Info("Add a new course assessment in this course")
 	recipes.SleepBefore()
-	var newAssessment response.Assessment
-	newAssessment, err = assessments.AddAssessment(user.JwtToken,
-		request.AddAssessmentReqBody{
-			Name: Assessment1Name,
-		},
+	assessment, err = assessments.AddAssessment(user.JwtToken,
+		request.AddAssessmentReqBody{Name: Assessment1Name},
 		common.ResourceIdParam{
-			CourseId: newCourse.ID,
-			KeyId:    newKey.ID,
+			CourseId: course.ID,
+			KeyId:    key.ID,
 		})
 	if err != nil {
 		return course, assessment, err
 	}
-	log.Printf(".Assessment, %s is created successfully in %s Course.", newAssessment.Name, newCourse.Name)
+	log.Info(fmt.Sprintf(".Assessment, %s is created successfully in %s Course.", assessment.Name, course.Name))
 	recipes.SleepAfter()
-	return newCourse, newAssessment, nil
+	return course, assessment, nil
 }

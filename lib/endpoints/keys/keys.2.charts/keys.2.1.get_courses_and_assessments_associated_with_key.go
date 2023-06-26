@@ -2,7 +2,6 @@ package keys
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 
@@ -15,14 +14,12 @@ func GetCoursesAndAssessmentsAssociatedWithKey(jwtToken string, keyId string) (r
 	resUserKey := response.UserKey{}
 	route, err := helpers2.GetRoute(lib.RouteKeysGetCoursesAndAssessmentsAssociatedWithKey, keyId)
 	if err != nil {
-		fmt.Println(err)
 		return resUserKey, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
-		fmt.Println(err)
 		return resUserKey, err
 	}
 
@@ -31,7 +28,6 @@ func GetCoursesAndAssessmentsAssociatedWithKey(jwtToken string, keyId string) (r
 	var res *http.Response
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resUserKey, err
 	}
 
@@ -40,13 +36,11 @@ func GetCoursesAndAssessmentsAssociatedWithKey(jwtToken string, keyId string) (r
 	var body []byte
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resUserKey, err
 	}
 
 	err = json.Unmarshal(body, &resUserKey)
 	if err != nil {
-		fmt.Println(err)
 		return resUserKey, err
 	}
 	return resUserKey, nil

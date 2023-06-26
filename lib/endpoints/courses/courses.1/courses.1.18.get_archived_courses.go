@@ -2,7 +2,6 @@ package courses
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"strconv"
@@ -21,14 +20,12 @@ func GetArchivedCourses(jwtToken string, coursesParam request.GetCoursesParam) (
 		coursesParam.KeyId,
 	)
 	if err != nil {
-		fmt.Println(err)
 		return resCourses.Courses, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
-		fmt.Println(err)
 		return resCourses.Courses, err
 	}
 
@@ -37,7 +34,6 @@ func GetArchivedCourses(jwtToken string, coursesParam request.GetCoursesParam) (
 	var res *http.Response
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resCourses.Courses, err
 	}
 
@@ -46,13 +42,11 @@ func GetArchivedCourses(jwtToken string, coursesParam request.GetCoursesParam) (
 	var body []byte
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resCourses.Courses, err
 	}
 
 	err = json.Unmarshal(body, &resCourses)
 	if err != nil {
-		fmt.Println(err)
 		return resCourses.Courses, err
 	}
 	return resCourses.Courses, nil

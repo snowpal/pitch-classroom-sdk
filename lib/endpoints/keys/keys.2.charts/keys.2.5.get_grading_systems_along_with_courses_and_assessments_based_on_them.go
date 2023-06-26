@@ -2,7 +2,6 @@ package keys
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 
@@ -16,14 +15,12 @@ func GetGradingSystemsAlongWithCoursesAndAssessmentsBasedOnThem(jwtToken string,
 	resGradingSystemsKey := response.GradingSystemsKey{}
 	route, err := helpers2.GetRoute(lib.RouteKeysGetGradingSystemsAlongWithCoursesAndAssessmentsBasedOnThem, keyId)
 	if err != nil {
-		fmt.Println(err)
 		return resGradingSystemsKey, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodGet, route, nil)
 	if err != nil {
-		fmt.Println(err)
 		return resGradingSystemsKey, err
 	}
 
@@ -32,7 +29,6 @@ func GetGradingSystemsAlongWithCoursesAndAssessmentsBasedOnThem(jwtToken string,
 	var res *http.Response
 	res, err = helpers2.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resGradingSystemsKey, err
 	}
 
@@ -41,13 +37,11 @@ func GetGradingSystemsAlongWithCoursesAndAssessmentsBasedOnThem(jwtToken string,
 	var body []byte
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resGradingSystemsKey, err
 	}
 
 	err = json.Unmarshal(body, &resGradingSystemsKey)
 	if err != nil {
-		fmt.Println(err)
 		return resGradingSystemsKey, err
 	}
 	return resGradingSystemsKey, nil

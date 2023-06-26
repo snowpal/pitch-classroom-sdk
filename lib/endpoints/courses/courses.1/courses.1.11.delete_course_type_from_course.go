@@ -1,7 +1,6 @@
 package courses
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/snowpal/pitch-classroom-sdk/lib"
@@ -16,14 +15,12 @@ func DeleteCourseTypeFromCourse(jwtToken string, courseParam common.ResourceIdPa
 		courseParam.KeyId,
 	)
 	if err != nil {
-		fmt.Println(err)
 		return err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodPatch, route, nil)
 	if err != nil {
-		fmt.Println(err)
 		return err
 	}
 
@@ -31,7 +28,6 @@ func DeleteCourseTypeFromCourse(jwtToken string, courseParam common.ResourceIdPa
 
 	_, err = helpers.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return err
 	}
 	return nil

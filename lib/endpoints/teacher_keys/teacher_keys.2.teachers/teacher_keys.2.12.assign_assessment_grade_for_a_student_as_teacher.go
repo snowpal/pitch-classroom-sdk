@@ -2,7 +2,6 @@ package teacherKeys
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"strings"
@@ -21,7 +20,6 @@ func AssignAssessmentGradeForAStudentAsTeacher(
 	resAssessmentGrade := response.UpdateAssessmentGrade{}
 	requestBody, err := helpers.GetRequestBody(reqBody)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessmentGrade, err
 	}
 	payload := strings.NewReader(requestBody)
@@ -33,14 +31,12 @@ func AssignAssessmentGradeForAStudentAsTeacher(
 		classroomParam.ResourceIds.CourseId,
 	)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessmentGrade, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessmentGrade, err
 	}
 
@@ -49,7 +45,6 @@ func AssignAssessmentGradeForAStudentAsTeacher(
 	var res *http.Response
 	res, err = helpers.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessmentGrade, err
 	}
 
@@ -58,13 +53,11 @@ func AssignAssessmentGradeForAStudentAsTeacher(
 	var body []byte
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessmentGrade, err
 	}
 
 	err = json.Unmarshal(body, &resAssessmentGrade)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessmentGrade, err
 	}
 	return resAssessmentGrade, nil

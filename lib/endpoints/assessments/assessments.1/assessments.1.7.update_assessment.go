@@ -2,7 +2,6 @@ package assessments
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"strings"
@@ -22,7 +21,6 @@ func UpdateAssessment(
 	resAssessment := response.Assessment{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessment, err
 	}
 	payload := strings.NewReader(requestBody)
@@ -30,23 +28,20 @@ func UpdateAssessment(
 	var route string
 	route, err = helpers2.GetRoute(lib.RouteAssessmentsUpdateAssessment, assessmentParam.AssessmentId, assessmentParam.KeyId, assessmentParam.CourseId)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessment, err
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessment, err
 	}
 
 	helpers2.AddUserHeaders(jwtToken, req)
 
 	var res *http.Response
-	_, err = helpers2.MakeRequest(req)
+	res, err = helpers2.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessment, err
 	}
 
@@ -55,13 +50,11 @@ func UpdateAssessment(
 	var body []byte
 	body, err = io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessment, err
 	}
 
 	err = json.Unmarshal(body, &resAssessment)
 	if err != nil {
-		fmt.Println(err)
 		return resAssessment, err
 	}
 	return resAssessment, nil

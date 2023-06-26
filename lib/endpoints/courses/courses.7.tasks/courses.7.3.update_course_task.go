@@ -2,7 +2,6 @@ package courses
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"strings"
@@ -21,7 +20,6 @@ func UpdateCourseTask(
 	resTask := response.Task{}
 	requestBody, err := helpers2.GetRequestBody(reqBody)
 	if err != nil {
-		fmt.Println(err)
 		return resTask, err
 	}
 	payload := strings.NewReader(requestBody)
@@ -33,7 +31,6 @@ func UpdateCourseTask(
 	)
 	req, err := http.NewRequest(http.MethodPatch, route, payload)
 	if err != nil {
-		fmt.Println(err)
 		return resTask, err
 	}
 
@@ -41,7 +38,6 @@ func UpdateCourseTask(
 
 	res, err := helpers2.MakeRequest(req)
 	if err != nil {
-		fmt.Println(err)
 		return resTask, err
 	}
 
@@ -49,13 +45,11 @@ func UpdateCourseTask(
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return resTask, err
 	}
 
 	err = json.Unmarshal(body, &resTask)
 	if err != nil {
-		fmt.Println(err)
 		return resTask, err
 	}
 	return resTask, nil
